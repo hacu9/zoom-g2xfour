@@ -143,8 +143,12 @@ export function App() {
     });
   }, [backend, refreshPorts, logAdd]);
 
-  const input = useMemo(() => inputs.find((p) => p.id === inId), [inputs, inId]);
-  const output = useMemo(() => outputs.find((p) => p.id === outId), [outputs, outId]);
+  // A port Chrome keeps as "disconnected" counts as gone: a replug then makes a new session.
+  const input = useMemo(() => inputs.find((p) => p.id === inId && p.state !== 'disconnected'), [inputs, inId]);
+  const output = useMemo(() => outputs.find((p) => p.id === outId && p.state !== 'disconnected'), [outputs, outId]);
+  // The running job (backup or file listing). A session change aborts it.
+  const jobRef = useRef<AbortController | null>(null);
+  const sessionRef = useRef<ProbeSession | null>(null);
 
   useEffect(() => {
     if (!input || !output) {
@@ -161,6 +165,11 @@ export function App() {
     setCurrentSlot(null);
     setBackupState('none');
     setBackupFile(null);
+    setSummary(null);
+    setNames(new Map());
+    ownSlots.current = new Set();
+    jobRef.current?.abort();
+    sessionRef.current = s;
     s.open().then(
       () => setReadySession(s),
       (e) => logAdd('error', `Cannot open the MIDI port: ${e instanceof Error ? e.message : String(e)}. Close Handy Guitar Lab or any DAW that holds it.`),
@@ -168,6 +177,7 @@ export function App() {
     setSession(s);
     return () => {
       setReadySession((cur) => (cur === s ? null : cur));
+      if (sessionRef.current === s) sessionRef.current = null;
       s.close();
     };
   }, [input, output, logAdd]);
@@ -250,6 +260,7 @@ export function App() {
     if (!session || deviceId === null) return;
     const ctl = new AbortController();
     setListing(ctl);
+    jobRef.current = ctl;
     logAdd('info', 'File listing started (60 25 / 60 26 / 60 27).');
     try {
       const r = await listFiles(session, deviceId, { signal: ctl.signal });
@@ -257,6 +268,8 @@ export function App() {
     } catch (e) {
       logAdd('error', `File listing failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
+      if (jobRef.current !== ctl) return; // a newer job owns the lock
+      jobRef.current = null;
       setListing(null);
     }
   };
@@ -265,6 +278,7 @@ export function App() {
     if (!session || deviceId === null) return;
     const ctl = new AbortController();
     setListing(ctl);
+    jobRef.current = ctl;
     setBackupState('running');
     try {
       // 44 → 43 <count 2> <length 2> <? 2> <per bank 2> (zoom-explorer README)
@@ -275,6 +289,8 @@ export function App() {
       const perBank = b[7] | (b[8] << 7);
       logAdd('info', `Backup started: ${count} patches, ${perBank} per bank (46 00 00 read).`);
       const dumps = await backupAll(session, deviceId, { count, perBank, signal: ctl.signal, onProgress: (n) => setProgress(`${n} / ${count}`) });
+      // A reconnect during the backup: this run belongs to a closed session. Touch nothing.
+      if (sessionRef.current !== session) return;
       const ok = dumps.filter((d) => d.patch);
       const dups = duplicateGroups(dumps);
       if (!ctl.signal.aborted && ok.length === count) {
@@ -319,9 +335,12 @@ export function App() {
         dups.map((g) => `same bytes: slots ${g.join(', ')} — "${dumps[g[0]].patch?.name ?? '?'}"`),
       );
     } catch (e) {
+      if (sessionRef.current !== session) return;
       setBackupState('failed');
       logAdd('error', `Backup failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
+      if (jobRef.current !== ctl) return; // a newer job owns the lock
+      jobRef.current = null;
       setListing(null);
       setProgress('');
     }
@@ -381,7 +400,7 @@ export function App() {
         name={patch ? (patch.name ?? patch.shortName).trimEnd() : null}
         tempo={patch?.tempo ?? null}
         backup={{ state: backupState, progress }}
-        canSwitch={!!session && currentSlot !== null}
+        canSwitch={!!session && currentSlot !== null && !listing}
         editReal={allowRealPatchEdits}
         onConnect={() => connect(false)}
         onStep={(d) => currentSlot !== null && selectPatch(stepSlot(currentSlot, d, total))}
@@ -406,7 +425,7 @@ export function App() {
             </button>
           </div>
         </div>
-        <PatchList names={names} count={names.size ? total : 0} current={currentSlot} mine={mine} disabled={!session} onSelect={selectPatch} />
+        <PatchList names={names} count={names.size ? total : 0} current={currentSlot} mine={mine} disabled={!session || !!listing} onSelect={selectPatch} />
       </section>
 
       <details className="panel">

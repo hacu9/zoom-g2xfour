@@ -32,10 +32,10 @@ export function PedalHeader({ status, slot, name, tempo, backup, canSwitch, edit
       <button className="patch-step" disabled={!canSwitch} onClick={() => onStep(-1)} aria-label="Previous patch" title="Previous patch">
         ◀
       </button>
-      <div className="lcd" aria-live="polite">
+      <div className="lcd">
         <div className="lcd-slot">{live && slot !== null ? String(slot).padStart(3, '0') : '---'}</div>
         <div className="lcd-main">
-          <div className="lcd-name">{live ? (name ?? '…') : STATUS_TEXT[status]}</div>
+          <div className="lcd-name" aria-live="polite">{live ? (name ?? '…') : STATUS_TEXT[status]}</div>
           <div className="lcd-sub">
             {live && tempo !== null ? `♩ = ${tempo}` : ''} {live && backup.state === 'running' ? `· BACKUP ${backup.progress ?? ''}` : ''}
           </div>
