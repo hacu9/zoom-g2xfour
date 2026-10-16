@@ -64,3 +64,10 @@ starts at body byte 2. Treat it as a hint, never as a decode.
 
 **Warning:** research mode can send commands that nobody has mapped. Back up your
 patches in Handy Guitar Lab before you turn it on.
+
+## Findings log (real hardware)
+
+| Date | Command | Result |
+|---|---|---|
+| 2026-10-15 | Connect | Class-compliant USB MIDI, no driver. 1 in / 1 out, both named `ZOOM G2/G2X FOUR`, manufacturer `ZOOM Corporation`. |
+| 2026-10-15 | Identity Request | `F0 7E 00 06 02 52 6E 00 1C 00 31 2E 30 30 F7` — Zoom, family `6E 00` (same as B2 FOUR), member `1C 00`, version bytes `"1.00"`. The version bytes may not be the firmware version — compare with the pedal. |

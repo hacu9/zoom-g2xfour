@@ -1,5 +1,5 @@
 import { byteHex, toHex } from './hex';
-import { isIdentityReply, parseIdentityReply } from './identity';
+import { isIdentityReply, parseIdentityReply, ZOOM_6E_MEMBERS } from './identity';
 import { asciiRuns, isZoomSysex, unpack7to8, zoomBody } from './zoom';
 
 /** Human notes for an incoming message. Decodes only what is known; flags the rest as guesses. */
@@ -14,6 +14,8 @@ export function annotate(bytes: ArrayLike<number>): string[] {
           `family ${id.familyBytes.map(byteHex).join(' ')}, member ${id.memberBytes.map(byteHex).join(' ')}, version "${id.versionAscii}"`,
       );
       if (id.zoomDeviceId !== null) notes.push(`Zoom device ID candidate (family LSB): ${byteHex(id.zoomDeviceId)}`);
+      const model = id.zoomDeviceId === 0x6e ? ZOOM_6E_MEMBERS[id.member] : undefined;
+      if (model) notes.push(`Model (observed member code): ${model}`);
     }
     return notes;
   }

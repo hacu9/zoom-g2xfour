@@ -16,6 +16,14 @@ export interface IdentityReply {
   zoomDeviceId: number | null;
 }
 
+/**
+ * Zoom family 6E member codes, OBSERVED on real hardware only.
+ * 1C: identity reply from a G2X FOUR, 2026-10-15 (port name "ZOOM G2/G2X FOUR").
+ */
+export const ZOOM_6E_MEMBERS: Record<number, string> = {
+  0x1c: 'G2 FOUR / G2X FOUR',
+};
+
 const KNOWN_MANUFACTURERS: Record<number, string> = {
   [ZOOM_MANUFACTURER]: 'Zoom Corporation',
 };

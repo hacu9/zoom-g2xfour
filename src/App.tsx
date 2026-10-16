@@ -60,9 +60,9 @@ export function App() {
 
   useEffect(() => {
     if (!backend) return;
-    return backend.onChange(() => {
+    return backend.onChange((what) => {
       refreshPorts(backend);
-      logAdd('info', 'MIDI port state changed (device plugged/unplugged).');
+      logAdd('info', `Port state: ${what}`);
     });
   }, [backend, refreshPorts, logAdd]);
 

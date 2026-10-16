@@ -22,7 +22,8 @@ export interface MidiBackend {
   sysexEnabled: boolean;
   inputs(): InputPort[];
   outputs(): OutputPort[];
-  onChange(cb: () => void): () => void;
+  /** cb gets a short description, e.g. 'output "ZOOM G2/G2X FOUR" connected/open'. */
+  onChange(cb: (what: string) => void): () => void;
 }
 
 export const AUTO_SELECT = /zoom|g2/i;
@@ -111,8 +112,13 @@ export async function requestWebMidi(): Promise<MidiBackend> {
     inputs: () => Array.from(access.inputs.values(), wrapInput),
     outputs: () => Array.from(access.outputs.values(), wrapOutput),
     onChange(cb) {
-      access.addEventListener('statechange', cb);
-      return () => access.removeEventListener('statechange', cb);
+      // Fires on plug/unplug AND whenever a port opens or closes.
+      const handler = (ev: Event) => {
+        const p = (ev as MIDIConnectionEvent).port;
+        cb(p ? `${p.type} "${p.name}" ${p.state}/${p.connection}` : 'unknown port');
+      };
+      access.addEventListener('statechange', handler);
+      return () => access.removeEventListener('statechange', handler);
     },
   };
 }

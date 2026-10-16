@@ -97,3 +97,13 @@ describe('requestWebMidi (requirement 1, C1)', () => {
     await expect(requestWebMidi()).rejects.toThrow(/permission denied/);
   });
 });
+
+describe('real G2X FOUR identity reply (captured 2026-10-15)', () => {
+  const reply = [0xf0, 0x7e, 0x00, 0x06, 0x02, 0x52, 0x6e, 0x00, 0x1c, 0x00, 0x31, 0x2e, 0x30, 0x30, 0xf7];
+  it('decodes family 6E, member 1C and names the model', () => {
+    const id = parseIdentityReply(reply)!;
+    expect(id.zoomDeviceId).toBe(0x6e);
+    expect(id.member).toBe(0x1c);
+    expect(annotate(reply).join(' ')).toContain('G2 FOUR / G2X FOUR');
+  });
+});
