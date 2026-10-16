@@ -18,13 +18,13 @@ describe('Rain (Rob Scallon) plan', () => {
     expect(plan.effects.map((e) => e.name)).toEqual(['Comp', 'FD TWIN-R', 'Delay', 'Hall REV']);
     expect(plan.name).toBe('Rain Scallon');
   });
-  it('syncs the delay: dotted eighth, BPM SYNC, tempo 123, repeat 60, mix 55', () => {
+  it('syncs the delay: dotted eighth, BPM SYNC, tempo 123, repeat 60, mix 70', () => {
     const d = plan.effects[2].params;
     expect(plan.tempo).toBe(123);
     expect(d.find((p) => p.name === 'Time')?.value).toBe(945);
     expect(d.find((p) => p.name === 'Mode')?.display).toBe('BPM SYNC');
     expect(d.find((p) => p.name === 'Repeat')?.display).toBe('60');
-    expect(d.find((p) => p.name === 'Mix')?.display).toBe('55');
+    expect(d.find((p) => p.name === 'Mix')?.display).toBe('70');
   });
   it('scales percentages onto odd ranges (amp 10..100, reverb decay 1..30)', () => {
     expect(plan.effects[1].params.find((p) => p.name === 'Gain')?.display).toBe('32');

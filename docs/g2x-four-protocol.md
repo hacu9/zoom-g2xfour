@@ -176,7 +176,7 @@ Effect file names do not map 1:1 to effect names (`AIR5G.ZD2` = AirReverb).
 |---|---|
 | 0–249 | Patches (factory or user — not told apart) |
 | 140 | "Evil Eye 1984" (the patch at the start) |
-| **250** | **"Rain Scallon"** — written by this project, selected on the pedal. Delay changed to v2 (digital Delay, Repeat 60, Mix 55); auto-save stores it at the next patch change. |
+| **250** | **"Rain Scallon"** — written by this project, selected on the pedal. Delay changed to v3 (digital Delay, Repeat 60, Mix 70); auto-save stores it at the next patch change. |
 | 251–296, 298, 299 | "Empty" |
 | 297 | "USER-001" — made on the pedal before this project, not touched |
 
