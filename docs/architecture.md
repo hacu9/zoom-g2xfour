@@ -21,7 +21,9 @@ src/
   editor/          PatchEditor (stompbox board), EffectPicker (search), RestorePanel, RecipePanel
   ui/              PedalHeader (LCD, patch up/down, lights), Knob (rotary pot), PatchList,
                    Recorder (USB audio takes, expression pedal learn)
-  audio/           recorder.ts (input pick, file name, level), pedal.ts (learn + toe switch)
+  audio/           recorder.ts (input pick, file name, level), pedal.ts (learn + toe switch),
+                   metronome.ts (tempo map walker, ramps, tap tempo)
+  songs/           songs.ts: the song list (tempo map + patch names + source)
   recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal), recipes/*.json
   tempo/delay.ts   ms = 60000 / BPM × note value
   log/ probe/      Log, export, console UI
@@ -103,3 +105,14 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
   `MIN_SPAN` (10) is noise. Then "toe" fires once per push past 95 %, re-armed
   below 50 %. The recorder only
   listens. It sends nothing to the pedal.
+
+## Metronome
+
+- `ClickWalker` walks a tempo map: sections of `bpm`, `beats`, optional `bars`
+  and optional `toBpm` (a linear ramp, one tempo step per beat). A section with
+  no `bars` loops until `skip()`, which moves on at the next bar line.
+- `Metronome.tsx` schedules on the audio clock with a lookahead (a 25 ms timer
+  schedules every click due in the next 120 ms), the "two clocks" pattern. The
+  beat lights read `AudioContext.currentTime`, not the timer.
+- Free mode restarts the walk at the next beat after a tempo or meter change.
+- Each song's tempo carries its source. A tempo with no source stays out of the list.

@@ -25,6 +25,7 @@ import { patchSelect, stepSlot } from './midi/patchSelect';
 import { PedalHeader } from './ui/PedalHeader';
 import { PatchList } from './ui/PatchList';
 import { Recorder } from './ui/Recorder';
+import { Metronome } from './ui/Metronome';
 
 /** Patch names that the built-in recipes write: marked as yours in the patch list. */
 const RECIPE_NAMES = new Set(BUILT_IN.map((b) => (b.recipe as { patchName?: string }).patchName).filter(Boolean));
@@ -418,6 +419,20 @@ export function App() {
       <section aria-labelledby="s-rec" className="rec-section">
         <h2 id="s-rec">Recorder</h2>
         <Recorder session={session} patchName={patch ? (patch.name ?? patch.shortName).trimEnd() : null} />
+      </section>
+
+      <section aria-labelledby="s-met" className="met-section">
+        <h2 id="s-met">Metronome</h2>
+        <Metronome
+          session={session}
+          deviceId={deviceId}
+          policy={policy}
+          patchTempo={patch?.tempo ?? null}
+          names={names}
+          canSelect={!!session && !listing}
+          onSelectPatch={selectPatch}
+          log={panelLog}
+        />
       </section>
 
       <section aria-labelledby="s-patches">

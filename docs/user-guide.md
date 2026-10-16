@@ -100,6 +100,26 @@ when the expression pedal moves. If "Move the pedal now…" stays, the pedal
 sends nothing for that patch. Try a patch that assigns the pedal to an
 effect (volume, wah, or a knob).
 
+### Metronome
+
+A click that plays through the computer's sound output. To hear it in the
+pedal's headphones, set the G2X FOUR as the Windows sound output.
+
+- **▶ / ■** (or the space bar) starts and stops the click. Beat 1 has a higher
+  tone, and the first beat of a new section an even higher one.
+- **− / + / Tap / Beats / Volume** set the click. A change applies from the next beat.
+- **Follow the patch tempo:** each patch change on the pedal sets the click to
+  that patch's tempo. Use one patch per song part, and the click follows your
+  footswitch.
+- **Set patch tempo to N** writes the tempo into the current patch, so a synced
+  delay matches the click. Warning: auto-save keeps it. The write gate applies:
+  the backup must be done, and a real patch needs EDIT REAL PATCHES.
+- **Find a song** searches the built-in list by title or artist. Picking a song
+  loads its tempo map and selects its patch, if the patch is on the pedal.
+  A song with several parts shows them in order. The click moves on by itself
+  after a part's bars, or at the next bar line when you press **Next section**.
+  **Free tempo** leaves the song.
+
 ### Patches
 
 Every patch from the backup, in banks of 10 like the pedal. Click one to
