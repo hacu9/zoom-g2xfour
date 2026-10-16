@@ -74,7 +74,8 @@ held exactly those values, and the delay was ON. But on the pedal it sounded
 like no repeating delay at all:
 
 - **35 came from a Line 6 preset**, where feedback uses a different scale. On a
-  Zoom delay, 35 gives about 1–2 quiet echoes. The Zoom-based fan preset
+  Zoom delay, 35 is low for a song built on repeats (an estimate — the user
+  heard no repeating delay; nobody measured the echo count). The Zoom-based fan preset
   (B1on, StompDly) used F.B 63.
 - **AnalogDly darkens every repeat**, so the few echoes vanish in the mix.
 
