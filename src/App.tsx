@@ -66,9 +66,10 @@ export function App() {
     });
   }, [backend, refreshPorts, logAdd]);
 
+  const input = useMemo(() => inputs.find((p) => p.id === inId), [inputs, inId]);
+  const output = useMemo(() => outputs.find((p) => p.id === outId), [outputs, outId]);
+
   useEffect(() => {
-    const input = inputs.find((p) => p.id === inId);
-    const output = outputs.find((p) => p.id === outId);
     if (!input || !output) {
       setSession(null);
       return;
@@ -77,9 +78,12 @@ export function App() {
       onIn: (data) => logAdd('in', '', data, annotate(data)),
       onOut: (bytes, cls, label) => logAdd('out', `${label} [${cls.verdict}]`, bytes),
     });
+    s.open().catch((e) =>
+      logAdd('error', `Cannot open the MIDI port: ${e instanceof Error ? e.message : String(e)}. Close Handy Guitar Lab or any DAW that holds it.`),
+    );
     setSession(s);
     return () => s.close();
-  }, [inputs, outputs, inId, outId, logAdd]);
+  }, [input, output, logAdd]);
 
   // --- 3. identity ------------------------------------------------------------
   const sendIdentity = async () => {
@@ -92,10 +96,16 @@ export function App() {
         return;
       }
       const id = parseIdentityReply(reply);
+      if (!id) {
+        logAdd('warn', 'An identity reply came back, but it is malformed. See the IN line above.');
+        return;
+      }
       setIdentity(id);
-      if (id?.zoomDeviceId != null) {
+      if (id.zoomDeviceId != null) {
         logAdd('info', `Zoom family code ${byteHex(id.zoomDeviceId)}. Prefills keep ${deviceIdText} until you choose otherwise.`);
       }
+    } catch (e) {
+      logAdd('error', `Identity request failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(false);
     }
@@ -114,7 +124,8 @@ export function App() {
   };
 
   const askSend = () => {
-    if (!parsed.ok) return;
+    // One request at a time: a console reply during a listing would be taken as a file entry.
+    if (!parsed.ok || !session || listing) return;
     setPending({ bytes: parsed.bytes, cls: classify(parsed.bytes) });
   };
 
@@ -215,7 +226,7 @@ export function App() {
       <section aria-labelledby="s-id">
         <h2 id="s-id">2 · Identify</h2>
         <div className="row">
-          <button className="primary" disabled={!session || busy} onClick={sendIdentity}>
+          <button className="primary" disabled={!session || busy || !!listing} onClick={sendIdentity}>
             Send Identity Request
           </button>
           <code className="muted">{toHex(IDENTITY_REQUEST)}</code>
@@ -282,7 +293,7 @@ export function App() {
           {!hexText.trim() ? 'Type hex bytes or click a prefill.' : parsed.ok ? `${preview!.verdict.toUpperCase()}: ${preview!.reason}` : parsed.error}
         </div>
         <div className="row">
-          <button className="primary" disabled={!session || !parsed.ok} onClick={askSend}>
+          <button className="primary" disabled={!session || !parsed.ok || !!listing} onClick={askSend}>
             Send… <span className="muted small">(Ctrl+Enter)</span>
           </button>
           <button disabled={!session || deviceId === null || !!listing} onClick={runListing}>

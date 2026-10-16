@@ -1,4 +1,6 @@
 import type { InputPort, MidiBackend, OutputPort } from './backend';
+
+const noopOpen = { open: async () => {}, close: async () => {} };
 import { IDENTITY_REQUEST } from './identity';
 import { isZoomSysex, zoomBody } from './zoom';
 
@@ -42,17 +44,19 @@ export function createMockBackend(latencyMs = 15): MidiBackend {
     name: 'ZOOM G2X FOUR (MOCK)',
     manufacturer: 'mock',
     state: 'connected',
+    ...noopOpen,
     listen(cb) {
       listeners.add(cb);
       return () => listeners.delete(cb);
     },
   };
-  const otherIn: InputPort = { id: 'mock-other-in', name: 'Some Keyboard (MOCK)', manufacturer: 'mock', state: 'connected', listen: () => () => {} };
+  const otherIn: InputPort = { id: 'mock-other-in', name: 'Some Keyboard (MOCK)', manufacturer: 'mock', state: 'connected', ...noopOpen, listen: () => () => {} };
   const zoomOut: OutputPort = {
     id: 'mock-out',
     name: 'ZOOM G2X FOUR (MOCK)',
     manufacturer: 'mock',
     state: 'connected',
+    ...noopOpen,
     send(bytes) {
       const reply = mockReply(bytes, state);
       if (!reply) return;
@@ -62,7 +66,7 @@ export function createMockBackend(latencyMs = 15): MidiBackend {
       }, latencyMs);
     },
   };
-  const otherOut: OutputPort = { id: 'mock-other-out', name: 'Microsoft GS Wavetable Synth (MOCK)', manufacturer: 'mock', state: 'connected', send: () => {} };
+  const otherOut: OutputPort = { id: 'mock-other-out', name: 'Microsoft GS Wavetable Synth (MOCK)', manufacturer: 'mock', state: 'connected', ...noopOpen, send: () => {} };
 
   return {
     kind: 'mock',

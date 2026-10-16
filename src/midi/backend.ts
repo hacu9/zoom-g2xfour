@@ -1,17 +1,19 @@
 /** Thin port abstraction so the real Web MIDI API and the mock pedal share one interface. */
-export interface InputPort {
+interface PortBase {
   id: string;
   name: string;
   manufacturer: string;
-  state: string;
+  readonly state: string;
+  /** Rejects when the OS will not give us the port (Windows: another app holds it). */
+  open(): Promise<void>;
+  close(): Promise<void>;
+}
+
+export interface InputPort extends PortBase {
   listen(cb: (data: Uint8Array, timeStamp: number) => void): () => void;
 }
 
-export interface OutputPort {
-  id: string;
-  name: string;
-  manufacturer: string;
-  state: string;
+export interface OutputPort extends PortBase {
   send(bytes: number[]): void;
 }
 
@@ -51,29 +53,57 @@ export async function requestWebMidi(): Promise<MidiBackend> {
     throw e;
   }
 
-  const wrapInput = (p: MIDIInput): InputPort => ({
+  // One wrapper per port id, so a statechange (which Chrome also fires when a
+  // port merely opens) never hands React new objects and never tears down a session.
+  const cache = new Map<string, InputPort | OutputPort>();
+  const base = (p: MIDIPort) => ({
     id: p.id,
     name: p.name ?? '(unnamed)',
     manufacturer: p.manufacturer ?? '',
-    state: p.state,
-    listen(cb) {
-      const handler = (ev: Event) => {
-        const me = ev as MIDIMessageEvent;
-        if (me.data) cb(me.data, me.timeStamp);
-      };
-      // addEventListener does not open the port implicitly (onmidimessage would); open it explicitly.
-      void p.open();
-      p.addEventListener('midimessage', handler);
-      return () => p.removeEventListener('midimessage', handler);
+    get state() {
+      return p.state;
+    },
+    open: async () => {
+      await p.open();
+    },
+    close: async () => {
+      await p.close();
     },
   });
-  const wrapOutput = (p: MIDIOutput): OutputPort => ({
-    id: p.id,
-    name: p.name ?? '(unnamed)',
-    manufacturer: p.manufacturer ?? '',
-    state: p.state,
-    send: (bytes) => p.send(bytes),
-  });
+  const wrapInput = (p: MIDIInput): InputPort => {
+    const hit = cache.get(p.id);
+    if (hit) return hit as InputPort;
+    const w: InputPort = {
+      ...base(p),
+      get state() {
+        return p.state;
+      },
+      listen(cb) {
+        const handler = (ev: Event) => {
+          const me = ev as MIDIMessageEvent;
+          if (me.data) cb(me.data, me.timeStamp);
+        };
+        // addEventListener does not open the port implicitly (onmidimessage would); the session opens it.
+        p.addEventListener('midimessage', handler);
+        return () => p.removeEventListener('midimessage', handler);
+      },
+    };
+    cache.set(p.id, w);
+    return w;
+  };
+  const wrapOutput = (p: MIDIOutput): OutputPort => {
+    const hit = cache.get(p.id);
+    if (hit) return hit as OutputPort;
+    const w: OutputPort = {
+      ...base(p),
+      get state() {
+        return p.state;
+      },
+      send: (bytes) => p.send(bytes),
+    };
+    cache.set(p.id, w);
+    return w;
+  };
 
   return {
     kind: 'webmidi',

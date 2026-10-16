@@ -28,6 +28,8 @@ export function parseIdentityReply(bytes: ArrayLike<number>): IdentityReply | nu
   const manufacturer = b[i] === 0x00 ? b.slice(i, i + 3) : [b[i]];
   i += manufacturer.length;
   if (b.length < i + 9) return null;
+  // The 4 version bytes must be data bytes; a short reply would otherwise read F7 as version.
+  if (b.slice(i, i + 8).some((v) => v > 0x7f)) return null;
   const familyBytes: [number, number] = [b[i], b[i + 1]];
   const memberBytes: [number, number] = [b[i + 2], b[i + 3]];
   const version = b.slice(i + 4, i + 8);

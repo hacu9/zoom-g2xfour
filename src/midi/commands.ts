@@ -42,7 +42,7 @@ export const BLOCKED_PATTERNS: BlockedPattern[] = [
   },
   {
     label: '60 xx file system',
-    matches: (b) => b[0] === 0x60 && b.length >= 2 && !READ_FILE_OPS.has(b[1]),
+    matches: (b) => b[0] === 0x60 && !(b.length >= 2 && READ_FILE_OPS.has(b[1])),
     reason: 'The 60 2x family is the flash file system. Only find-first/next/end and flash-info are known to be read-only; others may open, write or delete files.',
   },
 ];

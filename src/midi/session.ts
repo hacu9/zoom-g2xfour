@@ -73,8 +73,16 @@ export class ProbeSession {
     });
   }
 
+  /** Open both ports up front, so the first send() does not trigger an implicit open. */
+  open(): Promise<void> {
+    return Promise.all([this.input.open(), this.output.open()]).then(() => undefined);
+  }
+
+  /** Release the ports so other apps (Handy Guitar Lab) can use them again. */
   close() {
     this.unlisten();
     this.waiters.clear();
+    void this.input.close().catch(() => {});
+    void this.output.close().catch(() => {});
   }
 }

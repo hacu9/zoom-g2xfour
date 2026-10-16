@@ -60,3 +60,10 @@ describe('ProbeSession against the mock pedal', () => {
     expect(sent.at(-1)).toEqual(zoomSysex(0x5f, [0x60, 0x27]));
   });
 });
+
+describe('ProbeSession lifecycle (C2)', () => {
+  it('a blocked request rejects instead of hanging', async () => {
+    const { session } = setup();
+    await expect(session.request(zoomSysex(0x6e, [0x64, 0x47]), 'x', () => true, 50)).rejects.toThrow(SafetyError);
+  });
+});
