@@ -118,3 +118,20 @@ dialog.verdict-blocked h3 { color: var(--bad); }
 .param select { grid-column: 2 / 4; }
 .param output { font-family: var(--mono); text-align: right; }
 .plan ol { margin: 6px 0; padding-left: 20px; }
+
+.effect-btn { display: flex; gap: 8px; align-items: center; justify-content: space-between; width: 100%; text-align: left; }
+.effect-btn span:first-child { font-weight: 600; flex: 1; }
+dialog.picker { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--ink); width: min(640px, calc(100vw - 32px)); max-height: min(80vh, 720px); padding: 16px; }
+dialog.picker[open] { display: flex; flex-direction: column; gap: 8px; }
+dialog.picker::backdrop { background: #0008; }
+dialog.picker h3 { margin: 0; font-size: 16px; }
+.search { width: 100%; font-size: 16px; padding: 8px 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.picker-list { list-style: none; margin: 0; padding: 0; overflow: auto; flex: 1; min-height: 120px; border: 1px solid var(--line); border-radius: 8px; }
+.picker-list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; padding: 6px 10px; cursor: pointer; border-bottom: 1px solid var(--line); }
+.picker-list li.active { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.picker-list li.current .name::after { content: ' (current)'; color: var(--muted); font-weight: 400; }
+.picker-list .name { font-weight: 600; }
+.picker-list .cat { color: var(--muted); font-size: 12px; }
+.picker-list .knobs { grid-column: 1 / 3; color: var(--muted); font-size: 12px; }

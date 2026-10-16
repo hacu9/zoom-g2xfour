@@ -19,7 +19,8 @@ export interface ToneRecipe {
   eq?: { low?: number; mid?: number; high?: number };
   modulation?: { type: 'chorus' | 'flanger' | 'phaser' | 'tremolo' | 'vibrato'; rate?: number; depth?: number; mix?: number };
   /** Give either timeMs or note (+ bpm); the delay calculator resolves note -> ms. */
-  delay?: { timeMs?: number; note?: NoteValue; feedback: number; mix: number };
+  /** type: digital (clean repeats, default), analog (darker, repeats fade fast), tape. */
+  delay?: { type?: 'digital' | 'analog' | 'tape'; timeMs?: number; note?: NoteValue; feedback: number; mix: number };
   reverb?: { type: 'room' | 'hall' | 'plate' | 'spring'; decay?: number; mix: number };
 }
 

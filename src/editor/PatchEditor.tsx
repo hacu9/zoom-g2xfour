@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { allEffects, displayValue, effectById } from '../catalog/g2four';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { displayValue, effectById } from '../catalog/g2four';
+import { categoryOf, EffectPicker } from './EffectPicker';
 import { decodeRawPatch, type RawPatch } from '../midi/ptcf';
 import { SafetyError, type ProbeSession } from '../midi/session';
 import { paramEdit, type WritePolicy } from '../midi/writes';
@@ -26,10 +27,7 @@ export function PatchEditor({ session, deviceId, policy, log }: Props) {
     return () => t.forEach(clearTimeout);
   }, []);
 
-  const effects = useMemo(
-    () => allEffects().filter((e) => e.effect.parameters.length > 0 || e.id === 0).sort((a, b) => a.id - b.id),
-    [],
-  );
+  const [picking, setPicking] = useState<number | null>(null);
 
   const load = useCallback(async () => {
     if (!session) return;
@@ -112,14 +110,11 @@ export function PatchEditor({ session, deviceId, policy, log }: Props) {
                     <input type="checkbox" checked={e.on && e.id !== 0} disabled={e.id === 0} onChange={(ev) => write(slot, 0, ev.target.checked ? 1 : 0, `slot ${slot} ${ev.target.checked ? 'on' : 'off'}`)} /> Slot {slot + 1}
                   </label>
                 </legend>
-                <select value={e.id} onChange={(ev) => write(slot, 1, Number(ev.target.value), `slot ${slot} effect → ${effectById(Number(ev.target.value))?.name ?? 'empty'}`)}>
-                  <option value={0}>— empty —</option>
-                  {effects.map((x) => (
-                    <option key={x.id} value={x.id}>
-                      {x.effect.name}
-                    </option>
-                  ))}
-                </select>
+                <button className="effect-btn" onClick={() => setPicking(slot)} title="Search and choose an effect">
+                  <span>{e.id === 0 ? '— empty —' : (fx?.name ?? `unknown ${e.id.toString(16)}`)}</span>
+                  {e.id !== 0 && <span className="muted small">{categoryOf(e.id)}</span>}
+                  <span aria-hidden>🔍</span>
+                </button>
                 {fx?.parameters.map((p, i) =>
                   p.name.startsWith('Hidden') ? null : (
                     <label key={i} className="param">
@@ -145,6 +140,14 @@ export function PatchEditor({ session, deviceId, policy, log }: Props) {
             );
           })}
         </div>
+      )}
+      {picking !== null && patch && (
+        <EffectPicker
+          slot={picking}
+          currentId={patch.effects[picking]?.id ?? 0}
+          onPick={(id) => write(picking, 1, id, `slot ${picking} effect → ${effectById(id)?.name ?? 'empty'}`)}
+          onClose={() => setPicking(null)}
+        />
       )}
     </div>
   );

@@ -14,17 +14,17 @@ describe('delay calculator', () => {
 
 describe('Rain (Rob Scallon) plan', () => {
   const plan = translate(rain as ToneRecipe);
-  it('builds Comp → FD TWIN-R → AnalogDly → Hall REV', () => {
-    expect(plan.effects.map((e) => e.name)).toEqual(['Comp', 'FD TWIN-R', 'AnalogDly', 'Hall REV']);
+  it('builds Comp → FD TWIN-R → Delay → Hall REV', () => {
+    expect(plan.effects.map((e) => e.name)).toEqual(['Comp', 'FD TWIN-R', 'Delay', 'Hall REV']);
     expect(plan.name).toBe('Rain Scallon');
   });
-  it('syncs the delay: dotted eighth, BPM SYNC, tempo 123, 35% repeat, 48% mix', () => {
+  it('syncs the delay: dotted eighth, BPM SYNC, tempo 123, repeat 60, mix 55', () => {
     const d = plan.effects[2].params;
     expect(plan.tempo).toBe(123);
     expect(d.find((p) => p.name === 'Time')?.value).toBe(945);
     expect(d.find((p) => p.name === 'Mode')?.display).toBe('BPM SYNC');
-    expect(d.find((p) => p.name === 'Repeat')?.display).toBe('35');
-    expect(d.find((p) => p.name === 'Mix')?.display).toBe('48');
+    expect(d.find((p) => p.name === 'Repeat')?.display).toBe('60');
+    expect(d.find((p) => p.name === 'Mix')?.display).toBe('55');
   });
   it('scales percentages onto odd ranges (amp 10..100, reverb decay 1..30)', () => {
     expect(plan.effects[1].params.find((p) => p.name === 'Gain')?.display).toBe('32');
@@ -47,5 +47,14 @@ describe('note values on the delay Time list', () => {
     expect(resolveValue(time, { note: '1/4' })).toBe(946);
     expect(resolveValue(time, { note: '1/2' })).toBe(948);
     expect(resolveValue(time, { note: '1/1' })).toBe(950);
+  });
+});
+
+describe('delay type', () => {
+  it('maps digital / analog / tape, digital by default', () => {
+    const base = { song: 'x', bpm: 120, delay: { note: '1/4' as const, feedback: 50, mix: 50 } };
+    expect(translate(base).effects[0].name).toBe('Delay');
+    expect(translate({ ...base, delay: { ...base.delay, type: 'analog' } }).effects[0].name).toBe('AnalogDly');
+    expect(translate({ ...base, delay: { ...base.delay, type: 'tape' } }).effects[0].name).toBe('TapeEcho');
   });
 });

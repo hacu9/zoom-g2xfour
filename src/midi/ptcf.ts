@@ -2,7 +2,7 @@
  * Raw patch reader for the current-patch dump (64 13 → 64 12 01 …).
  * Ported from thammer/zoom-explorer src/ZoomPatch.ts readPTCF() and
  * src/ZoomDevice.ts sysexToPatchData() (MIT, commit aee0143).
- * PRM2 fields follow the MS Plus layout and are NOT yet verified on a G2X FOUR.
+ * PRM2 follows the MS Plus layout: tempo verified on a G2X FOUR, volume not.
  */
 import { isZoomSysex, unpack7to8, unpackedLength, zoomBody } from './zoom';
 
@@ -24,7 +24,7 @@ export interface RawPatch {
   version: number;
   target: number;
   effects: PatchEffect[];
-  /** MS Plus PRM2 layout — unverified on G2X FOUR. */
+  /** PRM2 (MS Plus layout): tempo verified on a G2X FOUR 2026-10-15 (wrote 123, read 123); volume not verified. */
   tempo: number | null;
   volume: number | null;
   chunks: string[];

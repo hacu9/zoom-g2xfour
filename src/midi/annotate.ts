@@ -41,7 +41,7 @@ export function annotate(bytes: ArrayLike<number>): string[] {
     if (raw) {
       return [
         ...notes,
-        `Raw patch "${raw.name ?? raw.shortName}" — chunks ${raw.chunks.join(' ')}; tempo ${raw.tempo ?? '?'}, volume ${raw.volume ?? '?'} (PRM2 layout unverified)`,
+        `Raw patch "${raw.name ?? raw.shortName}" — chunks ${raw.chunks.join(' ')}; tempo ${raw.tempo ?? '?'}, volume ${raw.volume ?? "?"} (volume unverified)`,
         ...raw.effects.map((e) => {
           const fx = effectById(e.id);
           const params = fx ? fx.parameters.map((p, i) => `${p.name}=${displayValue(p, e.params[i])}`).join(', ') : e.params.join(' ');

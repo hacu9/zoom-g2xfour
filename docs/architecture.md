@@ -17,7 +17,7 @@ src/
     decode.ts      Screen text, file entries, flash info
     identity.ts / zoom.ts / hex.ts / annotate.ts / fileList.ts
   catalog/         G2 FOUR effect + parameter catalog (vendored from zoom-explorer)
-  editor/          PatchEditor, RestorePanel, RecipePanel
+  editor/          PatchEditor, EffectPicker (search), RestorePanel, RecipePanel
   recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal), recipes/*.json
   tempo/delay.ts   ms = 60000 / BPM × note value
   log/ probe/      Log, export, console UI

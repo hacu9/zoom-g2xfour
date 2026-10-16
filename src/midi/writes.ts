@@ -5,7 +5,7 @@
  *   - param edit    64 20 00 <slot 0-7> <param> <value 5 septets>
  *   - name edit     64 20 00 5F <index> <ASCII> 00 00 00 00
  *   - patch tempo   64 20 00 64 02 <bpm 2> 00 00 00 (40-250)
- * Shapes verified on a G2X FOUR on 2026-10-15 (see docs/probe-guide.md).
+ * Shapes verified on a G2X FOUR on 2026-10-15 (see docs/g2x-four-protocol.md).
  * AUTO-SAVE IS ON on the test pedal: an edit persists once the patch changes.
  */
 import { patchBytesFromSlotDump } from './backup';

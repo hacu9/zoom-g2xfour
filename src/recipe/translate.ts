@@ -64,7 +64,7 @@ const ROLE_EFFECT = {
   drive: { overdrive: 'TS Drive', distortion: 'DIST One', fuzz: 'NYC Muff', boost: 'RC Drive' },
   amp: { clean: 'FD TWIN-R', crunch: 'UK 30A', 'high-gain': 'RectiDual', american: 'FD DLX-R', british: 'MS 1959' },
   modulation: { chorus: 'ChorusOne', flanger: 'VinFLNGR', phaser: 'Phaser', tremolo: 'Tremolo', vibrato: 'SwellVibe' },
-  delay: 'AnalogDly',
+  delay: { digital: 'Delay', analog: 'AnalogDly', tape: 'TapeEcho' },
   reverb: { room: 'RoomREV', hall: 'Hall REV', plate: 'Plate REV', spring: 'SpringREV' },
 } as const;
 
@@ -105,12 +105,12 @@ export function translate(r: ToneRecipe): Plan {
     if (d.note && r.bpm) {
       // Sync to the patch tempo, so tap tempo still works live.
       tempo = Math.round(r.bpm);
-      add('delay', ROLE_EFFECT.delay, { Time: { note: d.note }, Mode: { text: 'BPM SYNC' }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } });
+      add('delay', ROLE_EFFECT.delay[d.type ?? 'digital'], { Time: { note: d.note }, Mode: { text: 'BPM SYNC' }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } });
     } else {
       const ms = d.timeMs ?? (d.note ? delayMs(120, d.note) : undefined);
       if (d.note) warnings.push('delay: note value given without bpm — using 120 BPM as milliseconds.');
       if (ms !== undefined) warnings.push('delay: millisecond time with Mode left as the pedal sets it (SHORT/LONG meaning unverified).');
-      add('delay', ROLE_EFFECT.delay, { Time: ms === undefined ? undefined : { num: Math.round(ms) }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } });
+      add('delay', ROLE_EFFECT.delay[d.type ?? 'digital'], { Time: ms === undefined ? undefined : { num: Math.round(ms) }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } });
     }
   }
   if (r.reverb) add('reverb', ROLE_EFFECT.reverb[r.reverb.type], { Decay: r.reverb.decay === undefined ? undefined : { pct: r.reverb.decay }, Mix: { pct: r.reverb.mix } });

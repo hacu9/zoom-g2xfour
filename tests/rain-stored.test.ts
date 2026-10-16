@@ -4,7 +4,9 @@ import { displayValue, effectById } from '../src/catalog/g2four';
 import { patchBytesFromSlotDump } from '../src/midi/backup';
 import { parsePTCF } from '../src/midi/ptcf';
 
-// Slot 250 as the pedal stored it after the Rain recipe, captured 2026-10-15.
+// Slot 250 as the pedal stored Rain v1 (AnalogDly, Repeat 35), captured 2026-10-15.
+// v1 sounded wrong (repeats inaudible); v2 changed the delay live — see docs/recipes.md.
+// This stays as a real-dump decode test.
 const msg = readFileSync(new URL('./fixtures/g2xfour-rain-slot250.hex', import.meta.url), 'utf8').trim().split(' ').map((h) => parseInt(h, 16));
 const patch = parsePTCF(patchBytesFromSlotDump(msg)!)!;
 const show = (slot: number) => {
@@ -13,7 +15,7 @@ const show = (slot: number) => {
   return { on: e.on, name: fx.name, params: Object.fromEntries(fx.parameters.map((q, i) => [q.name, displayValue(q, e.params[i])])) };
 };
 
-describe('stored Rain patch (slot 250, real pedal)', () => {
+describe('stored Rain v1 patch (slot 250, real pedal)', () => {
   it('holds the recipe exactly', () => {
     expect(patch.name?.trimEnd()).toBe('Rain Scallon');
     expect(show(0)).toMatchObject({ on: true, name: 'Comp', params: { Sense: '4' } });
