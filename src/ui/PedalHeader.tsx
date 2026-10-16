@@ -26,7 +26,7 @@ export function PedalHeader({ status, slot, name, tempo, backup, canSwitch, edit
     <header className="pedal">
       <div className="brand">
         <span className="brand-name">G2X FOUR</span>
-        <span className="brand-sub">patch desk</span>
+        <span className="brand-sub">unofficial editor</span>
       </div>
 
       <button className="patch-step" disabled={!canSwitch} onClick={() => onStep(-1)} aria-label="Previous patch" title="Previous patch">

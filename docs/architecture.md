@@ -25,6 +25,8 @@ src/
   recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal), recipes/*.json
   tempo/delay.ts   ms = 60000 / BPM × note value
   log/ probe/      Log, export, console UI
+  styles.css       Look: a dark pedal build sheet (graph paper, copper traces and labels,
+                   a circuit-board screen, enclosures in their category colour)
   App.tsx          Page: auto-connect, auto-backup, header, board, patch list; recipes,
                    restore and the lab (ports, identity, console, log) fold away
 tests/             Vitest; fixtures/ hold real pedal dumps
