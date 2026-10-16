@@ -376,7 +376,7 @@ export function App() {
     downloadText(
       `zoom-probe-${stamp}.txt`,
       exportText(log.all.current, {
-        tool: 'zoompedal probe 0.1.0',
+        tool: 'zoom-g2xfour 0.1.0',
         exported: new Date().toISOString(),
         backend: backend?.kind ?? 'none',
         input: inputs.find((p) => p.id === inId)?.name ?? '-',

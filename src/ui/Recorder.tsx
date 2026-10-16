@@ -364,7 +364,7 @@ export function Recorder({ session, patchName }: Props) {
   );
 }
 
-const COUNT_IN_KEY = 'zoompedal.countIn';
+const COUNT_IN_KEY = 'zoom-g2xfour.countIn';
 
 /** The count-in choice is a per-viewer convenience: storage may be missing or blocked. */
 function readCountIn(): number {

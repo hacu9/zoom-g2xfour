@@ -1,9 +1,9 @@
 {
-  "name": "zoompedal",
+  "name": "zoom-g2xfour",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Web MIDI probe and (later) editor for the Zoom G2X FOUR",
+  "description": "Unofficial browser editor for the Zoom G2X FOUR guitar pedal (Web MIDI)",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
