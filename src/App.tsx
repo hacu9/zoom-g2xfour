@@ -425,7 +425,7 @@ export function App() {
             </button>
           </div>
         </div>
-        <PatchList names={names} count={names.size ? total : 0} current={currentSlot} mine={mine} disabled={!session || !!listing} onSelect={selectPatch} />
+        <PatchList names={names} count={names.size ? total : 0} perBank={perBank} current={currentSlot} mine={mine} disabled={!session || !!listing} onSelect={selectPatch} />
       </section>
 
       <details className="panel">

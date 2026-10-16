@@ -72,7 +72,7 @@ input[aria-invalid='true'] { border-color: var(--bad); }
   background: var(--lcd-bg); color: var(--lcd-ink); border: 2px solid #000;
   box-shadow: inset 0 0 18px #000c; text-shadow: 0 0 6px #7dff8a66; font-family: var(--lcd-font);
 }
-.lcd-slot { font-size: 40px; font-weight: 700; letter-spacing: 0.04em; }
+.lcd-slot { font-size: 40px; font-weight: 700; letter-spacing: 0.04em; white-space: nowrap; }
 .lcd-main { min-width: 0; }
 .lcd-name { font-size: 24px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; }
 .lcd-sub { font-size: 13px; opacity: 0.8; min-height: 1.2em; }
@@ -227,14 +227,35 @@ dialog.picker h3 { margin: 0; font-size: 16px; }
   .pedal { grid-template-columns: auto minmax(0, 1fr) auto; }
   .brand, .lights { grid-column: 1 / -1; }
   .lights { grid-template-columns: repeat(3, auto); justify-content: start; gap: 12px; }
-  .lcd-slot { font-size: 30px; }
-  .lcd-name { font-size: 18px; }
+  .lcd { flex-direction: column; align-items: flex-start; gap: 2px; padding: 8px 12px; }
+  .lcd-slot { font-size: 26px; }
+  .lcd-name { font-size: 17px; }
+  .patch-step { width: 44px; height: 44px; }
   .stomp { flex-basis: calc(50% - 9px); max-width: none; }
   .board .jack { display: none; }
   .log-line { grid-template-columns: 1fr; gap: 0; }
   .research { margin-left: 0; }
 }
 @media (max-width: 420px) {
-  .stomp { flex-basis: 100%; }
+  .board { gap: 10px; }
+  .board-section { padding: 12px 10px; }
+  .stomp { min-width: 0; flex-basis: calc(50% - 5px); padding: 8px 6px 10px; }
   .stomp::after { display: none; }
+  .knob { width: 36px; height: 36px; }
 }
+
+/* ---- polish: knob ring, tempo LED, swatches, banks ----------------------- */
+.knob-track, .knob-ring { fill: none; stroke-width: 2.5; stroke-linecap: round; }
+.knob-track { stroke: #0005; }
+.knob-ring { stroke: var(--accent); filter: drop-shadow(0 0 2px color-mix(in srgb, var(--accent) 60%, transparent)); }
+.knob[aria-disabled='true'] .knob-ring { stroke: #ffffff70; filter: none; }
+.knob:hover:not([aria-disabled='true']) .knob-cap { fill: #383838; }
+.tempo-led { width: 8px; height: 8px; vertical-align: middle; margin-right: 2px; animation: beat 0.5s steps(1) infinite; }
+@keyframes beat { 0% { opacity: 1; } 25% { opacity: 0.15; } }
+@media (prefers-reduced-motion: reduce) { .tempo-led { animation: none; } }
+.lcd-sub { display: flex; gap: 6px; align-items: center; }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; background: var(--body); border: 1px solid #0008; vertical-align: -1px; }
+.banks { display: grid; gap: 12px; max-height: 420px; overflow: auto; padding-right: 4px; }
+.bank h3 { margin: 0 0 6px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.bank .patches { max-height: none; overflow: visible; }
+.bank { background: none; border: 0; padding: 0; border-radius: 0; }

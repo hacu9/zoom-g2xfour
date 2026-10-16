@@ -39,7 +39,8 @@ A reconnect clears the backup and runs a new one.
 
 ### Header
 
-The green screen shows the patch number, the patch name and the tempo.
+The green screen shows the patch number, the patch name and the tempo. The
+small LED next to the tempo blinks on the beat, like the pedal's tap LED.
 **◀ / ▶** go to the previous or next patch (Bank Select + Program Change,
 the same messages the pedal sends when you step by foot). The lights show
 MIDI, BACKUP and **EDIT REAL PATCHES**.
@@ -53,12 +54,12 @@ not Empty and not written by this app.
 The current patch as 6 stompboxes, input to output. The colour shows the
 effect type (green drive, brown amp, white delay, and so on).
 
-- **Knob:** drag up or down, or focus it (Tab) and scroll or use the arrow
+- **Knob:** the orange ring shows the value. Drag up or down, or focus it (Tab) and scroll or use the arrow
   keys. Page Up/Down move 10 %, Home/End go to the ends.
 - **Switch:** a knob with two values (ON/OFF, SLOW/FAST).
 - **Footswitch:** turns the effect on or off. The red LED shows the state.
 - **Effect name:** opens the effect search. Type to filter by effect name,
-  type or knob name (for example `delay repeat`, `plate`). Type chips narrow
+  type or knob name (for example `delay repeat`, `plate`). Colour chips narrow
   the list. **↑ / ↓** move, **Enter** picks, **Esc** closes.
   "— empty slot —" clears the slot.
 
@@ -67,7 +68,8 @@ until you click EDIT REAL PATCHES.
 
 ### Patches
 
-Every patch from the backup. Click one to load it on the pedal. Search by
+Every patch from the backup, in banks of 10 like the pedal. Click one to
+load it on the pedal. Search by
 name or number. Empty slots are hidden unless you tick **Show Empty slots**.
 A ★ marks the patches that the built-in song recipes write.
 

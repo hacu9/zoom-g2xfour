@@ -37,7 +37,12 @@ export function PedalHeader({ status, slot, name, tempo, backup, canSwitch, edit
         <div className="lcd-main">
           <div className="lcd-name" aria-live="polite">{live ? (name ?? '…') : STATUS_TEXT[status]}</div>
           <div className="lcd-sub">
-            {live && tempo !== null ? `♩ = ${tempo}` : ''} {live && backup.state === 'running' ? `· BACKUP ${backup.progress ?? ''}` : ''}
+            {live && tempo !== null && (
+              <>
+                {/* blinks on the beat, like the pedal's tap-tempo LED */}
+                <span className="led lit tempo-led" style={{ animationDuration: `${60 / tempo}s` }} aria-hidden /> ♩ = {tempo}
+              </>
+            )} {live && backup.state === 'running' ? `· BACKUP ${backup.progress ?? ''}` : ''}
           </div>
         </div>
       </div>

@@ -15,6 +15,8 @@ export const CATEGORIES: Record<number, string> = {
 };
 
 export const categoryOf = (id: number) => CATEGORIES[Math.floor(id / 0x1000000)] ?? 'Other';
+/** CSS class that gives an effect type its stompbox colour (styles.css). */
+export const catClass = (category: string) => `cat-${category.replace(/[^a-z]/gi, '').toLowerCase()}`;
 
 interface Item {
   id: number;
@@ -105,7 +107,7 @@ export function EffectPicker({ slot, currentId, onPick, onClose }: Props) {
         </button>
         {Object.values(CATEGORIES).map((c) => (
           <button key={c} className={category === c ? 'chip on' : 'chip'} onClick={() => setCategory(category === c ? null : c)}>
-            {c}
+            <span className={`swatch ${catClass(c)}`} aria-hidden /> {c}
           </button>
         ))}
       </div>
@@ -121,7 +123,9 @@ export function EffectPicker({ slot, currentId, onPick, onClose }: Props) {
             onMouseEnter={() => setActive(i)}
             onClick={() => pick(c.id)}
           >
-            <span className="name">{c.name}</span>
+            <span className="name">
+              <span className={`swatch ${catClass(c.category || 'Empty')}`} aria-hidden /> {c.name}
+            </span>
             {c.category && <span className="cat">{c.category}</span>}
             {c.knobs && <span className="knobs">{c.knobs}</span>}
           </li>

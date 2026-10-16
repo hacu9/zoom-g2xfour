@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { displayValue, effectById } from '../catalog/g2four';
-import { categoryOf, EffectPicker } from './EffectPicker';
+import { catClass, categoryOf, EffectPicker } from './EffectPicker';
 import { Knob } from '../ui/Knob';
 import { decodeRawPatch, type RawPatch } from '../midi/ptcf';
 import { SafetyError, type ProbeSession } from '../midi/session';
@@ -121,7 +121,7 @@ export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) 
             const on = e.on && e.id !== 0;
             const visible = fx?.parameters.map((p, i) => ({ p, i })).filter(({ p }) => !p.name.startsWith('Hidden')) ?? [];
             return (
-              <div key={slot} className={`stomp cat-${cat.replace(/[^a-z]/gi, '').toLowerCase()} ${on ? 'on' : 'off'}`} aria-label={`Slot ${slot + 1}`}>
+              <div key={slot} className={`stomp ${catClass(cat)} ${on ? 'on' : 'off'}`} aria-label={`Slot ${slot + 1}`}>
                 <div className="stomp-top">
                   <span className={`led ${on ? 'lit' : ''}`} aria-label={on ? 'on' : 'off'} />
                   <span className="stomp-cat">{cat}</span>

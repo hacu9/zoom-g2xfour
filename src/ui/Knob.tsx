@@ -12,6 +12,9 @@ interface Props {
 
 const SWEEP = 270; // degrees, like a real pot: 7 o'clock to 5 o'clock
 const DRAG_PX = 160; // drag distance for the full range
+const RING_R = 18.5;
+const RING = 2 * Math.PI * RING_R;
+const ARC = (RING * SWEEP) / 360;
 
 /** A rotary pot. Drag up/down, scroll, or use the arrow keys. */
 export function Knob({ label, value, count, display, disabled, onChange }: Props) {
@@ -86,9 +89,12 @@ export function Knob({ label, value, count, display, disabled, onChange }: Props
         title={`${label}: ${display} — drag, scroll or use the arrow keys`}
       >
         <svg viewBox="0 0 40 40" aria-hidden>
-          <circle cx="20" cy="20" r="17" className="knob-skirt" />
-          <circle cx="20" cy="20" r="13" className="knob-cap" />
-          <line x1="20" y1="20" x2="20" y2="8" className="knob-pointer" transform={`rotate(${angle} 20 20)`} />
+          {/* value ring: starts at 7:30 (135° in SVG angles) and sweeps 270° clockwise */}
+          <circle cx="20" cy="20" r={RING_R} className="knob-track" strokeDasharray={`${ARC} ${RING}`} transform="rotate(135 20 20)" />
+          <circle cx="20" cy="20" r={RING_R} className="knob-ring" strokeDasharray={`${(ARC * value) / max} ${RING}`} transform="rotate(135 20 20)" />
+          <circle cx="20" cy="20" r="15" className="knob-skirt" />
+          <circle cx="20" cy="20" r="11.5" className="knob-cap" />
+          <line x1="20" y1="20" x2="20" y2="9.5" className="knob-pointer" transform={`rotate(${angle} 20 20)`} />
         </svg>
       </div>
       <span className="knob-value">{display}</span>
