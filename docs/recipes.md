@@ -18,7 +18,7 @@ Empty slot (`src/recipe/apply.ts`). Recipes live in `src/recipe/recipes/`.
   "amp": { "type": "clean", "gain": 25 },
   "eq": { "low": 45, "mid": 50, "high": 55 },
   "modulation": { "type": "chorus", "rate": 30, "depth": 40, "mix": 30 },
-  "delay": { "type": "digital", "note": "1/8.", "feedback": 60, "mix": 70 },
+  "delay": { "type": "digital", "note": "1/8.", "feedback": 72, "mix": 80 },
   "reverb": { "type": "hall", "decay": 40, "mix": 30 }
 }
 ```
@@ -63,7 +63,7 @@ it, because the meaning of SHORT and LONG is not verified.
 |---|---|---|
 | 1 | Comp | Sense 4 |
 | 2 | FD TWIN-R | Gain 32, Bass 50, MID 55, Treble 59 |
-| 3 | **Delay** | Dotted eighth, BPM SYNC, **Repeat 60, Mix 70** |
+| 3 | **Delay** | Dotted eighth, BPM SYNC, **Repeat 72, Mix 80** |
 | 4 | Hall REV | Decay 13, Mix 30 |
 | — | Tempo | 123 BPM |
 
@@ -85,7 +85,9 @@ audible repeats.
 
 v2 changed slot 3 live with the editor (search → Delay, then Time, Mode,
 Repeat, Mix 55) and the pedal confirmed every value. v3 raised Mix to 70 for
-louder repeats (pedal ack `64 20 01 02 05 46`). The recipe JSON now writes v3. `tests/fixtures/g2xfour-rain-slot250.hex` still holds the v1 dump, as a
+louder repeats (pedal ack `64 20 01 02 05 46`). v4 = Repeat 72, Mix 80 for
+more and louder echoes (acks `… 02 04 48`, `… 02 05 50`). The recipe JSON now
+writes v4. Above Repeat ~75 the repeats may build into runaway feedback. `tests/fixtures/g2xfour-rain-slot250.hex` still holds the v1 dump, as a
 real-data decode test.
 
 The settings come from fan posts, not from Rob Scallon. Tune Mix and Gain by
