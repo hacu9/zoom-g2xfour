@@ -10,7 +10,7 @@ import mopDist from '../recipe/recipes/metallica-master-of-puppets-dist.json';
 import tdtncClean from '../recipe/recipes/metallica-day-that-never-comes-clean.json';
 import tdtncDist from '../recipe/recipes/metallica-day-that-never-comes-dist.json';
 
-const BUILT_IN: { label: string; recipe: unknown }[] = [
+export const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Rain — Rob Scallon', recipe: rain },
   { label: 'Fade to Black (clean) — Metallica', recipe: ftbClean },
   { label: 'Fade to Black (distorted) — Metallica', recipe: ftbDist },

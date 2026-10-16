@@ -13,78 +13,88 @@ How to run the app and use each panel. For the protocol itself, see
 4. Connect the G2X FOUR with a USB **data** cable and switch it on.
 5. Close Handy Guitar Lab, Zoom Guitar Lab and every DAW. On Windows, only one
    program at a time can open a MIDI port.
-6. Click **Connect**. Allow "MIDI device control & reprogram" when Chrome
-   asks. That permission is the SysEx permission.
+6. The page connects by itself when Chrome already has the MIDI permission.
+   The first time, click **Connect** and allow "MIDI device control &
+   reprogram". That permission is the SysEx permission.
 
 Other commands: `npm test` (unit tests), `npm run build` (type check + bundle).
-**Use mock pedal** runs the UI against an invented pedal. It proves that the
-UI works. It proves nothing about the protocol.
+**Use mock pedal** (in the Lab) runs the UI against an invented pedal. It
+replays one real patch dump (Rain v1) so the pedalboard has data. It proves
+that the UI works. It proves nothing about the protocol.
 
-## The panels
+## What happens on its own
 
-### 1 · Connect and 2 · Identify
+1. On page load, the app asks Chrome for MIDI access. With the permission
+   already granted, Chrome gives it without a prompt.
+2. When the pedal is plugged in (now or later), the app opens its ports.
+3. It turns on edit reports (`50`) and asks which patch is active (`33`).
+4. It loads the current patch onto the pedalboard.
+5. It backs up all 300 patches into memory (about 35 s; the BACKUP light
+   blinks). The backup unlocks writes and fills the patch list. It does not
+   download a file: click **Save backup (.syx)** to keep one.
 
-Connect lists every MIDI port and selects the ports that contain "ZOOM" or
-"G2". The app then turns on edit reports (`50`) and asks which patch is
-active (`33`). From then on it follows every patch change, also changes by
-foot. **Send Identity Request** decodes the model. Keep the device ID at `6E`.
+A reconnect clears the backup and runs a new one.
 
-### 3 · Raw SysEx console
+## The screen
 
-For research. Type hex or click a prefill, then **Send…**. Every send shows a
-dialog with the bytes and the verdict.
+### Header
 
-- **read:** a known read-only command.
-- **unknown:** sent only after you confirm. An unknown Zoom command also needs
-  **research mode**, which is off at every page load.
-- **blocked:** never sent. This includes firmware mode, factory reset, bank
-  delete and every patch write. Research mode cannot send patch writes; use
-  the panels below.
-
-**Back up all patches** reads all 300 slots (about 35 s) and saves
-`g2xfour-backup-<time>.syx`. **Save summary (.json)** saves a readable list.
-Chrome blocks a second automatic download, so the summary needs your click.
-
-**List flash files** lists the 260 files in the pedal's flash.
-
-### 4 · Edit current patch
-
-**Load current patch** shows the active patch: 6 slots, each with on/off, the
-effect and its knobs. Changes go to the pedal at once.
-
-To change an effect, click its name. A search window opens:
-
-- Type to filter by effect name, type or knob name. Every word must match
-  (for example `delay repeat`, `plate`, `chorus rate`).
-- Click a type chip (Drive, Amp, Delay, …) to narrow the list.
-- **↑ / ↓** move, **Enter** picks, **Esc** closes. "— empty slot —" clears the slot.
+The green screen shows the patch number, the patch name and the tempo.
+**◀ / ▶** go to the previous or next patch (Bank Select + Program Change,
+the same messages the pedal sends when you step by foot). The lights show
+MIDI, BACKUP and **EDIT REAL PATCHES**.
 
 **Warning:** auto-save is ON. The pedal keeps every edit when you leave the
-patch. So the editor works only on Empty slots, until you tick **Edit real
-patches**. Make a backup first: the editor is read-only without one.
+patch. Click EDIT REAL PATCHES only when you want to change a patch that is
+not Empty and not written by this app.
 
-### 5 · Restore from backup
+### Pedalboard
+
+The current patch as 6 stompboxes, input to output. The colour shows the
+effect type (green drive, brown amp, white delay, and so on).
+
+- **Knob:** drag up or down, or focus it (Tab) and scroll or use the arrow
+  keys. Page Up/Down move 10 %, Home/End go to the ends.
+- **Switch:** a knob with two values (ON/OFF, SLOW/FAST).
+- **Footswitch:** turns the effect on or off. The red LED shows the state.
+- **Effect name:** opens the effect search. Type to filter by effect name,
+  type or knob name (for example `delay repeat`, `plate`). Type chips narrow
+  the list. **↑ / ↓** move, **Enter** picks, **Esc** closes.
+  "— empty slot —" clears the slot.
+
+The board is read-only (🔒) until the backup finishes, and on real patches
+until you click EDIT REAL PATCHES.
+
+### Patches
+
+Every patch from the backup. Click one to load it on the pedal. Search by
+name or number. Empty slots are hidden unless you tick **Show Empty slots**.
+A ★ marks the patches that the built-in song recipes write.
+
+### Song recipes → new patch
+
+Pick or paste a recipe (JSON). The preview shows the effects, knob values
+and every compromise. **Write patch** puts it into the Empty slot you
+choose and verifies it. If the pedal changes patch during the write, the
+write stops and names the slot to check. See [recipes.md](recipes.md).
+
+### Restore or copy a patch from the backup
 
 Pick a patch from this session's backup, or load a `.syx` file. Choose the
-target slot (default: the slot it came from), then **Restore**. The app sends
-the pedal's own dump back and reads the slot again to verify it.
+target slot (default: the slot it came from), then **Restore**. A different
+target slot makes a copy. The app sends the pedal's own dump and reads the
+slot again to verify it.
 
 - A slot with a real patch needs you to type its number first.
-- The app refuses to restore the slot the pedal is on, because auto-save could
-  undo the restore. Switch to another patch first.
+- The app refuses to write the slot the pedal is on, because auto-save could
+  undo it. Switch to another patch first.
 
-### 6 · Tone recipe → patch
+### Lab
 
-Paste or edit a recipe (JSON). The preview shows the effects, knob values and
-every compromise. **Write patch** puts it into the Empty slot you choose,
-reads it back, lets auto-save store it, and reads the stored slot to verify.
-If the pedal changes patch during the write (for example a footswitch), the
-write stops at once and names the slot to check.
-
-### 7 · Log
-
-Every message in and out, with time, hex, ASCII and decoded notes. Filter by
-direction. **Export log** saves it as `.txt`.
+For research: port selection, identity request, the raw SysEx console
+(with the read / unknown / blocked verdict and research mode), the flash
+file list and the message log with export. The rules of the console are in
+[g2x-four-protocol.md](g2x-four-protocol.md).
 
 ## Safety rules
 
@@ -102,6 +112,7 @@ direction. **Export log** saves it as `.txt`.
 |---|---|
 | "Cannot open the MIDI port" | Close Handy Guitar Lab / DAWs, unplug and replug, reload |
 | No identity reply | Check the port pair; reload the page |
-| The page does not follow patch changes | Reconnect: Connect turns on edit reports (`50`) |
-| A patch looks wrong after a write | Restore it from the backup `.syx` (panel 5) |
+| The page does not follow patch changes | Unplug and replug the pedal: a new connection turns on edit reports (`50`) |
+| The screen says PLUG IN PEDAL with the pedal on | Close Handy Guitar Lab / DAWs; check the cable carries data |
+| A patch looks wrong after a write | Restore it from the backup `.syx` (Restore section) |
 | "Write refused: …" | Read the reason: usually no backup yet, or not an Empty slot |

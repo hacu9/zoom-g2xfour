@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { displayValue, effectById } from '../catalog/g2four';
 import { categoryOf, EffectPicker } from './EffectPicker';
+import { Knob } from '../ui/Knob';
 import { decodeRawPatch, type RawPatch } from '../midi/ptcf';
 import { SafetyError, type ProbeSession } from '../midi/session';
 import { paramEdit, type WritePolicy } from '../midi/writes';
@@ -11,12 +12,14 @@ interface Props {
   deviceId: number;
   policy: WritePolicy;
   log(level: 'info' | 'warn' | 'error', text: string): void;
+  /** The patch in the edit buffer changed (load, pedal push or edit). */
+  onPatch?(patch: RawPatch | null): void;
 }
 
 const EDITABLE_SLOTS = 6;
 const decodeEntities = (s: string) => s.replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)));
 
-export function PatchEditor({ session, deviceId, policy, log }: Props) {
+export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) {
   const [patch, setPatch] = useState<RawPatch | null>(null);
   const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
   // Debounced slider sends read the policy at send time, not at render time.
@@ -28,12 +31,23 @@ export function PatchEditor({ session, deviceId, policy, log }: Props) {
   }, []);
 
   const [picking, setPicking] = useState<number | null>(null);
+  const onPatchRef = useRef(onPatch);
+  onPatchRef.current = onPatch;
+  useEffect(() => onPatchRef.current?.(patch), [patch]);
 
   const load = useCallback(async () => {
-    if (!session) return;
+    if (!session) {
+      setPatch(null);
+      return;
+    }
     const r = await session.request(zoomSysex(deviceId, [0x64, 0x13]), 'editor: load current patch', (d) => isZoomSysex(d) && d[4] === 0x64 && d[5] === 0x12, 2000);
     setPatch(r ? decodeRawPatch(r) : null);
   }, [session, deviceId]);
+
+  // Show the current patch as soon as the pedal is there.
+  useEffect(() => {
+    void load();
+  }, [load]);
 
   // Follow the pedal: pushed patches (64 12) and accepted edits (64 20 01).
   useEffect(() => {
@@ -80,65 +94,83 @@ export function PatchEditor({ session, deviceId, policy, log }: Props) {
   };
 
   const locked = policy.currentSlot === null || (!policy.scratchSlots.has(policy.currentSlot) && !policy.allowRealPatchEdits) || !policy.backupTaken;
+  const effects = patch?.effects.slice(0, EDITABLE_SLOTS) ?? [];
 
   return (
     <div className="editor">
-      <div className="row">
-        <button className="primary" disabled={!session} onClick={load}>
-          Load current patch
-        </button>
-        {patch && (
-          <span>
-            <strong>{patch.name ?? patch.shortName}</strong> <span className="muted small">slot {policy.currentSlot ?? '?'}</span>
-          </span>
-        )}
-      </div>
+      {!patch && session && (
+        <div className="row">
+          <button className="primary" disabled={!session} onClick={load}>
+            Load current patch
+          </button>
+        </div>
+      )}
       {locked && patch && (
-        <p className="warn-text">
-          Read-only view.{' '}
-          {!policy.backupTaken ? 'Run a backup first.' : 'This is a real patch and auto-save is ON — tick "edit real patches" to change it.'}
+        <p className="lock-note">
+          🔒 {!policy.backupTaken ? 'Read-only until the backup finishes.' : 'Real patch, read-only. Auto-save is ON: unlock "Edit real patches" to change it.'}
         </p>
       )}
       {patch && (
-        <div className="slots">
-          {patch.effects.slice(0, EDITABLE_SLOTS).map((e, slot) => {
+        <div className="board" aria-label="Effect chain, input to output">
+          <span className="jack" aria-hidden>
+            IN
+          </span>
+          {effects.map((e, slot) => {
             const fx = effectById(e.id);
+            const cat = e.id === 0 ? 'Empty' : categoryOf(e.id);
+            const on = e.on && e.id !== 0;
+            const visible = fx?.parameters.map((p, i) => ({ p, i })).filter(({ p }) => !p.name.startsWith('Hidden')) ?? [];
             return (
-              <fieldset key={slot} className="slot" disabled={locked}>
-                <legend>
-                  <label>
-                    <input type="checkbox" checked={e.on && e.id !== 0} disabled={e.id === 0} onChange={(ev) => write(slot, 0, ev.target.checked ? 1 : 0, `slot ${slot} ${ev.target.checked ? 'on' : 'off'}`)} /> Slot {slot + 1}
-                  </label>
-                </legend>
-                <button className="effect-btn" onClick={() => setPicking(slot)} title="Search and choose an effect">
-                  <span>{e.id === 0 ? '— empty —' : (fx?.name ?? `unknown ${e.id.toString(16)}`)}</span>
-                  {e.id !== 0 && <span className="muted small">{categoryOf(e.id)}</span>}
-                  <span aria-hidden>🔍</span>
+              <div key={slot} className={`stomp cat-${cat.replace(/[^a-z]/gi, '').toLowerCase()} ${on ? 'on' : 'off'}`} aria-label={`Slot ${slot + 1}`}>
+                <div className="stomp-top">
+                  <span className={`led ${on ? 'lit' : ''}`} aria-label={on ? 'on' : 'off'} />
+                  <span className="stomp-cat">{cat}</span>
+                </div>
+                <button className="stomp-name" disabled={locked} onClick={() => setPicking(slot)} title="Change the effect: search by name, type or knob">
+                  {e.id === 0 ? '+ add effect' : (fx?.name ?? `unknown ${e.id.toString(16)}`)}
                 </button>
-                {fx?.parameters.map((p, i) =>
-                  p.name.startsWith('Hidden') ? null : (
-                    <label key={i} className="param">
-                      <span>{p.name}</span>
-                      {p.values.length <= 12 ? (
-                        <select value={e.params[i] ?? 0} onChange={(ev) => write(slot, i + 2, Number(ev.target.value), `slot ${slot} ${p.name}=${decodeEntities(p.values[Number(ev.target.value)] ?? '')}`)}>
-                          {p.values.map((v, j) => (
-                            <option key={j} value={j}>
-                              {decodeEntities(v)}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
-                        <>
-                          <input type="range" min={0} max={p.values.length - 1} value={e.params[i] ?? 0} onChange={(ev) => writeSoon(slot, i + 2, Number(ev.target.value), `slot ${slot} ${p.name}`)} />
-                          <output>{decodeEntities(displayValue(p, e.params[i] ?? 0))}</output>
-                        </>
-                      )}
-                    </label>
-                  ),
-                )}
-              </fieldset>
+                <div className="knobs">
+                  {visible.map(({ p, i }) =>
+                    p.values.length === 2 ? (
+                      <label key={i} className="toggle">
+                        <input
+                          type="checkbox"
+                          disabled={locked}
+                          checked={(e.params[i] ?? 0) === 1}
+                          onChange={(ev) => write(slot, i + 2, ev.target.checked ? 1 : 0, `slot ${slot} ${p.name}=${decodeEntities(p.values[ev.target.checked ? 1 : 0])}`)}
+                        />
+                        <span className="toggle-track" aria-hidden />
+                        <span className="knob-value">{decodeEntities(displayValue(p, e.params[i] ?? 0))}</span>
+                        <span className="knob-label">{p.name}</span>
+                      </label>
+                    ) : (
+                      <Knob
+                        key={i}
+                        label={p.name}
+                        value={e.params[i] ?? 0}
+                        count={p.values.length}
+                        display={decodeEntities(displayValue(p, e.params[i] ?? 0))}
+                        disabled={locked}
+                        onChange={(v) => writeSoon(slot, i + 2, v, `slot ${slot} ${p.name}=${decodeEntities(p.values[v] ?? '')}`)}
+                      />
+                    ),
+                  )}
+                </div>
+                <button
+                  className="footswitch"
+                  disabled={locked || e.id === 0}
+                  aria-pressed={on}
+                  onClick={() => write(slot, 0, on ? 0 : 1, `slot ${slot} ${on ? 'off' : 'on'}`)}
+                  title={on ? 'Bypass this effect' : 'Turn this effect on'}
+                >
+                  <span className="sr-only">{on ? 'Turn off' : 'Turn on'}</span>
+                </button>
+              </div>
             );
           })}
+          <span className="jack" aria-hidden>
+            OUT
+          </span>
         </div>
       )}
       {picking !== null && patch && (

@@ -3,10 +3,15 @@ import type { InputPort, MidiBackend, OutputPort } from './backend';
 const noopOpen = { open: async () => {}, close: async () => {} };
 import { IDENTITY_REQUEST } from './identity';
 import { isZoomSysex, zoomBody } from './zoom';
+// A REAL slot dump (Rain v1, slot 250, 2026-10-15), replayed as the edit buffer.
+import rainHex from '../../tests/fixtures/g2xfour-rain-slot250.hex?raw';
+
+const RAIN_DUMP = rainHex.trim().split(/\s+/).map((h) => parseInt(h, 16));
 
 /**
  * A fake pedal for UI testing without hardware. EVERY reply here is invented,
- * except 64 11, which copies the G1 FOUR reply from zoom-zt2 issue #46.
+ * except 64 11, which copies the G1 FOUR reply from zoom-zt2 issue #46, and
+ * 64 13, which replays a real G2X FOUR slot dump.
  * Never treat mock output as evidence about the G2X FOUR.
  */
 const MOCK_FILES = ['AMP_ZCLN.ZDL', 'COMP.ZDL', 'TUBESCRM.ZDL', 'ANLGDLY.ZDL', 'HALL.ZDL'];
@@ -31,6 +36,8 @@ export function mockReply(bytes: number[], state: { fileIndex: number }): number
   if (c0 === 0x64 && c1 === 0x02) return z(0x64, 0x01, 0x00, 0x07, 0x00, ...ascii('MOCK PATCH'), 0x00, 0x00);
   if (c0 === 0x64 && c1 === 0x42) return z(0x64, 0x43, 0x01, 0x01, 0x00, 0x00);
   if (c0 === 0x64 && c1 === 0x11) return z(0x64, 0x10, 0x66, 0x01, 0x04, 0x01, 0x00);
+  // 64 13 → 64 12 01 <len> <PTCF> <CRC>: the 45 dump body after its 6 address bytes.
+  if (c0 === 0x64 && c1 === 0x13) return z(0x64, 0x12, 0x01, ...zoomBody(RAIN_DUMP).slice(7));
   if (c0 === 0x55) return z(0x54, 0x20, 0x00, 0x00);
   return null;
 }

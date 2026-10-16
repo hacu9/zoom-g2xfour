@@ -15,13 +15,16 @@ src/
     backup.ts      46 slot reads, .syx export, duplicate detection
     ptcf.ts        Raw patch reader (PTCF): effects, params, name, tempo
     decode.ts      Screen text, file entries, flash info
+    patchSelect.ts Bank Select + Program Change for patch up/down and the patch list
     identity.ts / zoom.ts / hex.ts / annotate.ts / fileList.ts
   catalog/         G2 FOUR effect + parameter catalog (vendored from zoom-explorer)
-  editor/          PatchEditor, EffectPicker (search), RestorePanel, RecipePanel
+  editor/          PatchEditor (stompbox board), EffectPicker (search), RestorePanel, RecipePanel
+  ui/              PedalHeader (LCD, patch up/down, lights), Knob (rotary pot), PatchList
   recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal), recipes/*.json
   tempo/delay.ts   ms = 60000 / BPM × note value
   log/ probe/      Log, export, console UI
-  App.tsx          Page: connect, identify, console, backup, editor, restore, recipe, log
+  App.tsx          Page: auto-connect, auto-backup, header, board, patch list; recipes,
+                   restore and the lab (ports, identity, console, log) fold away
 tests/             Vitest; fixtures/ hold real pedal dumps
 ```
 
@@ -62,3 +65,17 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
   program are rewritten), so it needs no encoder either.
 - **Compare PTCF bytes only.** A slot's 832 bytes carry leftovers from older
   patches after the PTCF length.
+
+## Auto-connect and auto-backup
+
+- On load, `navigator.permissions.query({ name: 'midi', sysex: true })`. When
+  it says `granted`, `requestMIDIAccess` needs no user gesture, so the app
+  connects at once. Otherwise the Connect button asks (a click is a gesture).
+- Port hot-plug: the backend's `statechange` refreshes the port list, and
+  `autoSelect` picks the Zoom ports. A new port pair makes a new session.
+- When a session's ports are open (`readySession`), the app runs one backup
+  for that session, in memory only. A download on every page load would be
+  noise, so the `.syx` file waits for a click.
+- Program Change is not a write: `classify()` calls it `unknown` with no
+  research mode, and the write gate never sees it. It can still make
+  auto-save keep edits on the patch you leave — the same as a footswitch.

@@ -17,9 +17,16 @@ import { useLog } from './log/useLog';
 import { ConfirmDialog } from './probe/ConfirmDialog';
 import { LogView } from './probe/LogView';
 import { PatchEditor } from './editor/PatchEditor';
-import { RecipePanel } from './editor/RecipePanel';
+import { BUILT_IN, RecipePanel } from './editor/RecipePanel';
 import { RestorePanel, type SyxEntry } from './editor/RestorePanel';
 import type { WritePolicy } from './midi/writes';
+import type { RawPatch } from './midi/ptcf';
+import { patchSelect, stepSlot } from './midi/patchSelect';
+import { PedalHeader } from './ui/PedalHeader';
+import { PatchList } from './ui/PatchList';
+
+/** Patch names that the built-in recipes write: marked as yours in the patch list. */
+const RECIPE_NAMES = new Set(BUILT_IN.map((b) => (b.recipe as { patchName?: string }).patchName).filter(Boolean));
 
 export function App() {
   const log = useLog();
@@ -47,6 +54,14 @@ export function App() {
   const [patchCount, setPatchCount] = useState(0);
   const [currentSlot, setCurrentSlot] = useState<number | null>(null);
   const [allowRealPatchEdits, setAllowRealPatchEdits] = useState(false);
+  const [midiState, setMidiState] = useState<'checking' | 'no-midi' | 'need-permission' | 'ready'>('checking');
+  // The session whose ports are open: the auto backup waits for it.
+  const [readySession, setReadySession] = useState<ProbeSession | null>(null);
+  const [backupState, setBackupState] = useState<'none' | 'running' | 'done' | 'failed'>('none');
+  const [backupFile, setBackupFile] = useState<{ name: string; blob: Blob } | null>(null);
+  const [names, setNames] = useState<ReadonlyMap<number, string>>(new Map());
+  const [patch, setPatch] = useState<RawPatch | null>(null);
+  const setName = useCallback((slot: number, name: string) => setNames((cur) => new Map(cur).set(slot, name)), []);
   const logAdd = log.add;
   const panelLog = useCallback(
     (level: 'info' | 'warn' | 'error', text: string, notes?: string[]) => logAdd(level, text, undefined, notes),
@@ -55,17 +70,19 @@ export function App() {
   // Writable = "Empty" in the backup, or Empty again after a restore, or written by this app.
   const ownSlots = useRef(new Set<number>());
   const onSlotWritten = useCallback((slot: number, name: string) => {
+    setName(slot, name);
     setScratchSlots((cur) => {
       const next = new Set(cur);
       if (name === 'Empty' || ownSlots.current.has(slot)) next.add(slot);
       else next.delete(slot);
       return next;
     });
-  }, []);
-  const onRecipeWritten = useCallback((slot: number) => {
+  }, [setName]);
+  const onRecipeWritten = useCallback((slot: number, name: string) => {
+    setName(slot, name);
     ownSlots.current.add(slot);
     setScratchSlots((cur) => new Set(cur).add(slot));
-  }, []);
+  }, [setName]);
   const policy: WritePolicy = useMemo(
     () => ({ backupTaken: sessionBackup.length > 0, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits, confirmedSlot: null }),
     [sessionBackup, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits],
@@ -88,6 +105,7 @@ export function App() {
     try {
       const b = mock ? createMockBackend() : await requestWebMidi();
       setBackend(b);
+      setMidiState('ready');
       const { ins, outs } = refreshPorts(b);
       logAdd('info', `${mock ? 'MOCK backend' : 'Web MIDI'} ready. SysEx enabled: ${b.sysexEnabled}. ${ins.length} input(s), ${outs.length} output(s).`);
       for (const p of ins) logAdd('info', `  input  "${p.name}" (${p.manufacturer || '?'}) ${p.state} id=${p.id}`);
@@ -97,6 +115,25 @@ export function App() {
       logAdd('error', e instanceof Error ? e.message : String(e));
     }
   };
+
+  // Auto-connect: once Chrome has the MIDI + SysEx permission, it gives
+  // access without a prompt, so the page connects on load. Without the
+  // permission, the Connect button asks for it (a click is a user gesture).
+  const autoTried = useRef(false);
+  useEffect(() => {
+    if (autoTried.current) return;
+    autoTried.current = true;
+    if (typeof navigator === 'undefined' || !('requestMIDIAccess' in navigator)) {
+      setMidiState('no-midi');
+      return;
+    }
+    navigator.permissions
+      .query({ name: 'midi', sysex: true } as unknown as PermissionDescriptor)
+      .then((p) => (p.state === 'granted' ? connect(false) : setMidiState('need-permission')))
+      .catch(() => setMidiState('need-permission'));
+    // connect is stable enough here: it runs once, at load.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!backend) return;
@@ -122,11 +159,17 @@ export function App() {
     setSessionBackup([]);
     setScratchSlots(new Set());
     setCurrentSlot(null);
-    s.open().catch((e) =>
-      logAdd('error', `Cannot open the MIDI port: ${e instanceof Error ? e.message : String(e)}. Close Handy Guitar Lab or any DAW that holds it.`),
+    setBackupState('none');
+    setBackupFile(null);
+    s.open().then(
+      () => setReadySession(s),
+      (e) => logAdd('error', `Cannot open the MIDI port: ${e instanceof Error ? e.message : String(e)}. Close Handy Guitar Lab or any DAW that holds it.`),
     );
     setSession(s);
-    return () => s.close();
+    return () => {
+      setReadySession((cur) => (cur === s ? null : cur));
+      s.close();
+    };
   }, [input, output, logAdd]);
 
   // Track which slot the pedal is on: 64 26 after a patch change, or the
@@ -218,10 +261,11 @@ export function App() {
     }
   };
 
-  const runBackup = async () => {
+  const runBackup = async (auto = false) => {
     if (!session || deviceId === null) return;
     const ctl = new AbortController();
     setListing(ctl);
+    setBackupState('running');
     try {
       // 44 → 43 <count 2> <length 2> <? 2> <per bank 2> (zoom-explorer README)
       const info = await session.request(zoomSysex(deviceId, [0x44, 0x00, 0x00, 0x00, 0x00]), 'backup: bank info', (d) => isZoomSysex(d) && d[4] === 0x43, 1500);
@@ -238,9 +282,14 @@ export function App() {
         setPatchCount(count);
         setSessionBackup(dumps.filter((d) => d.sysex).map((d) => ({ slot: d.slot, name: d.patch?.name ?? d.patch?.shortName ?? '?', msg: Array.from(d.sysex!) })));
         setScratchSlots(new Set(dumps.filter((d) => d.patch?.name?.trimEnd() === 'Empty').map((d) => d.slot)));
-      }
+        setNames(new Map(dumps.map((d) => [d.slot, d.patch?.name?.trimEnd() ?? d.patch?.shortName ?? '?'])));
+        setBackupState('done');
+      } else setBackupState('failed');
       const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-      downloadBlob(`g2xfour-backup-${stamp}.syx`, new Blob([toSyx(dumps)], { type: 'application/octet-stream' }));
+      const file = { name: `g2xfour-backup-${stamp}.syx`, blob: new Blob([toSyx(dumps)], { type: 'application/octet-stream' }) };
+      setBackupFile(file);
+      // The automatic backup keeps the file in memory: no download on every page load.
+      if (!auto) downloadBlob(file.name, file.blob);
       setSummary({
         name: `g2xfour-backup-${stamp}.json`,
         text: JSON.stringify(
@@ -265,17 +314,41 @@ export function App() {
       });
       logAdd(
         ok.length === count ? 'info' : 'warn',
-        `Backup done: ${ok.length}/${dumps.length} patches decoded${ctl.signal.aborted ? ' (stopped by user)' : ''}. ${dups.length} duplicate group(s). Saved g2xfour-backup-${stamp}.syx. Click "Save summary" for the .json.`,
+        `Backup done: ${ok.length}/${dumps.length} patches decoded${ctl.signal.aborted ? ' (stopped by user)' : ''}. ${dups.length} duplicate group(s). ${auto ? 'Automatic backup (in memory): click "Save backup (.syx)" to keep a file.' : `Saved g2xfour-backup-${stamp}.syx.`} Click "Save summary" for the .json.`,
         undefined,
         dups.map((g) => `same bytes: slots ${g.join(', ')} — "${dumps[g[0]].patch?.name ?? '?'}"`),
       );
     } catch (e) {
+      setBackupState('failed');
       logAdd('error', `Backup failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setListing(null);
       setProgress('');
     }
   };
+
+  // Back up once per connection, on its own: writes need it, and a reconnect clears it.
+  const autoBackedUp = useRef<ProbeSession | null>(null);
+  useEffect(() => {
+    if (!readySession || readySession !== session || deviceId === null || autoBackedUp.current === readySession || backend?.kind === 'mock') return;
+    autoBackedUp.current = readySession;
+    void runBackup(true);
+    // runBackup reads the current session; it must not re-trigger this effect.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [readySession, session, deviceId]);
+
+  // --- patch select (Bank Select + Program Change, like the pedal's own footswitches)
+  const selectPatch = (slot: number) => {
+    if (!session || deviceId === null) return;
+    try {
+      for (const m of patchSelect(slot, perBank)) session.send(m, `select patch ${slot}`);
+      // Ask which patch is active: the reply moves the screen, so it shows what the pedal did.
+      session.send(zoomSysex(deviceId, [0x33]), 'which patch is active');
+    } catch (e) {
+      logAdd('error', `Patch select failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+  const total = patchCount || 300;
 
   // --- 5. export --------------------------------------------------------------
   const exportLog = () => {
@@ -297,16 +370,61 @@ export function App() {
 
   const hexBox = useRef<HTMLTextAreaElement>(null);
 
+  const status = backend?.kind === 'mock' ? 'mock' : midiState === 'no-midi' ? 'no-midi' : !backend ? 'need-permission' : session ? 'connected' : 'no-pedal';
+  const mine = useMemo(() => new Set([...names].filter(([slot, n]) => RECIPE_NAMES.has(n) || ownSlots.current.has(slot)).map(([slot]) => slot)), [names]);
+
   return (
     <main>
-      <header>
-        <h1>Zoom G2X FOUR — SysEx probe</h1>
-        <p className="muted">Phase 1. Read-only. Every protocol detail here is a hypothesis from the B2/G1 FOUR, not G2X FOUR fact.</p>
-        {backend?.kind === 'mock' && <div className="banner">MOCK PEDAL — the replies are invented. They prove the UI works, not the protocol.</div>}
-      </header>
+      <PedalHeader
+        status={status}
+        slot={currentSlot}
+        name={patch ? (patch.name ?? patch.shortName).trimEnd() : null}
+        tempo={patch?.tempo ?? null}
+        backup={{ state: backupState, progress }}
+        canSwitch={!!session && currentSlot !== null}
+        editReal={allowRealPatchEdits}
+        onConnect={() => connect(false)}
+        onStep={(d) => currentSlot !== null && selectPatch(stepSlot(currentSlot, d, total))}
+        onEditReal={setAllowRealPatchEdits}
+      />
+      {backend?.kind === 'mock' && <div className="banner">MOCK PEDAL — the replies are invented. They prove the UI works, not the protocol.</div>}
+
+      <section aria-labelledby="s-board" className="board-section">
+        <h2 id="s-board">Pedalboard</h2>
+        {deviceId !== null && <PatchEditor session={session} deviceId={deviceId} policy={policy} log={panelLog} onPatch={setPatch} />}
+        {!session && <p className="muted">{status === 'need-permission' ? 'Press Connect and allow "MIDI device control & reprogram".' : 'Waiting for the pedal. Plug it in with a USB data cable and close Handy Guitar Lab.'}</p>}
+      </section>
+
+      <section aria-labelledby="s-patches">
+        <div className="row spread">
+          <h2 id="s-patches">Patches</h2>
+          <div className="row">
+            {backupFile && <button onClick={() => downloadBlob(backupFile.name, backupFile.blob)}>Save backup (.syx)</button>}
+            {summary && <button onClick={() => downloadText(summary.name, summary.text)}>Save summary (.json)</button>}
+            <button disabled={!session || deviceId === null || !!listing} onClick={() => runBackup(false)}>
+              Back up again
+            </button>
+          </div>
+        </div>
+        <PatchList names={names} count={names.size ? total : 0} current={currentSlot} mine={mine} disabled={!session} onSelect={selectPatch} />
+      </section>
+
+      <details className="panel">
+        <summary>Song recipes → new patch</summary>
+        {deviceId !== null && <RecipePanel session={session} deviceId={deviceId} policy={policy} onSlotWritten={onRecipeWritten} log={panelLog} />}
+      </details>
+
+      <details className="panel">
+        <summary>Restore or copy a patch from the backup</summary>
+        {deviceId !== null && <RestorePanel session={session} deviceId={deviceId} policy={policy} sessionBackup={sessionBackup} onSlotWritten={onSlotWritten} log={panelLog} />}
+      </details>
+
+      <details className="panel lab">
+        <summary>Lab: ports, identity, raw SysEx, log</summary>
+
 
       <section aria-labelledby="s-connect">
-        <h2 id="s-connect">1 · Connect</h2>
+        <h2 id="s-connect">Ports</h2>
         <div className="row">
           <button className="primary" onClick={() => connect(false)}>
             Connect
@@ -347,7 +465,7 @@ export function App() {
       </section>
 
       <section aria-labelledby="s-id">
-        <h2 id="s-id">2 · Identify</h2>
+        <h2 id="s-id">Identify</h2>
         <div className="row">
           <button className="primary" disabled={!session || busy || !!listing} onClick={sendIdentity}>
             Send Identity Request
@@ -392,7 +510,7 @@ export function App() {
       </section>
 
       <section aria-labelledby="s-console">
-        <h2 id="s-console">3 · Raw SysEx console</h2>
+        <h2 id="s-console">Raw SysEx console</h2>
         <div className="prefills">
           {READ_COMMANDS.map((c) => (
             <button key={c.id} title={c.note} onClick={() => prefill(c.body)}>
@@ -422,10 +540,6 @@ export function App() {
           <button disabled={!session || deviceId === null || !!listing} onClick={runListing}>
             List flash files
           </button>
-          <button disabled={!session || deviceId === null || !!listing} onClick={runBackup}>
-            Back up all patches
-          </button>
-          {summary && <button onClick={() => downloadText(summary.name, summary.text)}>Save summary (.json)</button>}
           {listing && <button onClick={() => listing.abort()}>Stop</button>}
           {progress && <span className="muted small">{progress}</span>}
           <label className="research">
@@ -439,32 +553,9 @@ export function App() {
         )}
       </section>
 
-      <section aria-labelledby="s-edit">
-        <h2 id="s-edit">4 · Edit current patch</h2>
-        <p className="muted small">
-          Writes need a backup from this session. Free to write: {scratchSlots.size} slot(s) ("Empty", or written here). Pedal is on slot {currentSlot ?? '?'}
-          {currentSlot !== null && (scratchSlots.has(currentSlot) ? ' (Empty — free to edit)' : ' (real patch)')}.
-        </p>
-        <label className="warn-text">
-          <input type="checkbox" checked={allowRealPatchEdits} onChange={(e) => setAllowRealPatchEdits(e.target.checked)} /> Edit real patches — auto-save is ON, so every
-          change is kept when you leave the patch
-        </label>
-        {deviceId !== null && <PatchEditor session={session} deviceId={deviceId} policy={policy} log={panelLog} />}
-      </section>
-
-      <section aria-labelledby="s-restore">
-        <h2 id="s-restore">5 · Restore from backup</h2>
-        {deviceId !== null && <RestorePanel session={session} deviceId={deviceId} policy={policy} sessionBackup={sessionBackup} onSlotWritten={onSlotWritten} log={panelLog} />}
-      </section>
-
-      <section aria-labelledby="s-recipe">
-        <h2 id="s-recipe">6 · Tone recipe → patch</h2>
-        {deviceId !== null && <RecipePanel session={session} deviceId={deviceId} policy={policy} onSlotWritten={onRecipeWritten} log={panelLog} />}
-      </section>
-
       <section aria-labelledby="s-log" className="log-section">
         <div className="row spread">
-          <h2 id="s-log">7 · Log</h2>
+          <h2 id="s-log">Log</h2>
           <div className="row">
             <button onClick={exportLog} disabled={log.entries.length === 0}>
               Export log
@@ -474,6 +565,7 @@ export function App() {
         </div>
         <LogView entries={log.entries} />
       </section>
+      </details>
 
       {pending && <ConfirmDialog bytes={pending.bytes} cls={pending.cls} researchMode={researchMode} onConfirm={doSend} onCancel={() => setPending(null)} />}
     </main>
