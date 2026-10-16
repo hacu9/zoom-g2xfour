@@ -66,6 +66,35 @@ effect type (green drive, brown amp, white delay, and so on).
 The board is read-only (🔒) until the backup finishes, and on real patches
 until you click EDIT REAL PATCHES.
 
+### Recorder
+
+Records what you play through the pedal, then plays it back.
+
+1. Click **Use pedal audio**. Chrome asks for microphone permission once.
+   The G2X FOUR is a USB audio interface, so its output appears as a
+   microphone. The app picks it by name. Use the **Input** list to change it.
+2. Play. The bar shows the level. If "Clipping" shows, turn the pedal's
+   output level down.
+3. Click the red button to start. Click it again to stop. The take appears
+   in the list with the patch name and the time.
+
+- **Loop playback** repeats the take, so you can play along over it.
+- **Save** downloads the take (`.webm`, Opus, 256 kbit/s).
+- The takes stay in memory only. A reload deletes the takes that you did not save.
+- The page does not play your input live. You hear yourself through the
+  pedal's headphone output, with no delay and no feedback loop.
+
+**Expression pedal.** Click **Learn pedal**, then move the pedal. The app
+keeps the first control message that arrives: a Control Change, or the edit
+report of the knob that the pedal drives in this patch. Rock the pedal from
+heel to toe once so the app learns the range. Then a push to the toe end
+starts or stops the recording. The bar shows the pedal position.
+
+Warning: we did not verify on hardware what the G2X FOUR sends over USB
+when the expression pedal moves. If "Move the pedal now…" stays, the pedal
+sends nothing for that patch. Try a patch that assigns the pedal to an
+effect (volume, wah, or a knob).
+
 ### Patches
 
 Every patch from the backup, in banks of 10 like the pedal. Click one to

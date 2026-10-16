@@ -19,7 +19,9 @@ src/
     identity.ts / zoom.ts / hex.ts / annotate.ts / fileList.ts
   catalog/         G2 FOUR effect + parameter catalog (vendored from zoom-explorer)
   editor/          PatchEditor (stompbox board), EffectPicker (search), RestorePanel, RecipePanel
-  ui/              PedalHeader (LCD, patch up/down, lights), Knob (rotary pot), PatchList
+  ui/              PedalHeader (LCD, patch up/down, lights), Knob (rotary pot), PatchList,
+                   Recorder (USB audio takes, expression pedal learn)
+  audio/           recorder.ts (input pick, file name, level), pedal.ts (learn + toe switch)
   recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal), recipes/*.json
   tempo/delay.ts   ms = 60000 / BPM × note value
   log/ probe/      Log, export, console UI
@@ -79,3 +81,19 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
 - Program Change is not a write: `classify()` calls it `unknown` with no
   research mode, and the write gate never sees it. It can still make
   auto-save keep edits on the patch you leave — the same as a footswitch.
+
+## Recorder
+
+- The G2X FOUR is a USB audio interface. `getUserMedia` opens it with echo
+  cancel, noise suppression and auto gain off: a guitar is not a voice.
+- Device labels appear only after permission. So the first open uses the
+  default input, then switches once to the input whose name matches Zoom/G2.
+  The switch happens one time at most: an unstable device id must not loop.
+- `MediaRecorder` writes webm/Opus. The input never goes to the speakers:
+  the pedal's headphone output is the monitor, with no added latency.
+- Takes are blob URLs in memory. Nothing is stored, nothing is sent.
+- **Expression pedal (not verified on hardware).** `audio/pedal.ts` learns
+  the first control message: a CC (not Bank Select 0/32) or a Zoom edit report
+  `64 20 00|01 <slot 0-5> <param ≥ 2> <value>`. `PedalTracker` learns the range
+  and fires "toe" once per push past 95 %, re-armed below 50 %. The recorder only
+  listens. It sends nothing to the pedal.

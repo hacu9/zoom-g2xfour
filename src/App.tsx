@@ -24,6 +24,7 @@ import type { RawPatch } from './midi/ptcf';
 import { patchSelect, stepSlot } from './midi/patchSelect';
 import { PedalHeader } from './ui/PedalHeader';
 import { PatchList } from './ui/PatchList';
+import { Recorder } from './ui/Recorder';
 
 /** Patch names that the built-in recipes write: marked as yours in the patch list. */
 const RECIPE_NAMES = new Set(BUILT_IN.map((b) => (b.recipe as { patchName?: string }).patchName).filter(Boolean));
@@ -412,6 +413,11 @@ export function App() {
         <h2 id="s-board">Pedalboard</h2>
         {deviceId !== null && <PatchEditor session={session} deviceId={deviceId} policy={policy} log={panelLog} onPatch={setPatch} />}
         {!session && <p className="muted">{status === 'need-permission' ? 'Press Connect and allow "MIDI device control & reprogram".' : 'Waiting for the pedal. Plug it in with a USB data cable and close Handy Guitar Lab.'}</p>}
+      </section>
+
+      <section aria-labelledby="s-rec" className="rec-section">
+        <h2 id="s-rec">Recorder</h2>
+        <Recorder session={session} patchName={patch ? (patch.name ?? patch.shortName).trimEnd() : null} />
       </section>
 
       <section aria-labelledby="s-patches">
