@@ -91,9 +91,13 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
   The switch happens one time at most: an unstable device id must not loop.
 - `MediaRecorder` writes webm/Opus. The input never goes to the speakers:
   the pedal's headphone output is the monitor, with no added latency.
-- Takes are blob URLs in memory. Nothing is stored, nothing is sent.
+- `devicechange` refreshes the input list. The track's `ended` event (unplug)
+  drops the stream and ends a running take; `onstop` still keeps the take.
+- Takes are blob URLs in memory. Unmount stops a running take and revokes them. Nothing is stored, nothing is sent.
 - **Expression pedal (not verified on hardware).** `audio/pedal.ts` learns
   the first control message: a CC (not Bank Select 0/32) or a Zoom edit report
-  `64 20 00|01 <slot 0-5> <param ≥ 2> <value>`. `PedalTracker` learns the range
-  and fires "toe" once per push past 95 %, re-armed below 50 %. The recorder only
+  `64 20 00|01 <slot 0-5> <param ≥ 2> <value>`. `PedalTracker` learns the range,
+  also for CC. A new top is calibration and never fires, and a range below
+  `MIN_SPAN` (10) is noise. Then "toe" fires once per push past 95 %, re-armed
+  below 50 %. The recorder only
   listens. It sends nothing to the pedal.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PedalTracker, readControl } from '../src/audio/pedal';
+import { MIN_SPAN, PedalTracker, readControl } from '../src/audio/pedal';
 import { extensionFor, formatDuration, peakLevel, pickMimeType, pickPedalInput, takeFileName } from '../src/audio/recorder';
 
 const zoomKnob = (slot: number, param: number, value: number, ack = 0) =>
@@ -23,31 +23,57 @@ describe('readControl', () => {
     expect(readControl(zoomKnob(0, 1, 5))).toBeNull(); // effect id
     expect(readControl(new Uint8Array([0xf0, 0x52, 0x00, 0x6e, 0x64, 0x26, 0, 0, 25, 0, 0, 0, 0xf7]))).toBeNull(); // patch change
   });
+  it('ignores other 64 20 kinds, slots above 5 and short messages', () => {
+    expect(readControl(zoomKnob(1, 3, 300, 0x02))).toBeNull();
+    expect(readControl(zoomKnob(6, 3, 300))).toBeNull();
+    expect(readControl(zoomKnob(1, 3, 300).slice(0, 10))).toBeNull();
+    expect(readControl(zoomKnob(1, 3, 300, 0x01))?.value).toBe(300); // the ack of a knob edit
+  });
 });
 
 describe('PedalTracker', () => {
+  const cc = readControl(new Uint8Array([0xb0, 7, 0]))!.sig;
+  it('does not fire during the first heel-to-toe sweep', () => {
+    const t = new PedalTracker(cc);
+    const toes = [0, 5, 10, 20, 40, 80, 120, 127].map((v) => t.feed({ sig: cc, value: v })?.toe);
+    expect(toes.every((x) => x === false)).toBe(true);
+  });
+  it('does not fire mid-travel when a later push goes past the first sweep', () => {
+    const t = new PedalTracker(cc);
+    [0, 60, 10].forEach((v) => t.feed({ sig: cc, value: v })); // partial sweep, back to the heel
+    expect([70, 100, 127].map((v) => t.feed({ sig: cc, value: v })?.toe)).toEqual([false, false, false]);
+    t.feed({ sig: cc, value: 10 });
+    expect(t.feed({ sig: cc, value: 127 })?.toe).toBe(true);
+  });
   it('fires toe once per push to the toe end, re-armed below half', () => {
-    const sig = readControl(new Uint8Array([0xb0, 7, 0]))!.sig;
-    const t = new PedalTracker(sig);
-    const at = (v: number) => t.feed({ sig, value: v });
-    expect(at(0)).toEqual({ position: 0, toe: false });
+    const t = new PedalTracker(cc);
+    const at = (v: number) => t.feed({ sig: cc, value: v });
+    at(0);
+    at(127); // calibration
+    expect(at(40)?.toe).toBe(false);
     expect(at(127)?.toe).toBe(true);
     expect(at(125)?.toe).toBe(false); // still at the toe: no repeat
     expect(at(127)?.toe).toBe(false);
     at(40);
-    expect(at(127)?.toe).toBe(true);
+    expect(at(121)?.toe).toBe(true); // 95 % of 0–127 is 120.65
+    at(40);
+    expect(at(114)?.toe).toBe(false); // 90 % is not the toe end
+  });
+  it('ignores jitter smaller than MIN_SPAN', () => {
+    const t = new PedalTracker(cc);
+    const toes = [3, 4, 3, 4, 3, 4, MIN_SPAN + 3, 3, MIN_SPAN + 3].map((v) => t.feed({ sig: cc, value: v })?.toe);
+    expect(toes).toEqual([false, false, false, false, false, false, false, false, true]);
   });
   it('learns the range of a Zoom knob', () => {
     const sig = readControl(zoomKnob(2, 4, 0))!.sig;
     const t = new PedalTracker(sig);
-    expect(t.feed({ sig, value: 10 })).toEqual({ position: 0, toe: false }); // no range yet
-    expect(t.feed({ sig, value: 0 })?.position).toBe(0);
-    expect(t.feed({ sig, value: 100 })).toEqual({ position: 1, toe: true });
+    t.feed({ sig, value: 0 });
+    expect(t.feed({ sig, value: 100 })).toEqual({ position: 1, toe: false });
     expect(t.feed({ sig, value: 50 })?.position).toBe(0.5);
+    expect(t.feed({ sig, value: 100 })).toEqual({ position: 1, toe: true });
   });
   it('ignores other controls', () => {
-    const sig = readControl(new Uint8Array([0xb0, 7, 0]))!.sig;
-    expect(new PedalTracker(sig).feed(readControl(new Uint8Array([0xb0, 11, 127]))!)).toBeNull();
+    expect(new PedalTracker(cc).feed(readControl(new Uint8Array([0xb0, 11, 127]))!)).toBeNull();
   });
 });
 
@@ -60,6 +86,7 @@ describe('recorder helpers', () => {
     ];
     expect(pickPedalInput(devs)?.label).toBe('Line (ZOOM G2X FOUR Audio)');
     expect(pickPedalInput(devs.slice(0, 2))).toBeUndefined();
+    expect(pickPedalInput([{ kind: 'audioinput', label: 'Microphone (Logitech G233)' }])).toBeUndefined();
   });
   it('prefers webm/opus', () => {
     expect(pickMimeType(() => true)).toBe('audio/webm;codecs=opus');

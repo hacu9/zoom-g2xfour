@@ -48,30 +48,34 @@ export function readControl(d: Uint8Array): PedalReading | null {
   return null;
 }
 
+/** A range smaller than this is noise, not a pedal sweep. */
+export const MIN_SPAN = 10;
+
 /**
  * Turns pedal readings into a 0–1 position and a "toe down" event.
- * The range is learned from what the pedal sends (CC is always 0–127).
+ * The range is learned from what the pedal sends, also for CC: the first
+ * heel-to-toe sweep only calibrates and never fires.
  */
 export class PedalTracker {
-  private min: number;
-  private max: number;
+  private min = Infinity;
+  private max = -Infinity;
   private armed = false;
 
-  constructor(readonly sig: PedalSignature) {
-    this.min = sig.kind === 'cc' ? 0 : Infinity;
-    this.max = sig.kind === 'cc' ? 127 : -Infinity;
-  }
+  constructor(readonly sig: PedalSignature) {}
 
   /** Returns the position, and toe = true once each time the pedal reaches the toe end. */
   feed(r: PedalReading): { position: number; toe: boolean } | null {
     if (r.sig.key !== this.sig.key) return null;
+    // A new top is calibration, not a push: disarm until the pedal comes back.
+    if (r.value > this.max) this.armed = false;
     this.min = Math.min(this.min, r.value);
     this.max = Math.max(this.max, r.value);
     const span = this.max - this.min;
     const position = span > 0 ? (r.value - this.min) / span : 0;
+    if (span < MIN_SPAN) return { position, toe: false };
     // Hysteresis: back below half arms it, then the toe end fires once.
     if (position <= 0.5) this.armed = true;
-    const toe = this.armed && span > 0 && position >= 0.95;
+    const toe = this.armed && position >= 0.95;
     if (toe) this.armed = false;
     return { position, toe };
   }

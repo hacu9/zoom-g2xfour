@@ -2,7 +2,7 @@
 
 /** The pedal's USB audio input, if the browser lists it. */
 export function pickPedalInput<T extends { kind: string; label: string }>(devices: T[]): T | undefined {
-  return devices.find((d) => d.kind === 'audioinput' && /zoom|g2x?\s*four|g2/i.test(d.label));
+  return devices.find((d) => d.kind === 'audioinput' && /zoom|g2x?\s*four/i.test(d.label));
 }
 
 /** The first container the browser can record. Chrome: webm/opus. */

@@ -81,14 +81,15 @@ Records what you play through the pedal, then plays it back.
 - **Loop playback** repeats the take, so you can play along over it.
 - **Save** downloads the take (`.webm`, Opus, 256 kbit/s).
 - The takes stay in memory only. A reload deletes the takes that you did not save.
+- If you unplug the pedal during a take, the take stops and stays in the list.
 - The page does not play your input live. You hear yourself through the
   pedal's headphone output, with no delay and no feedback loop.
 
 **Expression pedal.** Click **Learn pedal**, then move the pedal. The app
 keeps the first control message that arrives: a Control Change, or the edit
 report of the knob that the pedal drives in this patch. Rock the pedal from
-heel to toe once so the app learns the range. Then a push to the toe end
-starts or stops the recording. The bar shows the pedal position.
+heel to toe once so the app learns the range. This first sweep does not
+start anything. Then each push to the toe end starts or stops the recording. The bar shows the pedal position.
 
 Warning: we did not verify on hardware what the G2X FOUR sends over USB
 when the expression pedal moves. If "Move the pedal now…" stays, the pedal

@@ -79,7 +79,43 @@ export function Recorder({ session, patchName }: Props) {
 
   // Close the input when the panel goes away.
   useEffect(() => () => stream?.getTracks().forEach((t) => t.stop()), [stream]);
-  useEffect(() => () => takes.forEach((t) => URL.revokeObjectURL(t.url)), []); // eslint-disable-line react-hooks/exhaustive-deps
+  // On unmount: stop a running take and release every take's URL (the ref sees the latest list).
+  const takesRef = useRef(takes);
+  takesRef.current = takes;
+  useEffect(
+    () => () => {
+      const rec = recorder.current;
+      recorder.current = null;
+      if (rec && rec.state !== 'inactive') {
+        rec.onstop = null;
+        rec.stop();
+      }
+      takesRef.current.forEach((t) => URL.revokeObjectURL(t.url));
+    },
+    [],
+  );
+
+  // Plug or unplug: refresh the list. If our input goes away, drop the stream and end the take.
+  useEffect(() => {
+    if (!supported) return;
+    const onChange = () => void listInputs();
+    navigator.mediaDevices.addEventListener('devicechange', onChange);
+    return () => navigator.mediaDevices.removeEventListener('devicechange', onChange);
+  }, [supported, listInputs]);
+  useEffect(() => {
+    const track = stream?.getAudioTracks()[0];
+    if (!track) return;
+    const onEnded = () => {
+      if (recorder.current?.state === 'recording') recorder.current.stop(); // onstop still saves the take
+      recorder.current = null;
+      setRecording(false);
+      setStream(null);
+      setLevel(0);
+      setError('The audio input went away. Plug the pedal back in, then click Use pedal audio.');
+    };
+    track.addEventListener('ended', onEnded);
+    return () => track.removeEventListener('ended', onEnded);
+  }, [stream]);
 
   // Level meter.
   useEffect(() => {
@@ -217,7 +253,16 @@ export function Recorder({ session, patchName }: Props) {
         </div>
       </div>
       {error && <p className="warn-text">{error}</p>}
-      {stream && !pickPedalInput(inputs) && <p className="small warn-text">I do not see the G2X FOUR as an audio input. Plug it in with USB, then choose it here.</p>}
+      {stream && !pickPedalInput(inputs) && <p className="small warn-text">I do not see the G2X FOUR as an audio input. Plug it in with USB: it appears in the Input list.</p>}
+      {stream && !recording && (() => {
+        const zoom = pickPedalInput(inputs);
+        return zoom && zoom.deviceId !== inputId ? (
+          <p className="small">
+            The pedal is here now.{' '}
+            <button onClick={() => void open(zoom.deviceId)}>Use {zoom.label}</button>
+          </p>
+        ) : null;
+      })()}
 
       <div className="exp">
         <div className="row">
