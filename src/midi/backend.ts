@@ -57,20 +57,26 @@ export async function requestWebMidi(): Promise<MidiBackend> {
   // One wrapper per port id, so a statechange (which Chrome also fires when a
   // port merely opens) never hands React new objects and never tears down a session.
   const cache = new Map<string, InputPort | OutputPort>();
-  const base = (p: MIDIPort) => ({
-    id: p.id,
-    name: p.name ?? '(unnamed)',
-    manufacturer: p.manufacturer ?? '',
-    get state() {
-      return p.state;
-    },
-    open: async () => {
-      await p.open();
-    },
-    close: async () => {
-      await p.close();
-    },
-  });
+  const base = (p: MIDIPort) => {
+    // Run open/close strictly in call order. An old session's close() must not
+    // finish after a new session's open() (seen after a hot reload: port closed, pedal silent).
+    let queue: Promise<unknown> = Promise.resolve();
+    const serial = (op: () => Promise<unknown>) => {
+      const next = queue.then(op, op);
+      queue = next.catch(() => {});
+      return next.then(() => undefined);
+    };
+    return {
+      id: p.id,
+      name: p.name ?? '(unnamed)',
+      manufacturer: p.manufacturer ?? '',
+      get state() {
+        return p.state;
+      },
+      open: () => serial(() => p.open()),
+      close: () => serial(() => p.close()),
+    };
+  };
   const wrapInput = (p: MIDIInput): InputPort => {
     const hit = cache.get(p.id);
     if (hit) return hit as InputPort;

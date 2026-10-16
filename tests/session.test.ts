@@ -32,7 +32,8 @@ describe('ProbeSession against the mock pedal', () => {
 
   it('refuses unknown Zoom commands unless research mode is on', () => {
     const { session, sent } = setup();
-    const edit = zoomSysex(0x6e, [0x64, 0x20, 0x00, 0x01, 0x02, 0x10, 0x00, 0, 0, 0]);
+    // 05 is documented as harmless but not on the read list: unknown, research only.
+    const edit = zoomSysex(0x6e, [0x05]);
     expect(() => session.send(edit, 'x')).toThrow(/Research mode/);
     expect(sent).toHaveLength(0);
     session.send(edit, 'x', { researchMode: true });

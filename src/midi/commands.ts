@@ -28,7 +28,6 @@ export const READ_COMMANDS: KnownCommand[] = [
   { id: 'current-program', label: '33 bank/program', body: [0x33], note: 'Replies with Bank Select CCs + Program Change of the current patch (zoom-explorer).' },
   { id: 'patch-count', label: '07 patch count', body: [0x07], note: 'Number of patches and patch length, reply 06 (zoom-explorer).' },
   { id: 'edit-on', label: '50 edit reports on', body: [0x50], note: 'Parameter edit enable: the pedal then reports knob/effect changes (zoom-explorer). Stores nothing.' },
-  { id: 'edit-off', label: '51 edit reports off', body: [0x51], note: 'Parameter edit disable (zoom-explorer).' },
 ];
 
 /** Reads that take arguments. Matched by shape, so the bytes may vary. */
@@ -63,7 +62,8 @@ export interface BlockedPattern {
 const READ_FILE_OPS = new Set([0x25, 0x26, 0x27, 0x29]);
 
 /** One-byte commands with a documented, harmless meaning. Every other one is blocked. */
-const SAFE_SINGLE = new Set([0x05, 0x07, 0x33, 0x44, 0x48, 0x50, 0x51, 0x55]);
+// 51 (edit reports off) is left out: without reports the app loses track of the current slot.
+const SAFE_SINGLE = new Set([0x05, 0x07, 0x33, 0x44, 0x48, 0x50, 0x55]);
 
 const DANGEROUS_FIRST: Record<number, string> = {
   0x01: 'Enters firmware update mode (zoom-explorer README).',

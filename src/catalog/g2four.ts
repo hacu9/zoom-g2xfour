@@ -24,3 +24,14 @@ export function displayValue(param: CatalogParam | undefined, value: number): st
 }
 
 export const catalogSize = Object.keys(catalog).length;
+
+export function effectByName(name: string): { id: number; effect: CatalogEffect } | undefined {
+  for (const [key, effect] of Object.entries(catalog)) {
+    if (effect.name.toUpperCase() === name.toUpperCase()) return { id: parseInt(key, 16), effect };
+  }
+  return undefined;
+}
+
+export function allEffects(): { id: number; effect: CatalogEffect }[] {
+  return Object.entries(catalog).map(([key, effect]) => ({ id: parseInt(key, 16), effect }));
+}

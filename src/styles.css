@@ -108,3 +108,13 @@ dialog.verdict-blocked h3 { color: var(--bad); }
   .log-line { grid-template-columns: 1fr; gap: 0; }
   .research { margin-left: 0; }
 }
+
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.slot { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: grid; gap: 6px; min-width: 0; }
+.slot[disabled] { opacity: 0.6; }
+.slot legend { font-weight: 600; font-size: 13px; }
+.slot select { width: 100%; }
+.param { display: grid; grid-template-columns: 70px 1fr 48px; gap: 6px; align-items: center; font-size: 13px; }
+.param select { grid-column: 2 / 4; }
+.param output { font-family: var(--mono); text-align: right; }
+.plan ol { margin: 6px 0; padding-left: 20px; }

@@ -7,6 +7,10 @@ export type NoteValue = '1/1' | '1/2' | '1/4' | '1/4.' | '1/4T' | '1/8' | '1/8.'
 
 export interface ToneRecipe {
   song: string;
+  /** Patch name on the pedal, max 14 characters. Defaults to the song. */
+  patchName?: string;
+  /** Where the settings come from. */
+  source?: string;
   artist?: string;
   bpm?: number;
   compressor?: { amount: number };

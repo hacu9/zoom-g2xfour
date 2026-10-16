@@ -1,0 +1,12 @@
+{
+  "song": "Rain",
+  "artist": "Rob Scallon",
+  "patchName": "Rain Scallon",
+  "source": "Fan settings, not official: dotted-eighth delay at 123 BPM, feedback 35%, mix 48% (Line 6 CustomTone 3964711, ToneLib forum threads); clean Fender-style amp; light comp; hall reverb.",
+  "bpm": 123,
+  "compressor": { "amount": 40 },
+  "amp": { "type": "clean", "gain": 25 },
+  "eq": { "low": 45, "mid": 50, "high": 55 },
+  "delay": { "note": "1/8.", "feedback": 35, "mix": 48 },
+  "reverb": { "type": "hall", "decay": 40, "mix": 30 }
+}

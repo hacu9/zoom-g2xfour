@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { duplicateGroups, patchBytesFromSlotDump, slotRequest, toSyx, type SlotDump } from '../src/midi/backup';
+import { duplicateGroups, patchBytesFromSlotDump, patchFingerprint, slotRequest, toSyx, type SlotDump } from '../src/midi/backup';
 import { parsePTCF } from '../src/midi/ptcf';
 import { classify } from '../src/midi/safety';
 
@@ -28,5 +28,18 @@ describe('slot backup', () => {
     const dumps = [d(0, 'aa', [0xf0, 1, 0xf7]), d(1, 'bb', null), d(2, 'aa', [0xf0, 2, 0xf7]), d(3, 'bb', [0xf0, 3, 0xf7])];
     expect(duplicateGroups(dumps)).toEqual([[0, 2], [1, 3]]);
     expect([...toSyx(dumps)]).toEqual([0xf0, 1, 0xf7, 0xf0, 2, 0xf7, 0xf0, 3, 0xf7]);
+  });
+});
+
+describe('patchFingerprint', () => {
+  it('ignores the leftover tail after the PTCF length (seen on real slots)', () => {
+    const bytes = patchBytesFromSlotDump(slotDump)!;
+    const len = bytes[4] | (bytes[5] << 8);
+    const dirty = [...bytes];
+    dirty[len + 10] ^= 0xff;
+    expect(patchFingerprint(dirty)).toBe(patchFingerprint(bytes));
+    const changed = [...bytes];
+    changed[len - 20] ^= 0x01;
+    expect(patchFingerprint(changed)).not.toBe(patchFingerprint(bytes));
   });
 });

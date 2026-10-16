@@ -1,5 +1,6 @@
 import type { InputPort, OutputPort } from './backend';
 import { classify, type Classification } from './safety';
+import { classifyWrite, shapeOf, type WritePolicy } from './writes';
 
 export interface SessionEvents {
   onIn(data: Uint8Array, timeStamp: number): void;
@@ -11,6 +12,7 @@ export class SafetyError extends Error {}
 /** One input + one output, with the safety gate in front of every send. */
 export class ProbeSession {
   private waiters = new Set<(data: Uint8Array) => boolean>();
+  private subscribers = new Set<(data: Uint8Array) => void>();
   private unlisten: () => void;
 
   constructor(
@@ -20,6 +22,7 @@ export class ProbeSession {
   ) {
     this.unlisten = input.listen((data, ts) => {
       this.events.onIn(data, ts);
+      this.subscribers.forEach((s) => s(data));
       for (const w of [...this.waiters]) if (w(data)) this.waiters.delete(w);
     });
   }
@@ -32,9 +35,26 @@ export class ProbeSession {
    * The only path to the output port. Blocked messages never leave; unknown
    * Zoom commands leave only when the caller passes researchMode.
    */
-  send(bytes: number[], label: string, opts: { researchMode?: boolean } = {}): Classification {
+  /** Every incoming message, for views that track pedal state. */
+  subscribe(cb: (data: Uint8Array) => void): () => void {
+    this.subscribers.add(cb);
+    return () => this.subscribers.delete(cb);
+  }
+
+  send(bytes: number[], label: string, opts: { researchMode?: boolean; write?: WritePolicy } = {}): Classification {
     const cls = classify(bytes);
+    if (opts.write && cls.verdict !== 'read') {
+      const w = classifyWrite(bytes, opts.write);
+      if (!w.ok) throw new SafetyError(`Write refused: ${w.reason}`);
+      const wcls: Classification = { verdict: 'unknown', reason: `WRITE ${w.kind} → slot ${w.slot}`, needsResearchMode: false };
+      this.output.send(bytes);
+      this.events.onOut(bytes, wcls, `${label} [write:${w.kind} slot ${w.slot}]`);
+      return wcls;
+    }
     if (cls.verdict === 'blocked') throw new SafetyError(cls.reason);
+    // A known write shape never travels the research path: it needs the write
+    // gate (backup + scratch slot), even when research mode is on.
+    if (shapeOf(bytes)) throw new SafetyError('This is a patch write. Use the editor, restore or recipe panels (they need a backup and an Empty slot).');
     if (cls.needsResearchMode && !opts.researchMode) {
       throw new SafetyError(`Research mode is off. ${cls.reason}`);
     }
@@ -49,6 +69,7 @@ export class ProbeSession {
     label: string,
     match: (data: Uint8Array) => boolean,
     timeoutMs = 1000,
+    write?: WritePolicy,
   ): Promise<Uint8Array | null> {
     return new Promise((resolve, reject) => {
       let timer: ReturnType<typeof setTimeout>;
@@ -64,7 +85,7 @@ export class ProbeSession {
         resolve(null);
       }, timeoutMs);
       try {
-        this.send(bytes, label);
+        this.send(bytes, label, { write });
       } catch (e) {
         clearTimeout(timer);
         this.waiters.delete(waiter);
@@ -82,6 +103,7 @@ export class ProbeSession {
   close() {
     this.unlisten();
     this.waiters.clear();
+    this.subscribers.clear();
     void this.input.close().catch(() => {});
     void this.output.close().catch(() => {});
   }

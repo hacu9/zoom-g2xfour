@@ -15,8 +15,19 @@ export interface SlotDump {
   /** The full SysEx reply, exactly as received. */
   sysex: Uint8Array | null;
   patch: RawPatch | null;
-  /** Hex of the 8-bit patch bytes, for duplicate detection. */
+  /** Hex of the PTCF bytes, for duplicate detection and restore checks. */
   fingerprint: string | null;
+}
+
+/**
+ * Hex of the meaningful part of a slot: PTCF bytes up to the PTCF length.
+ * The rest of the 832-byte slot holds leftovers from older patches (seen
+ * 2026-10-15: "USER-001" in the tail of an "Empty" slot), so it is ignored.
+ */
+export function patchFingerprint(bytes: number[]): string {
+  const len = bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
+  const meaningful = len > 8 && len <= bytes.length ? bytes.slice(0, len) : bytes;
+  return meaningful.map((x) => x.toString(16).padStart(2, '0')).join('');
 }
 
 const split14 = (n: number) => [n & 0x7f, (n >> 7) & 0x7f];
@@ -53,7 +64,7 @@ export async function readSlot(session: ProbeSession, deviceId: number, slot: nu
     program: slot % perBank,
     sysex: reply,
     patch: bytes ? parsePTCF(bytes) : null,
-    fingerprint: bytes ? bytes.map((x) => x.toString(16).padStart(2, '0')).join('') : null,
+    fingerprint: bytes ? patchFingerprint(bytes) : null,
   };
 }
 

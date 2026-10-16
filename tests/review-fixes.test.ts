@@ -107,3 +107,25 @@ describe('real G2X FOUR identity reply (captured 2026-10-15)', () => {
     expect(annotate(reply).join(' ')).toContain('G2 FOUR / G2X FOUR');
   });
 });
+
+describe('port open/close ordering (hot-reload race)', () => {
+  afterEach(() => vi.unstubAllGlobals());
+  it('a close() followed by open() ends with the port open', async () => {
+    let open = false;
+    const port = {
+      id: 'i1', name: 'ZOOM G2X FOUR', manufacturer: 'Zoom', state: 'connected',
+      // close is slow, open is fast: without ordering, the close lands last.
+      close: () => new Promise<void>((r) => setTimeout(() => { open = false; r(); }, 30)),
+      open: () => new Promise<void>((r) => setTimeout(() => { open = true; r(); }, 1)),
+      addEventListener: vi.fn(), removeEventListener: vi.fn(),
+    };
+    vi.stubGlobal('navigator', { requestMIDIAccess: async () => ({ sysexEnabled: true, inputs: new Map([['i1', port]]), outputs: new Map(), addEventListener: vi.fn(), removeEventListener: vi.fn() }) });
+    vi.stubGlobal('window', { isSecureContext: true });
+    const b = await requestWebMidi();
+    const w = b.inputs()[0];
+    const c = w.close();
+    const o = w.open();
+    await Promise.all([c, o]);
+    expect(open).toBe(true);
+  });
+});

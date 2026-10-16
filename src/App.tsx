@@ -16,6 +16,10 @@ import { isZoomSysex, zoomBody } from './midi/zoom';
 import { useLog } from './log/useLog';
 import { ConfirmDialog } from './probe/ConfirmDialog';
 import { LogView } from './probe/LogView';
+import { PatchEditor } from './editor/PatchEditor';
+import { RecipePanel } from './editor/RecipePanel';
+import { RestorePanel, type SyxEntry } from './editor/RestorePanel';
+import type { WritePolicy } from './midi/writes';
 
 export function App() {
   const log = useLog();
@@ -36,7 +40,36 @@ export function App() {
   // Chrome blocks a second automatic download, so the summary waits for a click.
   const [summary, setSummary] = useState<{ name: string; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  // Write side. Nothing writes until a backup ran in this session.
+  const [sessionBackup, setSessionBackup] = useState<SyxEntry[]>([]);
+  const [scratchSlots, setScratchSlots] = useState<ReadonlySet<number>>(new Set());
+  const [perBank, setPerBank] = useState(10);
+  const [patchCount, setPatchCount] = useState(0);
+  const [currentSlot, setCurrentSlot] = useState<number | null>(null);
+  const [allowRealPatchEdits, setAllowRealPatchEdits] = useState(false);
   const logAdd = log.add;
+  const panelLog = useCallback(
+    (level: 'info' | 'warn' | 'error', text: string, notes?: string[]) => logAdd(level, text, undefined, notes),
+    [logAdd],
+  );
+  // Writable = "Empty" in the backup, or Empty again after a restore, or written by this app.
+  const ownSlots = useRef(new Set<number>());
+  const onSlotWritten = useCallback((slot: number, name: string) => {
+    setScratchSlots((cur) => {
+      const next = new Set(cur);
+      if (name === 'Empty' || ownSlots.current.has(slot)) next.add(slot);
+      else next.delete(slot);
+      return next;
+    });
+  }, []);
+  const onRecipeWritten = useCallback((slot: number) => {
+    ownSlots.current.add(slot);
+    setScratchSlots((cur) => new Set(cur).add(slot));
+  }, []);
+  const policy: WritePolicy = useMemo(
+    () => ({ backupTaken: sessionBackup.length > 0, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits, confirmedSlot: null }),
+    [sessionBackup, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits],
+  );
 
   const deviceId = /^[0-7][0-9a-f]$/i.test(deviceIdText.trim()) ? parseInt(deviceIdText.trim(), 16) : null;
 
@@ -85,12 +118,36 @@ export function App() {
       onIn: (data) => logAdd('in', '', data, annotate(data)),
       onOut: (bytes, cls, label) => logAdd('out', `${label} [${cls.verdict}]`, bytes),
     });
+    // A new connection may be a different pedal state: no write without a new backup.
+    setSessionBackup([]);
+    setScratchSlots(new Set());
+    setCurrentSlot(null);
     s.open().catch((e) =>
       logAdd('error', `Cannot open the MIDI port: ${e instanceof Error ? e.message : String(e)}. Close Handy Guitar Lab or any DAW that holds it.`),
     );
     setSession(s);
     return () => s.close();
   }, [input, output, logAdd]);
+
+  // Track which slot the pedal is on: 64 26 after a patch change, or the
+  // Bank Select + Program Change that the pedal echoes (also the reply to 33).
+  const bankLsb = useRef(0);
+  useEffect(() => {
+    if (!session || deviceId === null) return;
+    const off = session.subscribe((d) => {
+      if (isZoomSysex(d) && d[4] === 0x64 && d[5] === 0x26) setCurrentSlot((d[8] | (d[9] << 7)) * perBank + (d[10] | (d[11] << 7)));
+      else if ((d[0] & 0xf0) === 0xb0 && d[1] === 0x20) bankLsb.current = d[2];
+      else if ((d[0] & 0xf0) === 0xc0) setCurrentSlot(bankLsb.current * perBank + d[1]);
+    });
+    try {
+      // 50 makes the pedal report every patch change (64 26), also changes by foot.
+      session.send(zoomSysex(deviceId, [0x50]), 'edit reports on (track patch changes)');
+      session.send(zoomSysex(deviceId, [0x33]), 'which patch is active');
+    } catch {
+      /* ports not open yet */
+    }
+    return off;
+  }, [session, deviceId, perBank]);
 
   // --- 3. identity ------------------------------------------------------------
   const sendIdentity = async () => {
@@ -176,6 +233,12 @@ export function App() {
       const dumps = await backupAll(session, deviceId, { count, perBank, signal: ctl.signal, onProgress: (n) => setProgress(`${n} / ${count}`) });
       const ok = dumps.filter((d) => d.patch);
       const dups = duplicateGroups(dumps);
+      if (!ctl.signal.aborted && ok.length === count) {
+        setPerBank(perBank);
+        setPatchCount(count);
+        setSessionBackup(dumps.filter((d) => d.sysex).map((d) => ({ slot: d.slot, name: d.patch?.name ?? d.patch?.shortName ?? '?', msg: Array.from(d.sysex!) })));
+        setScratchSlots(new Set(dumps.filter((d) => d.patch?.name?.trimEnd() === 'Empty').map((d) => d.slot)));
+      }
       const stamp = new Date().toISOString().replace(/[:.]/g, '-');
       downloadBlob(`g2xfour-backup-${stamp}.syx`, new Blob([toSyx(dumps)], { type: 'application/octet-stream' }));
       setSummary({
@@ -376,9 +439,32 @@ export function App() {
         )}
       </section>
 
+      <section aria-labelledby="s-edit">
+        <h2 id="s-edit">4 · Edit current patch</h2>
+        <p className="muted small">
+          Writes need a backup from this session. Free to write: {scratchSlots.size} slot(s) ("Empty", or written here). Pedal is on slot {currentSlot ?? '?'}
+          {currentSlot !== null && (scratchSlots.has(currentSlot) ? ' (Empty — free to edit)' : ' (real patch)')}.
+        </p>
+        <label className="warn-text">
+          <input type="checkbox" checked={allowRealPatchEdits} onChange={(e) => setAllowRealPatchEdits(e.target.checked)} /> Edit real patches — auto-save is ON, so every
+          change is kept when you leave the patch
+        </label>
+        {deviceId !== null && <PatchEditor session={session} deviceId={deviceId} policy={policy} log={panelLog} />}
+      </section>
+
+      <section aria-labelledby="s-restore">
+        <h2 id="s-restore">5 · Restore from backup</h2>
+        {deviceId !== null && <RestorePanel session={session} deviceId={deviceId} policy={policy} sessionBackup={sessionBackup} onSlotWritten={onSlotWritten} log={panelLog} />}
+      </section>
+
+      <section aria-labelledby="s-recipe">
+        <h2 id="s-recipe">6 · Tone recipe → patch</h2>
+        {deviceId !== null && <RecipePanel session={session} deviceId={deviceId} policy={policy} onSlotWritten={onRecipeWritten} log={panelLog} />}
+      </section>
+
       <section aria-labelledby="s-log" className="log-section">
         <div className="row spread">
-          <h2 id="s-log">4 · Log</h2>
+          <h2 id="s-log">7 · Log</h2>
           <div className="row">
             <button onClick={exportLog} disabled={log.entries.length === 0}>
               Export log

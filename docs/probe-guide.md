@@ -1,4 +1,4 @@
-# Probe guide — Phase 1
+# Probe guide
 
 ## Run it
 
@@ -92,3 +92,7 @@ Decoders for the confirmed formats: `src/midi/decode.ts`. Real dumps: `tests/fix
 | 2026-10-15 | **WRITE** `64 20 00 <slot> 01 <id 5 septets>` | Slot 299 ("Empty"): slot 0 → Comp (`10 00 00 08 00` = 0x01000010). Pedal pushes `64 12 00` with defaults (Sense 6, SLOW, Tone 6, VOL 80) and auto-renames the patch to "USER-002" (burst of `64 20 00 5F <i> <char>`). |
 | 2026-10-15 | **WRITE** `64 20 00 <slot> <2+knob> <value 5 septets>` | Sense 6 → 9. Ack `64 20 01 00 02 09 …`; `64 13` read-back shows Sense=9. Param number = knob index + 2 (0 = on/off, 1 = effect). |
 | 2026-10-15 | Auto-save | **ON.** On a patch change the pedal sends `45 00 00` (stored dump) by itself: edits persist when you leave the patch. Slot 299 is now a blank patch named "USER-002" instead of "Empty". A patch change also emits `64 26` (bank/program) and `64 20 00 64 02 78` (tempo 120). |
+| 2026-10-15 | `45` upload (restore) | Re-sending a `45` slot dump restores it. Slot 299 and 250 restored to "Empty"; PTCF bytes match exactly. Bytes AFTER the PTCF length differ: the slot tail keeps leftovers (e.g. "USER-001"). Compare PTCF only. Pedal acks with `00 00`. |
+| 2026-10-15 | Patch change reports | `64 26` (bank/program) and the CC/PC echo arrive only while `50` (edit reports) is on. A program change to the slot the pedal is already on does not reload the edit buffer. |
+| 2026-10-15 | **WRITE** tempo `64 20 00 64 02 <bpm>` | Tempo 123 written; stored PRM2 reads 123 → the MS Plus PRM2 tempo layout holds on the G2X FOUR. |
+| 2026-10-15 | Recipe "Rain" | Slot 250 = "Rain Scallon": Comp (Sense 4) → FD TWIN-R (Gain 32) → AnalogDly (dotted 1/8, BPM SYNC, Repeat 35, Mix 48) → Hall REV (Decay 13, Mix 30), tempo 123. Stored dump: `tests/fixtures/g2xfour-rain-slot250.hex`. |
