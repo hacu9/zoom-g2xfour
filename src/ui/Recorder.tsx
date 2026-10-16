@@ -33,6 +33,9 @@ export function Recorder({ session, patchName }: Props) {
   const [elapsed, setElapsed] = useState(0);
   const [takes, setTakes] = useState<Take[]>([]);
   const [loop, setLoop] = useState(true);
+  const [countIn, setCountIn] = useState<number>(() => readCountIn());
+  /** Seconds left before the take starts, or null when no count-in runs. */
+  const [countdown, setCountdown] = useState<number | null>(null);
   const [pedal, setPedal] = useState<PedalState>({ mode: 'off' });
   const [pedalPos, setPedalPos] = useState<number | null>(null);
   const [pedalToggles, setPedalToggles] = useState(true);
@@ -109,6 +112,7 @@ export function Recorder({ session, patchName }: Props) {
       if (recorder.current?.state === 'recording') recorder.current.stop(); // onstop still saves the take
       recorder.current = null;
       setRecording(false);
+      setCountdown(null);
       setStream(null);
       setLevel(0);
       setError('The audio input went away. Plug the pedal back in, then click Use pedal audio.');
@@ -180,7 +184,26 @@ export function Recorder({ session, patchName }: Props) {
     setRecording(false);
   }, []);
 
-  const toggle = useCallback(() => (recorder.current ? stop() : start()), [start, stop]);
+  // Record: stop a take, cancel a count-in, start a count-in, or start at once.
+  const toggle = useCallback(() => {
+    if (recorder.current) stop();
+    else if (countdown !== null) setCountdown(null);
+    else if (countIn > 0 && stream) setCountdown(countIn);
+    else start();
+  }, [start, stop, countdown, countIn, stream]);
+
+  // Count-in: one tick per second, then the take starts. No input, no count-in.
+  useEffect(() => {
+    if (countdown === null) return;
+    if (!stream) return setCountdown(null);
+    if (countdown === 0) {
+      setCountdown(null);
+      start();
+      return;
+    }
+    const t = setTimeout(() => setCountdown(countdown - 1), 1000);
+    return () => clearTimeout(t);
+  }, [countdown, stream, start]);
   const toggleRef = useRef(toggle);
   toggleRef.current = toggle;
   const togglesRef = useRef(pedalToggles);
@@ -217,17 +240,33 @@ export function Recorder({ session, patchName }: Props) {
     <div className="recorder">
       <div className="rec-deck">
         <button
-          className={`rec-button ${recording ? 'on' : ''}`}
+          className={`rec-button ${recording ? 'on' : ''} ${countdown !== null ? 'arming' : ''}`}
           disabled={!stream}
           onClick={toggle}
           aria-pressed={recording}
-          aria-label={recording ? 'Stop recording' : 'Record'}
-          title={recording ? 'Stop' : 'Record'}
+          aria-label={recording ? 'Stop recording' : countdown !== null ? 'Cancel the count-in' : 'Record'}
+          title={recording ? 'Stop' : countdown !== null ? 'Cancel' : countIn ? `Record after ${countIn} s` : 'Record'}
         >
           <span className="rec-dot" />
         </button>
         <div className="rec-readout">
-          <div className="rec-time" aria-live="off">{recording ? formatDuration(elapsed) : '0:00'}</div>
+          <div className="rec-top">
+            {countdown !== null ? (
+              <div className="rec-time counting" key={countdown} role="status" aria-live="assertive">
+                {countdown > 0 ? countdown : 'REC'}
+              </div>
+            ) : (
+              <div className="rec-time">{recording ? formatDuration(elapsed) : '0:00'}</div>
+            )}
+            <label className="small count-in">
+              Count-in{' '}
+              <select value={countIn} onChange={(e) => saveCountIn(setCountIn, Number(e.target.value))} disabled={countdown !== null}>
+                <option value={0}>Off</option>
+                <option value={3}>3 s</option>
+                <option value={5}>5 s</option>
+              </select>
+            </label>
+          </div>
           <div className="meter" role="meter" aria-label="Input level" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(level * 100)}>
             <div className="meter-fill" style={{ width: `${Math.min(100, level * 100)}%` }} />
           </div>
@@ -323,4 +362,25 @@ export function Recorder({ session, patchName }: Props) {
       )}
     </div>
   );
+}
+
+const COUNT_IN_KEY = 'zoompedal.countIn';
+
+/** The count-in choice is a per-viewer convenience: storage may be missing or blocked. */
+function readCountIn(): number {
+  try {
+    const v = Number(localStorage.getItem(COUNT_IN_KEY));
+    return v === 3 || v === 5 ? v : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function saveCountIn(set: (v: number) => void, v: number) {
+  set(v);
+  try {
+    localStorage.setItem(COUNT_IN_KEY, String(v));
+  } catch {
+    /* the choice lasts for this page only */
+  }
 }

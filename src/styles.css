@@ -289,3 +289,8 @@ dialog.picker h3 { margin: 0; font-size: 16px; }
   .take { grid-template-columns: minmax(0, 1fr) auto auto auto; }
   .take audio { grid-column: 1 / -1; grid-row: 2; }
 }
+.rec-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.rec-time.counting { font-size: 56px; line-height: 1; padding: 4px 18px; color: var(--accent); border-color: var(--accent); min-width: 2.4em; text-align: center; text-shadow: 0 0 10px var(--accent); animation: count-pop 1s ease-out; }
+@keyframes count-pop { 0% { transform: scale(1.35); } 30% { transform: scale(1); } }
+.rec-button.arming .rec-dot { background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: blink 0.5s steps(2) infinite; }
+@media (prefers-reduced-motion: reduce) { .rec-time.counting, .rec-button.arming .rec-dot { animation: none; } }

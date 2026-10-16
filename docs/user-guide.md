@@ -78,6 +78,10 @@ Records what you play through the pedal, then plays it back.
 3. Click the red button to start. Click it again to stop. The take appears
    in the list with the patch name and the time.
 
+- **Count-in** (Off, 3 s or 5 s) waits before the take starts, so you can get
+  your hands on the guitar. The screen counts down in big amber digits, and the
+  record button blinks amber. Click the button again to cancel. The pedal toe
+  switch also starts the count-in. The app keeps your choice in this browser.
 - **Loop playback** repeats the take, so you can play along over it.
 - **Save** downloads the take (`.webm`, Opus, 256 kbit/s).
 - The takes stay in memory only. A reload deletes the takes that you did not save.
