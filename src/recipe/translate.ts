@@ -101,7 +101,9 @@ export function translate(r: ToneRecipe): Plan {
       MID: r.eq?.mid === undefined ? undefined : { pct: r.eq.mid },
       Treble: r.eq?.high === undefined ? undefined : { pct: r.eq.high },
     }, r.amp);
-  } else if (r.eq) warnings.push('eq: no amp in the recipe, and the output EQ has no verified write command — skipped.');
+  }
+  for (const extra of r.afterAmp ?? []) add('after amp', extra.model, {}, extra);
+  if (!r.amp && r.eq) warnings.push('eq: no amp in the recipe, and the output EQ has no verified write command — skipped.');
   if (r.modulation) {
     const m = r.modulation;
     add('modulation', ROLE_EFFECT.modulation[m.type], {

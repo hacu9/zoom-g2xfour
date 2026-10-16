@@ -27,6 +27,8 @@ export interface ToneRecipe {
   drive?: { type: 'overdrive' | 'distortion' | 'fuzz' | 'boost'; gain: number; tone?: number } & PartOverrides;
   amp?: { type: 'clean' | 'crunch' | 'high-gain' | 'american' | 'british'; gain?: number } & PartOverrides;
   eq?: { low?: number; mid?: number; high?: number };
+  /** Extra effects right after the amp, in order (e.g. a graphic EQ in the amp's loop). */
+  afterAmp?: (PartOverrides & { model: string })[];
   modulation?: { type: 'chorus' | 'flanger' | 'phaser' | 'tremolo' | 'vibrato'; rate?: number; depth?: number; mix?: number } & PartOverrides;
   /** Give either timeMs or note (+ bpm); the delay calculator resolves note -> ms. */
   /** type: digital (clean repeats, default), analog (darker, repeats fade fast), tape. */

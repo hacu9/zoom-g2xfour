@@ -1,0 +1,11 @@
+{
+  "song": "The Day That Never Comes (clean)",
+  "artist": "Metallica",
+  "patchName": "TDTNC Clean",
+  "source": "Starting point, not official. Wikipedia: clean guitars in the intro and verses. No source gives clean settings: a bright clean Fender (FD TWIN-R) with stereo chorus, a soft delay and plate reverb is a choice. Tempo: one unconfirmed tab says 60 BPM — not used; tap tempo.",
+  "compressor": { "amount": 30 },
+  "amp": { "type": "clean", "gain": 15, "knobs": { "Bass": 50, "MID": 45, "Treble": 65 } },
+  "modulation": { "type": "chorus", "model": "StereoCho", "rate": 20, "depth": 45, "mix": 30 },
+  "delay": { "type": "digital", "note": "1/8.", "feedback": 30, "mix": 25 },
+  "reverb": { "type": "plate", "decay": 45, "mix": 25 }
+}

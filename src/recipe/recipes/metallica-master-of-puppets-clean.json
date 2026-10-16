@@ -1,0 +1,11 @@
+{
+  "song": "Master of Puppets (clean)",
+  "artist": "Metallica",
+  "patchName": "MoP Clean",
+  "source": "Starting point, not official. The clean middle section (arpeggios + melody). No source gives clean-channel settings: a clean Mesa (BG MARK3) at low gain, bright, with light chorus, a soft delay and hall reverb is a choice. No reliable tempo found: tap tempo.",
+  "compressor": { "amount": 30 },
+  "amp": { "type": "american", "model": "BG MARK3", "knobs": { "Gain1": 10, "Gain2": 10, "Bass": 55, "MID": 40, "Treble": 75, "PRESENC": 55 } },
+  "modulation": { "type": "chorus", "rate": 25, "depth": 40, "mix": 20 },
+  "delay": { "type": "digital", "note": "1/4", "feedback": 25, "mix": 20 },
+  "reverb": { "type": "hall", "decay": 40, "mix": 25 }
+}

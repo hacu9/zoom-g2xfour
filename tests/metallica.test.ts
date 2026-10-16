@@ -3,6 +3,10 @@ import ftbClean from '../src/recipe/recipes/metallica-fade-to-black-clean.json';
 import ftbDist from '../src/recipe/recipes/metallica-fade-to-black-dist.json';
 import oneClean from '../src/recipe/recipes/metallica-one-clean.json';
 import oneDist from '../src/recipe/recipes/metallica-one-dist.json';
+import mopClean from '../src/recipe/recipes/metallica-master-of-puppets-clean.json';
+import mopDist from '../src/recipe/recipes/metallica-master-of-puppets-dist.json';
+import tdtncClean from '../src/recipe/recipes/metallica-day-that-never-comes-clean.json';
+import tdtncDist from '../src/recipe/recipes/metallica-day-that-never-comes-dist.json';
 import { translate } from '../src/recipe/translate';
 import type { ToneRecipe } from '../src/recipe/types';
 
@@ -37,10 +41,32 @@ describe('Metallica recipes', () => {
     expect(knob(plan(oneClean), 'BG MARK3', 'Treble')).toBe('85');
   });
   it('names fit the pedal (14 characters)', () => {
-    for (const r of [ftbClean, ftbDist, oneClean, oneDist]) expect(plan(r).name.length).toBeLessThanOrEqual(14);
+    for (const r of [ftbClean, ftbDist, oneClean, oneDist, mopClean, mopDist, tdtncClean, tdtncDist]) {
+      expect(plan(r).name.length).toBeLessThanOrEqual(14);
+      expect(plan(r).effects.length).toBeLessThanOrEqual(6);
+    }
   });
   it('warns about a knob the model does not have', () => {
     const p = plan({ song: 'x', amp: { type: 'clean', knobs: { Nope: 5 } } });
     expect(p.warnings.join(' ')).toMatch(/no knob "Nope"/);
+  });
+});
+
+describe('Master of Puppets / The Day That Never Comes', () => {
+  it('MoP distorted: TS → Mesa → V-curve GEQ after the amp', () => {
+    const p = plan(mopDist);
+    expect(p.effects.map((e) => e.name)).toEqual(['TS Drive', 'BG MARK3', 'Gt GEQ 7', 'Delay', 'RoomREV']);
+    expect(knob(p, 'Gt GEQ 7', '800Hz')).toBe('-8.0');
+    expect(knob(p, 'Gt GEQ 7', '6.4kHz')).toBe('4.0');
+    expect(knob(p, 'BG MARK3', 'MID')).toBe('25');
+    expect(p.warnings).toEqual(['delay: no bpm — synced to the pedal tempo; use tap tempo.']);
+  });
+  it('MoP clean, TDTNC clean and distorted build without surprises', () => {
+    expect(plan(mopClean).effects.map((e) => e.name)).toEqual(['Comp', 'BG MARK3', 'ChorusOne', 'Delay', 'Hall REV']);
+    expect(plan(tdtncClean).effects.map((e) => e.name)).toEqual(['Comp', 'FD TWIN-R', 'StereoCho', 'Delay', 'Plate REV']);
+    const d = plan(tdtncDist);
+    expect(d.effects.map((e) => e.name)).toEqual(['TS Drive', 'MS 1959', 'Delay', 'RoomREV']);
+    expect(knob(d, 'MS 1959', 'Input1')).toBe('85');
+    for (const r of [mopClean, tdtncClean, tdtncDist]) expect(plan(r).warnings).toEqual(['delay: no bpm — synced to the pedal tempo; use tap tempo.']);
   });
 });

@@ -64,10 +64,14 @@ Every part also takes `model` (an exact catalog effect name, for example
 knob's range, a string is an exact value such as `"ON"` or `"HI"`). `knobs`
 wins over the generic values. An unknown knob name gives a warning.
 
+`afterAmp` adds extra effects right after the amp, in order — for example a
+graphic EQ in the amp's loop: `"afterAmp": [{ "model": "Gt GEQ 7", "knobs": { "800Hz": "-8.0" } }]`.
+GEQ values are exact dB strings in 0.5 steps, from `"-12.0"` to `"12.0"`.
+
 A `note` without `bpm` syncs the delay to the pedal's current tempo and does
 not change it — set it with tap tempo.
 
-## Metallica (slots 251–254)
+## Metallica (slots 251–258)
 
 Written and verified on the pedal on 2026-10-15. Clean and distorted versions
 sit next to each other. All values are starting points from fan sources —
@@ -79,6 +83,10 @@ tune by ear.
 | 252 | Fade2Black Dst | TS Drive (Gain 15, VOL 85) → **MS 800** = JCM800 (Gain 70, Treble 70, Presence 70) → Delay ¼ (Repeat 30, Mix 25) → RoomREV (Mix 15); 116 BPM |
 | 253 | One Clean | Comp → **BG MARK3** = Mesa, clean (Gain 8, Treble 85) → ChorusOne (Mix 35) → AnalogDly ¼ (Repeat 35, Mix 30) → Hall REV (Mix 25); tap tempo |
 | 254 | One Dist | TS Drive (Gain 10, VOL 85) → **BG MARK3** (Gain 80, Mid 40, Presence 70) → Delay ¼ (Repeat 25, Mix 15) → RoomREV (Mix 10); tap tempo |
+| 255 | MoP Clean | Comp → BG MARK3 clean (Gain 10, Treble 75) → ChorusOne (Mix 20) → Delay ¼ (Repeat 25, Mix 20) → Hall REV (Mix 25); tap tempo |
+| 256 | MoP Dist | TS Drive (Gain 10, VOL 85) → **BG MARK3** (Gain 85, Mid 25, Treble 80) → **Gt GEQ 7 V-curve** (100 Hz +4, 400 Hz −3, 800 Hz −8, 1.6 kHz −3, 3.2 kHz +3, 6.4 kHz +4) → Delay ¼ (Mix 12) → RoomREV (Mix 8); tap tempo |
+| 257 | TDTNC Clean | Comp → FD TWIN-R (Gain 23) → StereoCho (Mix 30) → Delay dotted ⅛ (Repeat 30, Mix 25) → Plate REV (Mix 25); tap tempo |
+| 258 | TDTNC Dist | TS Drive (Gain 15, VOL 85) → **MS 1959** = Marshall Super Lead (Input1 85, Input2 60, Treble 70) → Delay ¼ (Mix 15) → RoomREV (Mix 10); tap tempo |
 
 Notes:
 
@@ -87,6 +95,13 @@ Notes:
 - The recorded intro of Fade to Black is acoustic; slot 251 is the clean
   electric part. Its chorus and delay are a choice, not documented.
 - The pedal has no Mark IIC+; BG MARK3 (Mesa Mark III) is the closest model.
+- Master of Puppets: several sources call the V-shaped graphic EQ in the amp's
+  loop the key element; slot 256 rebuilds it with Gt GEQ 7 after the amp. No
+  source gives settings for the clean middle section — slot 255 is a choice.
+- The Day That Never Comes: producer Greg Fidelman (via tonesmatch) names a
+  blend of a Mark IIC+ and a modded Marshall Super Lead; slot 258 uses the
+  Super Lead model. The clean intro/verses (Wikipedia) have no documented
+  settings — slot 257 is a choice. One unconfirmed tab says 60 BPM; not used.
 
 Sources: [tonemirror — Fade to Black](https://www.tonemirror.so/tones/metallica-fade-to-black),
 [tonesmatch — riff clean](https://tonesmatch.com/tones/fade-to-black-metallica-riff-clean-5054),
@@ -97,7 +112,13 @@ Sources: [tonemirror — Fade to Black](https://www.tonemirror.so/tones/metallic
 [tonemirror — One](https://www.tonemirror.so/tones/metallica-one),
 [tonesmatch — One](https://tonesmatch.com/tones/one-metallica-solo-clean-50),
 [Guitar Chalk — One](https://www.guitarchalk.com/amp-settings-one-metallica/),
-[Wikipedia — Mark IIC+](https://en.wikipedia.org/wiki/Mesa/Boogie_Mark_IIC%2B).
+[Wikipedia — Mark IIC+](https://en.wikipedia.org/wiki/Mesa/Boogie_Mark_IIC%2B),
+[Guitar Chalk — Master of Puppets](https://www.guitarchalk.com/master-of-puppets-metallica-amp-settings/),
+[mixdownmag — Master of Puppets tone](https://mixdownmag.com.au/features/how-to-get-the-metallica-master-of-puppets-tone/),
+[tonemirror — Master of Puppets](https://www.tonemirror.so/tones/metallica-master-of-puppets),
+[rigtone — Master of Puppets](https://www.rigtone.com/tone/master-of-puppets-amp-settings),
+[Wikipedia — The Day That Never Comes](https://en.wikipedia.org/wiki/The_Day_That_Never_Comes),
+[tonesmatch — The Day That Never Comes](https://tonesmatch.com/tones/the-day-that-never-comes-metallica-riff-distorted-6217).
 
 ## Rain — Rob Scallon (slot 250)
 

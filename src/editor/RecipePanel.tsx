@@ -5,6 +5,10 @@ import ftbClean from '../recipe/recipes/metallica-fade-to-black-clean.json';
 import ftbDist from '../recipe/recipes/metallica-fade-to-black-dist.json';
 import oneClean from '../recipe/recipes/metallica-one-clean.json';
 import oneDist from '../recipe/recipes/metallica-one-dist.json';
+import mopClean from '../recipe/recipes/metallica-master-of-puppets-clean.json';
+import mopDist from '../recipe/recipes/metallica-master-of-puppets-dist.json';
+import tdtncClean from '../recipe/recipes/metallica-day-that-never-comes-clean.json';
+import tdtncDist from '../recipe/recipes/metallica-day-that-never-comes-dist.json';
 
 const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Rain — Rob Scallon', recipe: rain },
@@ -12,6 +16,10 @@ const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Fade to Black (distorted) — Metallica', recipe: ftbDist },
   { label: 'One (clean) — Metallica', recipe: oneClean },
   { label: 'One (distorted) — Metallica', recipe: oneDist },
+  { label: 'Master of Puppets (clean) — Metallica', recipe: mopClean },
+  { label: 'Master of Puppets (distorted) — Metallica', recipe: mopDist },
+  { label: 'The Day That Never Comes (clean) — Metallica', recipe: tdtncClean },
+  { label: 'The Day That Never Comes (distorted) — Metallica', recipe: tdtncDist },
 ];
 import { translate } from '../recipe/translate';
 import type { ToneRecipe } from '../recipe/types';

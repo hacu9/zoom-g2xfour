@@ -1,0 +1,13 @@
+{
+  "song": "Master of Puppets (distorted)",
+  "artist": "Metallica",
+  "patchName": "MoP Dist",
+  "source": "Starting point, not official. Mesa Mark IIC+ high gain, scooped mids (tonemirror: gain 8, bass 6, mid 4, treble 6, presence 7; rigtone: gain 8, bass 4, mid 2, treble 9). 'Key element': a graphic EQ in the amp loop with a V curve — rigtone: 80 Hz up, 750 Hz deep cut, 2.2 kHz and 6.6 kHz up (mixdownmag: Boss GE-7 V-curve). BG MARK3 + Gt GEQ 7 rebuild that chain. Low-gain TS as a tightening boost. Little solo delay; tap tempo.",
+  "drive": { "type": "overdrive", "gain": 10, "tone": 60, "knobs": { "VOL": 85 } },
+  "amp": { "type": "high-gain", "model": "BG MARK3", "knobs": { "Gain1": 85, "Gain2": 85, "Bass": 45, "MID": 25, "Treble": 80, "PRESENC": 65 } },
+  "afterAmp": [
+    { "model": "Gt GEQ 7", "knobs": { "100Hz": "4.0", "200Hz": "1.0", "400Hz": "-3.0", "800Hz": "-8.0", "1.6kHz": "-3.0", "3.2kHz": "3.0", "6.4kHz": "4.0", "VOL": 85 } }
+  ],
+  "delay": { "type": "digital", "note": "1/4", "feedback": 20, "mix": 12 },
+  "reverb": { "type": "room", "decay": 25, "mix": 8 }
+}

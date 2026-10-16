@@ -1,0 +1,10 @@
+{
+  "song": "The Day That Never Comes (distorted)",
+  "artist": "Metallica",
+  "patchName": "TDTNC Dist",
+  "source": "Starting point, not official. Producer Greg Fidelman (via tonesmatch): a blend of a Mesa Mark IIC+ and a Jose-modded Marshall Super Lead, Tube Screamer as a boost. Here: TS into MS 1959 (the pedal's Marshall Super Lead), both inputs up for a hot, modded sound. Light solo delay; tap tempo.",
+  "drive": { "type": "overdrive", "gain": 15, "tone": 55, "knobs": { "VOL": 85 } },
+  "amp": { "type": "british", "model": "MS 1959", "knobs": { "Input1": 85, "Input2": 60, "Bass": 50, "MID": 45, "Treble": 70, "PRESENC": 60 } },
+  "delay": { "type": "digital", "note": "1/4", "feedback": 25, "mix": 15 },
+  "reverb": { "type": "room", "decay": 30, "mix": 10 }
+}
