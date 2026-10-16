@@ -19,7 +19,8 @@ export async function listFiles(
   deviceId: number,
   opts: { maxSteps?: number; timeoutMs?: number; signal?: AbortSignal } = {},
 ): Promise<FileListResult> {
-  const { maxSteps = 256, timeoutMs = 1500, signal } = opts;
+  // The G2X FOUR holds more than 256 files (observed 2026-10-15).
+  const { maxSteps = 2048, timeoutMs = 1500, signal } = opts;
   const isReply = (d: Uint8Array) => isZoomSysex(d) && d[4] === 0x60;
   const entries: FileListResult['entries'] = [];
   const seen = new Set<string>();

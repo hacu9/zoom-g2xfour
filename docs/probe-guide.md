@@ -30,7 +30,7 @@ that the UI works. They prove nothing about the protocol.
 4. **Read-only prefills**, one at a time, in this order:
    `60 29` → `64 11` → `55` → `64 42` → `64 02 00 07 00` → `44` / `48` / `64 0A` / `64 18`.
 5. **List flash files.** The loop stops on a reply with no file name, a repeated
-   name, a timeout, or 256 steps. It always ends with `60 27`.
+   name, a timeout, or 2048 steps. It always ends with `60 27`.
 6. Change the patch on the pedal by hand, send `64 02 00 07 00` again, and
    compare the two replies. The bytes that change carry the patch content.
 7. **Export log** after each session. Keep the files: they become the Phase 2
@@ -71,3 +71,10 @@ patches in Handy Guitar Lab before you turn it on.
 |---|---|---|
 | 2026-10-15 | Connect | Class-compliant USB MIDI, no driver. 1 in / 1 out, both named `ZOOM G2/G2X FOUR`, manufacturer `ZOOM Corporation`. |
 | 2026-10-15 | Identity Request | `F0 7E 00 06 02 52 6E 00 1C 00 31 2E 30 30 F7` — Zoom, family `6E 00` (same as B2 FOUR), member `1C 00`, version bytes `"1.00"`. The version bytes may not be the firmware version — compare with the pedal. |
+| 2026-10-15 | `60 29` | `60 04 29 00 00 08 00` + total + free, each 5 septets LE. 5,963,220 bytes total (same as B2 FOUR), 887,530 free. |
+| 2026-10-15 | `64 11` | `64 10 36 02 04 01 00` → DSP scale `36 02` = 310 (G1 FOUR 230, MS+ 270). |
+| 2026-10-15 | `64 02 00 07 00` | `64 01` + 60 records × 14 bytes: `[slot][row][0=value,1=label] 00` + 10 ASCII. 7 slots (0–6). Row 0 On/Off, row 1 effect name, rows 2–5 the 4 on-screen params. Screen text, not raw values. Slot 6 held ZNR. No patch name seen yet. |
+| 2026-10-15 | `60 25/26/27` | 260 files. Entry: name (8.3) at body 11, size 4 septets LE at body 26. 101 `.ZD2` = 79 effects + 22 amp/cab (`*IR.ZD2` with a `.ZIR`). Also `G_OUT_EQ.BDL`, `FLST_SEQ.ZT2` (effect order list), drum `.raw` samples, `IR000/001.ZIR`. End of list = reply with no name. |
+| 2026-10-15 | `44`, `48`, `55`, `64 42`, `64 0A`, `64 18` | Replies `43 …`, `47 …`, `54 10 …`, `64 43 …`, `64 09 …` (contains "Aco.Sim", "222P"), `64 19 …`. Meaning still unknown. |
+
+Decoders for the confirmed formats: `src/midi/decode.ts`. Real dumps: `tests/fixtures/`.

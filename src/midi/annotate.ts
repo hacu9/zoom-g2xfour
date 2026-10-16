@@ -1,5 +1,6 @@
 import { byteHex, toHex } from './hex';
 import { isIdentityReply, parseIdentityReply, ZOOM_6E_MEMBERS } from './identity';
+import { decodeFileEntry, decodeFlashInfo, decodePatchDisplay } from './decode';
 import { asciiRuns, isZoomSysex, unpack7to8, zoomBody } from './zoom';
 
 /** Human notes for an incoming message. Decodes only what is known; flags the rest as guesses. */
@@ -22,6 +23,17 @@ export function annotate(bytes: ArrayLike<number>): string[] {
   if (isZoomSysex(b)) {
     const body = zoomBody(b);
     notes.push(`Zoom SysEx, ID ${byteHex(b[3])}, cmd ${body.slice(0, 2).map(byteHex).join(' ')}, body ${body.length} bytes`);
+    const flash = decodeFlashInfo(b);
+    if (flash) return [...notes, `Flash: ${flash.totalBytes} bytes total, ${flash.freeBytes} bytes free`];
+    const file = decodeFileEntry(b);
+    if (file) return [...notes, `File: ${file.name} (${file.sizeBytes} bytes)`];
+    const patch = decodePatchDisplay(b);
+    if (patch) {
+      return [
+        ...notes,
+        ...patch.map((s) => `Slot ${s.slot}: ${s.on ? 'ON ' : 'off'} ${s.effect}${s.params.length ? ' — ' + s.params.map((p) => `${p.label}=${p.value}`).join(', ') : ''}`),
+      ];
+    }
     const runs = asciiRuns(body);
     if (runs.length) notes.push(`ASCII: ${runs.map((r) => JSON.stringify(r)).join(', ')}`);
     if (body.length > 8) notes.push(`7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): ${toHex(unpack7to8(body.slice(2)))}`);

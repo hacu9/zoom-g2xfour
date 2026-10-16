@@ -1,0 +1,2369 @@
+# tool: zoompedal probe 0.1.0
+# exported: 2026-10-16T03:26:28.886Z
+# backend: webmidi
+# input: ZOOM G2/G2X FOUR
+# output: ZOOM G2/G2X FOUR
+# device id used for prefills: 6E
+# identity: -
+# user agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+# entries: 531
+
+2026-10-16T03:26:11.009Z  +   1786.6ms  INFO  Web MIDI ready. SysEx enabled: true. 1 input(s), 1 output(s).
+2026-10-16T03:26:11.009Z  +   1786.6ms  INFO    input  "ZOOM G2/G2X FOUR" (ZOOM Corporation) connected id=input-0
+2026-10-16T03:26:11.009Z  +   1786.6ms  INFO    output "ZOOM G2/G2X FOUR" (ZOOM Corporation) connected id=output-1
+2026-10-16T03:26:11.020Z  +   1798.0ms  INFO  Port state: input "ZOOM G2/G2X FOUR" connected/open
+2026-10-16T03:26:11.020Z  +   1798.0ms  INFO  Port state: output "ZOOM G2/G2X FOUR" connected/open
+2026-10-16T03:26:12.470Z  +   3247.9ms  INFO  File listing started (60 25 / 60 26 / 60 27).
+2026-10-16T03:26:12.470Z  +   3248.2ms  OUT   F0 52 00 6E 60 25 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`%..*.*..
+    file list: find first [read]
+2026-10-16T03:26:12.482Z  +   3260.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 5F 4F 55 54 5F 45 51 2E 42 44 4C 00 00 00 3E 32 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........G_OUT_EQ.BDL...>2.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "G_OUT_EQ.BDL"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 5F 4F 55 54 5F 45 AE 42 44 4C 80 00 80 32 81 80 80 80 80 00 00
+2026-10-16T03:26:12.483Z  +   3260.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.494Z  +   3271.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 52 2E 5A 49 43 00 00 00 00 00 00 00 00 00 52 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........IR.ZIC.........R..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 52 2E 5A 49 43 00 00 00 00 00 00 00 00 07 80 00 00 80 00 80 00
+2026-10-16T03:26:12.494Z  +   3271.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.514Z  +   3292.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 50 2D 4D 4F 4E 4F 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LP-MONO.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LP-MONO.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 50 2D 4D 4F 4E 4F 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:12.515Z  +   3292.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.532Z  +   3309.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 50 2D 53 54 2E 5A 49 43 00 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LP-ST.ZIC......8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LP-ST.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 50 2D 53 54 2E 5A C3 00 00 80 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:12.532Z  +   3309.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.550Z  +   3328.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 48 59 54 48 4D 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RHYTHM.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RHYTHM.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 48 59 54 48 4D 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:12.550Z  +   3328.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.569Z  +   3346.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 55 4D 4D 59 2E 57 41 56 00 00 00 00 00 00 00 00 05 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DUMMY.WAV.................
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DUMMY.WAV"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 55 4D 4D 59 2E 57 D6 00 00 00 00 00 80 00 05 00 00 00 00 00 00
+2026-10-16T03:26:12.569Z  +   3346.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.590Z  +   3367.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 4E 46 42 4B 55 50 2E 42 49 4E 00 00 00 00 60 06 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........INFBKUP.BIN....`..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "INFBKUP.BIN"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 4E 46 42 4B 55 50 42 C9 CE 80 00 80 00 06 00 00 00 00 80 80 00
+2026-10-16T03:26:12.590Z  +   3367.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.611Z  +   3389.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 52 30 30 30 2E 5A 49 52 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........IR000.ZIR.......@.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "IR000.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 52 30 30 30 2E 5A D2 00 00 80 00 00 80 40 00 00 00 00 00 00 00
+2026-10-16T03:26:12.612Z  +   3389.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.633Z  +   3411.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 52 30 30 31 2E 5A 49 52 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........IR001.ZIR.......@.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "IR001.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 52 30 30 31 2E 5A D2 00 00 80 00 00 80 40 00 00 00 00 00 00 00
+2026-10-16T03:26:12.633Z  +   3411.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.652Z  +   3429.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 52 5F 49 4E 46 4F 2E 42 49 4E 00 00 00 00 60 06 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........IR_INFO.BIN....`..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "IR_INFO.BIN"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 52 5F 49 4E 46 4F 42 C9 CE 80 00 80 00 06 00 00 00 00 80 80 00
+2026-10-16T03:26:12.652Z  +   3430.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.673Z  +   3451.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 6C 61 70 2E 72 61 77 00 00 00 00 00 00 00 10 53 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Clap.raw........S.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Clap.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 6C 61 70 2E 72 61 80 80 80 00 80 80 80 53 00 00 00 80 00 00 00
+2026-10-16T03:26:12.673Z  +   3451.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.695Z  +   3473.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 6C 61 70 41 6D 62 2E 72 61 77 00 00 00 00 68 09 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ClapAmb.raw....h..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ClapAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 6C 61 70 41 6D 62 72 E1 F7 80 00 80 00 09 01 00 80 00 80 80 00
+2026-10-16T03:26:12.695Z  +   3473.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.723Z  +   3500.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 6C 69 63 6B 2E 72 61 77 00 00 00 00 00 00 48 15 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Click.raw......H..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Click.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 6C 69 63 6B 2E 72 F7 00 00 00 00 80 80 15 00 00 80 00 00 80 00
+2026-10-16T03:26:12.723Z  +   3500.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.759Z  +   3537.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 48 43 2E 72 61 77 00 00 00 00 00 00 00 00 06 79 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HHC.raw.........y.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HHC.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 48 43 2E 72 61 77 00 00 00 00 00 00 00 79 80 80 00 00 00 00 00
+2026-10-16T03:26:12.760Z  +   3537.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.795Z  +   3572.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 48 43 41 6D 62 2E 72 61 77 00 00 00 00 00 5C 64 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HHCAmb.raw.....\d.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HHCAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 48 43 41 6D 62 2E 61 F7 00 00 80 80 80 64 01 80 80 80 00 80 00
+2026-10-16T03:26:12.795Z  +   3572.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.830Z  +   3607.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 48 46 2E 72 61 77 00 00 00 00 00 00 00 00 18 37 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HHF.raw.........7.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HHF.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 48 46 2E 72 61 77 00 00 00 00 00 00 00 37 00 00 80 80 00 00 00
+2026-10-16T03:26:12.830Z  +   3607.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.855Z  +   3633.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 48 4F 2E 72 61 77 00 00 00 00 00 00 00 00 0A 08 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HHO.raw...................
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HHO.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 48 4F 2E 72 61 77 00 00 00 00 00 00 00 08 82 00 80 00 00 00 00
+2026-10-16T03:26:12.856Z  +   3633.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.881Z  +   3659.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 48 4F 41 6D 62 2E 72 61 77 00 00 00 00 00 4E 0E 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HHOAmb.raw.....N..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HHOAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 48 4F 41 6D 62 2E 61 F7 00 00 80 80 80 0E 82 80 80 00 00 80 00
+2026-10-16T03:26:12.882Z  +   3659.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.905Z  +   3682.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4B 69 6B 31 2E 72 61 77 00 00 00 00 00 00 00 3C 22 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Kik1.raw.......<".........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Kik1.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4B 69 6B 31 2E 72 61 80 80 80 00 80 80 80 22 01 80 80 80 80 00 00
+2026-10-16T03:26:12.905Z  +   3683.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.915Z  +   3692.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4B 69 6B 32 2E 72 61 77 00 00 00 00 00 00 00 76 75 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Kik2.raw.......vu.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Kik2.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4B 69 6B 32 2E 72 61 80 80 80 00 80 80 80 75 80 80 00 80 80 80 00
+2026-10-16T03:26:12.915Z  +   3692.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.924Z  +   3702.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4B 69 6B 41 6D 62 2E 72 61 77 00 00 00 00 00 3E 56 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........KikAmb.raw.....>V.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "KikAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4B 69 6B 41 6D 62 2E 61 F7 00 00 80 80 80 56 81 80 80 80 80 00 00
+2026-10-16T03:26:12.924Z  +   3702.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.933Z  +   3711.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 69 64 65 2E 72 61 77 00 00 00 00 00 00 00 4C 07 04 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Ride.raw.......L..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Ride.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 69 64 65 2E 72 61 80 80 80 00 80 80 80 07 04 80 80 00 00 80 00
+2026-10-16T03:26:12.933Z  +   3711.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.943Z  +   3720.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 69 6D 2E 72 61 77 00 00 00 00 00 00 00 00 1A 4B 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Rim.raw.........K.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Rim.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 69 6D 2E 72 61 77 00 00 00 00 00 00 00 4B 80 00 80 80 00 00 00
+2026-10-16T03:26:12.943Z  +   3720.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.953Z  +   3731.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 69 6D 41 6D 62 2E 72 61 77 00 00 00 00 00 1A 4B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RimAmb.raw......K.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RimAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 69 6D 41 6D 62 2E 61 F7 00 00 80 80 80 4B 81 00 80 80 00 00 00
+2026-10-16T03:26:12.954Z  +   3731.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.964Z  +   3741.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 6E 72 31 2E 72 61 77 00 00 00 00 00 00 00 22 44 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Snr1.raw......."D.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Snr1.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 6E 72 31 2E 72 61 80 80 80 00 80 80 80 44 81 00 00 00 80 00 00
+2026-10-16T03:26:12.964Z  +   3742.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.972Z  +   3749.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 6E 72 32 2E 72 61 77 00 00 00 00 00 00 00 7A 09 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Snr2.raw.......z..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Snr2.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 6E 72 32 2E 72 61 80 80 80 00 80 80 80 09 81 00 80 80 80 80 00
+2026-10-16T03:26:12.972Z  +   3749.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.981Z  +   3758.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 6E 72 33 2E 72 61 77 00 00 00 00 00 00 00 24 41 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Snr3.raw.......$A.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Snr3.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 6E 72 33 2E 72 61 80 80 80 00 80 80 80 41 01 80 00 00 80 00 00
+2026-10-16T03:26:12.981Z  +   3758.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:12.992Z  +   3770.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 6E 72 34 2E 72 61 77 00 00 00 00 00 00 00 26 2A 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Snr4.raw.......&*.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Snr4.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 6E 72 34 2E 72 61 80 80 80 00 80 80 80 2A 81 80 00 00 80 00 00
+2026-10-16T03:26:12.992Z  +   3770.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.002Z  +   3779.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 6E 72 41 6D 62 2E 72 61 77 00 00 00 00 00 32 76 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SnrAmb.raw.....2v.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SnrAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 6E 72 41 6D 62 2E 61 F7 00 00 80 80 80 76 81 00 00 80 80 00 00
+2026-10-16T03:26:13.002Z  +   3779.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.011Z  +   3789.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 61 6D 62 2E 72 61 77 00 00 00 00 00 00 00 42 79 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........Tamb.raw.......By.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "Tamb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 61 6D 62 2E 72 61 80 80 80 00 80 80 80 79 80 00 00 00 00 80 00
+2026-10-16T03:26:13.011Z  +   3789.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.021Z  +   3798.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 6F 6D 46 2E 72 61 77 00 00 00 00 00 00 00 58 5E 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TomF.raw.......X^.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TomF.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 6F 6D 46 2E 72 61 80 80 80 00 80 80 80 5E 01 00 80 80 00 80 00
+2026-10-16T03:26:13.021Z  +   3798.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.032Z  +   3809.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 6F 6D 46 41 6D 62 2E 72 61 77 00 00 00 00 76 55 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TomFAmb.raw....vU.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TomFAmb.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 6F 6D 46 41 6D 62 72 E1 F7 80 00 80 00 55 81 80 00 80 80 80 00
+2026-10-16T03:26:13.032Z  +   3809.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.042Z  +   3819.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 6F 6D 48 2E 72 61 77 00 00 00 00 00 00 00 5E 35 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TomH.raw.......^5.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TomH.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 6F 6D 48 2E 72 61 80 80 80 00 80 80 80 35 81 80 80 80 00 80 00
+2026-10-16T03:26:13.042Z  +   3819.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.055Z  +   3832.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 6F 6D 4C 2E 72 61 77 00 00 00 00 00 00 00 7A 39 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TomL.raw.......z9.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TomL.raw"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 6F 6D 4C 2E 72 61 80 80 80 00 80 80 80 39 81 00 80 80 80 80 00
+2026-10-16T03:26:13.055Z  +   3832.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.067Z  +   3844.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 37 48 45 56 4E 5F 49 52 2E 5A 44 32 00 00 00 1D 05 06 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........7HEVN_IR.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "7HEVN_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 37 48 45 56 4E 5F 49 2E DA 44 32 80 00 80 85 06 80 80 80 00 00 00
+2026-10-16T03:26:13.067Z  +   3844.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.080Z  +   3857.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 37 48 45 56 4E 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........7HEVN_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "7HEVN_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 37 48 45 56 4E 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.080Z  +   3857.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.096Z  +   3874.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 37 48 45 56 4E 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........7HEVN_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "7HEVN_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 37 48 45 56 4E 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:13.096Z  +   3874.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.111Z  +   3889.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 43 4F 53 49 4D 2E 5A 44 32 00 00 00 00 00 1E 4B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ACOSIM.ZD2......K.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ACOSIM.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 43 4F 53 49 4D 2E 44 B2 00 80 80 00 80 4B 81 80 80 80 00 00 00
+2026-10-16T03:26:13.112Z  +   3889.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.126Z  +   3903.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 43 4F 53 49 4D 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ACOSIM.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ACOSIM.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 43 4F 53 49 4D 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.126Z  +   3904.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.140Z  +   3918.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 49 52 35 47 2E 5A 44 32 00 00 00 00 00 00 75 76 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........AIR5G.ZD2......uv.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "AIR5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 49 52 35 47 2E 5A 32 00 80 00 00 00 80 F6 00 80 00 80 80 80 00
+2026-10-16T03:26:13.141Z  +   3918.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.154Z  +   3931.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 49 52 35 47 2E 5A 49 43 00 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........AIR5G.ZIC......8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "AIR5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 49 52 35 47 2E 5A C3 00 00 80 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.154Z  +   3931.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.169Z  +   3946.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 4E 44 4C 59 5F 4D 2E 5A 44 32 00 00 00 00 1C 08 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ANDLY_M.ZD2...............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ANDLY_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 4E 44 4C 59 5F 4D 5A C4 B2 80 00 80 00 08 01 80 80 80 00 00 00
+2026-10-16T03:26:13.169Z  +   3946.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.185Z  +   3962.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 4E 44 4C 59 5F 4D 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ANDLY_M.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ANDLY_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 4E 44 4C 59 5F 4D 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.185Z  +   3962.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.200Z  +   3978.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 55 54 4F 57 41 48 2E 5A 44 32 00 00 00 00 22 7D 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........AUTOWAH.ZD2...."}.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "AUTOWAH.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 55 54 4F 57 41 48 5A C4 B2 80 00 80 00 7D 80 00 00 00 80 00 00
+2026-10-16T03:26:13.200Z  +   3978.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.216Z  +   3993.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 41 55 54 4F 57 41 48 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........AUTOWAH.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "AUTOWAH.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 41 55 54 4F 57 41 48 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.216Z  +   3993.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.228Z  +   4006.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 4D 4B 31 5F 49 52 2E 5A 44 32 00 00 00 44 29 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGMK1_IR.ZD2...D).........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGMK1_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 4D 4B 31 5F 49 2E DA 44 32 80 00 80 29 03 80 00 00 00 80 00
+2026-10-16T03:26:13.229Z  +   4006.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.246Z  +   4023.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 4D 4B 31 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGMK1_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGMK1_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 4D 4B 31 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.246Z  +   4023.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.264Z  +   4041.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 4D 4B 31 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGMK1_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGMK1_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 4D 4B 31 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:13.264Z  +   4041.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.280Z  +   4058.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 4D 4B 33 5F 49 52 2E 5A 44 32 00 00 00 78 27 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGMK3_IR.ZD2...x'.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGMK3_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 4D 4B 33 5F 49 2E DA 44 32 80 00 80 27 03 00 80 80 80 80 00
+2026-10-16T03:26:13.281Z  +   4058.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.298Z  +   4076.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 4D 4B 33 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGMK3_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGMK3_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 4D 4B 33 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.298Z  +   4076.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.315Z  +   4092.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 4D 4B 33 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGMK3_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGMK3_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 4D 4B 33 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:13.315Z  +   4092.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.333Z  +   4110.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 54 48 52 54 54 4C 2E 5A 44 32 00 00 00 51 39 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGTHRTTL.ZD2...Q9.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGTHRTTL.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 54 48 52 54 54 2E 5A C4 B2 00 00 80 B9 01 00 00 80 00 80 00
+2026-10-16T03:26:13.333Z  +   4110.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.351Z  +   4129.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 47 54 48 52 54 54 4C 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BGTHRTTL.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BGTHRTTL.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 47 54 48 52 54 54 2E 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.352Z  +   4129.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.368Z  +   4146.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 4C 41 43 4B 4F 50 54 2E 5A 44 32 00 00 00 37 42 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BLACKOPT.ZD2...7B.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BLACKOPT.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 4C 41 43 4B 4F 50 2E 5A C4 32 80 00 80 C2 81 80 00 80 80 00 00
+2026-10-16T03:26:13.369Z  +   4146.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.389Z  +   4166.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 4C 41 43 4B 4F 50 54 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BLACKOPT.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BLACKOPT.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 4C 41 43 4B 4F 50 2E 5A C9 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.389Z  +   4166.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.408Z  +   4186.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 4C 43 4B 5F 57 41 48 2E 5A 44 32 00 00 00 66 4E 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BLCK_WAH.ZD2...fN.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BLCK_WAH.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 4C 43 4B 5F 57 41 2E 5A 44 B2 00 00 80 4E 81 80 00 00 80 80 00
+2026-10-16T03:26:13.408Z  +   4186.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.425Z  +   4202.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 4C 43 4B 5F 57 41 48 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BLCK_WAH.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BLCK_WAH.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 4C 43 4B 5F 57 41 2E 5A 49 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.425Z  +   4202.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.445Z  +   4222.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 4F 4D 42 45 52 2E 5A 44 32 00 00 00 00 00 35 71 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BOMBER.ZD2.....5q.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BOMBER.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 4F 4D 42 45 52 2E 44 B2 00 80 80 00 80 F1 01 80 00 80 80 00 00
+2026-10-16T03:26:13.445Z  +   4222.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.463Z  +   4241.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 42 4F 4D 42 45 52 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........BOMBER.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "BOMBER.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 42 4F 4D 42 45 52 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.463Z  +   4241.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.479Z  +   4256.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 48 52 4D 5F 57 41 48 2E 5A 44 32 00 00 00 1D 4F 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CHRM_WAH.ZD2....O.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CHRM_WAH.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 48 52 4D 5F 57 41 2E 5A 44 B2 00 00 80 CF 01 80 80 80 00 00 00
+2026-10-16T03:26:13.479Z  +   4256.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.536Z  +   4313.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 48 52 4D 5F 57 41 48 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CHRM_WAH.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CHRM_WAH.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 48 52 4D 5F 57 41 2E 5A 49 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.536Z  +   4313.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.590Z  +   4367.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 48 55 52 43 48 35 47 2E 5A 44 32 00 00 00 4D 56 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CHURCH5G.ZD2...MV.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CHURCH5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 48 55 52 43 48 35 AE DA C4 32 00 00 80 D6 01 80 80 00 00 80 00
+2026-10-16T03:26:13.590Z  +   4367.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.653Z  +   4431.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 48 55 52 43 48 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CHURCH5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CHURCH5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 48 55 52 43 48 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.653Z  +   4431.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.716Z  +   4494.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 4C 4F 4E 45 43 48 4F 2E 5A 44 32 00 00 00 54 78 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CLONECHO.ZD2...Tx.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CLONECHO.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 4C 4F 4E 45 43 48 AE DA C4 B2 00 00 80 78 00 80 00 80 00 80 00
+2026-10-16T03:26:13.716Z  +   4494.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.753Z  +   4530.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 4C 4F 4E 45 43 48 4F 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CLONECHO.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CLONECHO.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 4C 4F 4E 45 43 48 AE DA C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.753Z  +   4530.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.774Z  +   4552.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 4F 4D 50 2E 5A 44 32 00 00 00 00 00 00 00 4E 68 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........COMP.ZD2.......Nh.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "COMP.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 4F 4D 50 2E 5A 44 00 80 00 00 80 80 00 68 80 80 80 00 00 80 00
+2026-10-16T03:26:13.775Z  +   4552.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.794Z  +   4572.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 4F 4D 50 2E 5A 49 43 00 00 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........COMP.ZIC.......8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "COMP.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 4F 4D 50 2E 5A 49 80 80 00 00 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.794Z  +   4572.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.814Z  +   4591.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 52 4E 54 52 49 35 47 2E 5A 44 32 00 00 00 5C 1F 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CRNTRI5G.ZD2...\..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CRNTRI5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 52 4E 54 52 49 35 AE DA C4 32 00 00 80 1F 01 80 80 80 00 80 00
+2026-10-16T03:26:13.814Z  +   4591.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.837Z  +   4614.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 43 52 4E 54 52 49 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........CRNTRI5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "CRNTRI5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 43 52 4E 54 52 49 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.837Z  +   4614.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.860Z  +   4637.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 45 4C 41 59 5F 4D 2E 5A 44 32 00 00 00 00 41 06 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DELAY_M.ZD2....A..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DELAY_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 45 4C 41 59 5F 4D 5A C4 B2 80 00 80 00 86 01 00 00 00 00 80 00
+2026-10-16T03:26:13.860Z  +   4638.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.880Z  +   4657.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 45 4C 41 59 5F 4D 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DELAY_M.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DELAY_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 45 4C 41 59 5F 4D 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.880Z  +   4657.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.902Z  +   4679.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 45 54 55 4E 45 35 47 2E 5A 44 32 00 00 00 01 78 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DETUNE5G.ZD2....x.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DETUNE5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 45 54 55 4E 45 35 AE DA C4 32 00 00 80 F8 00 00 00 00 00 00 00
+2026-10-16T03:26:13.902Z  +   4679.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.928Z  +   4705.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 45 54 55 4E 45 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DETUNE5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DETUNE5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 45 54 55 4E 45 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.928Z  +   4705.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.951Z  +   4728.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 49 53 54 31 5F 35 47 2E 5A 44 32 00 00 00 29 42 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DIST1_5G.ZD2...)B.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DIST1_5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 49 53 54 31 5F 35 AE DA C4 32 00 00 80 C2 01 00 80 00 80 00 00
+2026-10-16T03:26:13.951Z  +   4729.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.976Z  +   4754.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 49 53 54 31 5F 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DIST1_5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DIST1_5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 49 53 54 31 5F 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:13.976Z  +   4754.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:13.997Z  +   4774.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 49 53 54 50 4C 35 47 2E 5A 44 32 00 00 00 11 31 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DISTPL5G.ZD2....1.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DISTPL5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 49 53 54 50 4C 35 AE DA C4 32 00 00 80 B1 01 00 00 80 00 00 00
+2026-10-16T03:26:13.997Z  +   4774.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.023Z  +   4800.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 49 53 54 50 4C 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DISTPL5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DISTPL5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 49 53 54 50 4C 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.023Z  +   4800.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.045Z  +   4822.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 55 41 44 4C 59 5F 4D 2E 5A 44 32 00 00 00 64 0D 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DUADLY_M.ZD2...d..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DUADLY_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 55 41 44 4C 59 5F AE 5A C4 B2 00 00 80 0D 02 80 00 00 80 80 00
+2026-10-16T03:26:14.045Z  +   4822.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.066Z  +   4843.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 55 41 44 4C 59 5F 4D 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DUADLY_M.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DUADLY_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 55 41 44 4C 59 5F AE 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.066Z  +   4843.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.094Z  +   4871.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 59 4E 44 52 49 56 45 2E 5A 44 32 00 00 00 62 6B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DYNDRIVE.ZD2...bk.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DYNDRIVE.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 59 4E 44 52 49 56 AE 5A C4 32 00 00 80 6B 81 00 00 00 80 80 00
+2026-10-16T03:26:14.094Z  +   4871.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.121Z  +   4899.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 59 4E 44 52 49 56 45 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DYNDRIVE.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DYNDRIVE.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 59 4E 44 52 49 56 AE 5A C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.122Z  +   4899.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.158Z  +   4936.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 5A 5F 44 52 56 49 52 2E 5A 44 32 00 00 00 5A 31 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DZ_DRVIR.ZD2...Z1.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DZ_DRVIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 5A 5F 44 52 56 49 2E DA 44 32 80 00 80 31 83 00 80 80 00 80 00
+2026-10-16T03:26:14.158Z  +   4936.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.191Z  +   4968.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 5A 5F 44 52 56 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DZ_DRVIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DZ_DRVIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 5A 5F 44 52 56 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.191Z  +   4968.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.221Z  +   4998.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 44 5A 5F 44 52 56 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........DZ_DRVIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "DZ_DRVIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 44 5A 5F 44 52 56 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:14.221Z  +   4998.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.250Z  +   5028.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 45 41 52 4C 59 52 45 46 2E 5A 44 32 00 00 00 53 16 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........EARLYREF.ZD2...S..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "EARLYREF.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 45 41 52 4C 59 52 45 2E DA C4 32 00 00 80 96 81 00 00 80 00 80 00
+2026-10-16T03:26:14.250Z  +   5028.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.274Z  +   5051.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 45 41 52 4C 59 52 45 46 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........EARLYREF.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "EARLYREF.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 45 41 52 4C 59 52 45 2E DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.274Z  +   5052.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.304Z  +   5082.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 45 50 53 54 4D 50 35 47 2E 5A 44 32 00 00 00 6E 06 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........EPSTMP5G.ZD2...n..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "EPSTMP5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 45 50 53 54 4D 50 35 AE DA C4 32 00 00 80 06 81 80 80 00 80 80 00
+2026-10-16T03:26:14.304Z  +   5082.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.338Z  +   5115.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 45 50 53 54 4D 50 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........EPSTMP5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "EPSTMP5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 45 50 53 54 4D 50 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.338Z  +   5116.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.373Z  +   5151.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 42 4D 41 4E 49 52 2E 5A 44 32 00 00 00 42 22 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDBMANIR.ZD2...B".........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDBMANIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 42 4D 41 4E 49 2E DA 44 32 80 00 80 22 83 00 00 00 00 80 00
+2026-10-16T03:26:14.374Z  +   5151.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.406Z  +   5183.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 42 4D 41 4E 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDBMANIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDBMANIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 42 4D 41 4E 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.406Z  +   5183.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.435Z  +   5213.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 42 4D 41 4E 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDBMANIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDBMANIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 42 4D 41 4E 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:14.436Z  +   5213.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.468Z  +   5245.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 44 4C 58 52 49 52 2E 5A 44 32 00 00 00 56 30 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDDLXRIR.ZD2...V0.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDDLXRIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 44 4C 58 52 49 2E DA 44 32 80 00 80 30 83 80 00 80 00 80 00
+2026-10-16T03:26:14.468Z  +   5245.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.498Z  +   5275.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 44 4C 58 52 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDDLXRIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDDLXRIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 44 4C 58 52 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.498Z  +   5275.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.602Z  +   5380.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 44 4C 58 52 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDDLXRIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDDLXRIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 44 4C 58 52 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:14.602Z  +   5380.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.704Z  +   5481.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 4D 53 54 52 49 52 2E 5A 44 32 00 00 00 28 3D 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDMSTRIR.ZD2...(=.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDMSTRIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 4D 53 54 52 49 2E DA 44 32 80 00 80 3D 03 00 80 00 80 00 00
+2026-10-16T03:26:14.704Z  +   5481.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.787Z  +   5565.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 4D 53 54 52 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDMSTRIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDMSTRIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 4D 53 54 52 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.787Z  +   5565.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.822Z  +   5600.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 4D 53 54 52 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDMSTRIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDMSTRIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 4D 53 54 52 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:14.822Z  +   5600.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.854Z  +   5631.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 53 50 52 49 4E 47 2E 5A 44 32 00 00 00 3F 39 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDSPRING.ZD2...?9.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDSPRING.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 53 50 52 49 4E AE DA C4 32 00 00 80 B9 81 80 80 80 80 00 00
+2026-10-16T03:26:14.854Z  +   5631.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.887Z  +   5665.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 53 50 52 49 4E 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FDSPRING.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FDSPRING.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 53 50 52 49 4E AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.888Z  +   5665.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.925Z  +   5703.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 5F 54 57 52 49 52 2E 5A 44 32 00 00 00 33 29 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FD_TWRIR.ZD2...3).........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FD_TWRIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 5F 54 57 52 49 2E DA 44 32 80 00 80 A9 83 00 00 80 80 00 00
+2026-10-16T03:26:14.925Z  +   5703.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.960Z  +   5738.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 5F 54 57 52 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FD_TWRIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FD_TWRIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 5F 54 57 52 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:14.960Z  +   5738.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:14.997Z  +   5775.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 44 5F 54 57 52 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FD_TWRIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FD_TWRIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 44 5F 54 57 52 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:14.997Z  +   5775.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.033Z  +   5811.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 41 54 45 52 56 35 47 2E 5A 44 32 00 00 00 57 50 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GATERV5G.ZD2...WP.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GATERV5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 41 54 45 52 56 35 AE DA C4 32 00 00 80 D0 81 80 00 80 00 80 00
+2026-10-16T03:26:15.034Z  +   5811.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.069Z  +   5847.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 41 54 45 52 56 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GATERV5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GATERV5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 41 54 45 52 56 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.069Z  +   5847.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.106Z  +   5883.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 45 4D 49 4E 4F 53 2E 5A 44 32 00 00 00 00 3E 28 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GEMINOS.ZD2....>(.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GEMINOS.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 45 4D 49 4E 4F 53 5A C4 B2 80 00 80 00 28 81 80 80 80 80 00 00
+2026-10-16T03:26:15.106Z  +   5883.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.143Z  +   5921.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 45 4D 49 4E 4F 53 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GEMINOS.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GEMINOS.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 45 4D 49 4E 4F 53 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.143Z  +   5921.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.180Z  +   5958.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 4F 4C 44 5F 44 52 56 2E 5A 44 32 00 00 00 01 74 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GOLD_DRV.ZD2....t.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GOLD_DRV.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 4F 4C 44 5F 44 52 2E DA C4 32 80 00 80 F4 01 00 00 00 00 00 00
+2026-10-16T03:26:15.180Z  +   5958.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.219Z  +   5996.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 4F 4C 44 5F 44 52 56 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GOLD_DRV.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GOLD_DRV.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 4F 4C 44 5F 44 52 2E DA C9 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.219Z  +   5997.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.255Z  +   6032.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 52 41 59 43 4F 4D 50 2E 5A 44 32 00 00 00 60 09 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GRAYCOMP.ZD2...`..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GRAYCOMP.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 52 41 59 43 4F 4D 2E 5A 44 32 80 00 80 09 01 00 00 00 80 80 00
+2026-10-16T03:26:15.255Z  +   6032.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.289Z  +   6067.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 52 41 59 43 4F 4D 50 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GRAYCOMP.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GRAYCOMP.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 52 41 59 43 4F 4D 2E 5A 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.289Z  +   6067.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.325Z  +   6102.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 54 47 45 51 37 35 47 2E 5A 44 32 00 00 00 11 0A 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GTGEQ75G.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GTGEQ75G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 54 47 45 51 37 35 AE DA C4 32 00 00 80 8A 01 00 00 80 00 00 00
+2026-10-16T03:26:15.325Z  +   6102.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.362Z  +   6139.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 47 54 47 45 51 37 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........GTGEQ75G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "GTGEQ75G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 47 54 47 45 51 37 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.362Z  +   6139.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.398Z  +   6176.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 41 4C 4C 35 47 2E 5A 44 32 00 00 00 00 00 13 0C 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HALL5G.ZD2................
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HALL5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 41 4C 4C 35 47 2E 44 B2 00 80 80 00 80 8C 81 00 00 80 00 00 00
+2026-10-16T03:26:15.398Z  +   6176.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.436Z  +   6214.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 41 4C 4C 35 47 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HALL5G.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HALL5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 41 4C 4C 35 47 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.436Z  +   6214.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.472Z  +   6250.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 44 48 41 4C 4C 35 47 2E 5A 44 32 00 00 00 2E 23 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HDHALL5G.ZD2....#.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HDHALL5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 44 48 41 4C 4C 35 AE DA C4 32 00 00 80 23 81 80 80 00 80 00 00
+2026-10-16T03:26:15.472Z  +   6250.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.510Z  +   6287.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 44 48 41 4C 4C 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HDHALL5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HDHALL5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 44 48 41 4C 4C 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.510Z  +   6287.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.638Z  +   6416.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 50 53 2E 5A 44 32 00 00 00 00 00 00 00 00 75 7A 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HPS.ZD2........uz.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HPS.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 50 53 2E 5A 44 32 00 00 00 00 00 00 00 FA 00 80 00 80 80 80 00
+2026-10-16T03:26:15.639Z  +   6416.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.765Z  +   6542.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 50 53 2E 5A 49 43 00 00 00 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HPS.ZIC........8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HPS.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 50 53 2E 5A 49 43 00 00 00 00 00 00 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.765Z  +   6542.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.822Z  +   6599.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 57 31 30 30 5F 49 52 2E 5A 44 32 00 00 00 3F 10 04 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HW100_IR.ZD2...?..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HW100_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 57 31 30 30 5F 49 2E DA 44 32 80 00 80 90 84 80 80 80 80 00 00
+2026-10-16T03:26:15.822Z  +   6599.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.871Z  +   6648.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 57 31 30 30 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HW100_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HW100_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 57 31 30 30 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.871Z  +   6648.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.912Z  +   6690.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 48 57 31 30 30 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........HW100_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "HW100_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 48 57 31 30 30 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:15.912Z  +   6690.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.957Z  +   6735.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 43 45 44 4C 59 5F 4D 2E 5A 44 32 00 00 00 7C 0B 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ICEDLY_M.ZD2...|..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ICEDLY_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 43 45 44 4C 59 5F AE 5A C4 B2 00 00 80 0B 02 80 80 80 80 80 00
+2026-10-16T03:26:15.958Z  +   6735.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:15.996Z  +   6773.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 49 43 45 44 4C 59 5F 4D 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ICEDLY_M.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ICEDLY_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 49 43 45 44 4C 59 5F AE 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:15.996Z  +   6773.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.033Z  +   6810.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4B 52 4D 50 53 5F 49 52 2E 5A 44 32 00 00 00 17 2C 05 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........KRMPS_IR.ZD2....,.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "KRMPS_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4B 52 4D 50 53 5F 49 2E DA 44 32 80 00 80 AC 85 80 00 80 00 00 00
+2026-10-16T03:26:16.033Z  +   6810.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.073Z  +   6850.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4B 52 4D 50 53 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........KRMPS_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "KRMPS_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4B 52 4D 50 53 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.073Z  +   6850.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.112Z  +   6889.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4B 52 4D 50 53 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........KRMPS_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "KRMPS_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4B 52 4D 50 53 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:16.112Z  +   6890.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.149Z  +   6926.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 4D 54 31 31 37 36 2E 5A 44 32 00 00 00 00 02 56 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LMT1176.ZD2.....V.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LMT1176.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 4D 54 31 31 37 36 5A C4 B2 80 00 80 00 56 81 00 00 00 00 00 00
+2026-10-16T03:26:16.149Z  +   6926.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.188Z  +   6966.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 4D 54 31 31 37 36 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LMT1176.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LMT1176.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 4D 54 31 31 37 36 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.189Z  +   6966.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.228Z  +   7005.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 4F 4F 50 52 4F 4C 4C 2E 5A 44 32 00 00 00 20 61 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LOOPROLL.ZD2... a.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LOOPROLL.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 4F 4F 50 52 4F 4C 2E 5A C4 B2 00 00 80 61 01 00 00 00 80 00 00
+2026-10-16T03:26:16.228Z  +   7005.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.271Z  +   7048.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 4F 4F 50 52 4F 4C 4C 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LOOPROLL.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LOOPROLL.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 4F 4F 50 52 4F 4C 2E 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.271Z  +   7048.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.309Z  +   7086.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 4F 57 50 41 53 53 46 2E 5A 44 32 00 00 00 58 05 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LOWPASSF.ZD2...X..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LOWPASSF.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 4F 57 50 41 53 53 2E DA C4 32 00 00 80 05 01 00 80 80 00 80 00
+2026-10-16T03:26:16.309Z  +   7087.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.353Z  +   7131.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4C 4F 57 50 41 53 53 46 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........LOWPASSF.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "LOWPASSF.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4C 4F 57 50 41 53 53 2E DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.353Z  +   7131.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.396Z  +   7173.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 41 43 48 33 30 49 52 2E 5A 44 32 00 00 00 37 5A 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MACH30IR.ZD2...7Z.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MACH30IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 41 43 48 33 30 49 2E DA 44 32 80 00 80 DA 83 80 00 80 80 00 00
+2026-10-16T03:26:16.396Z  +   7174.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.429Z  +   7207.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 41 43 48 33 30 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MACH30IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MACH30IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 41 43 48 33 30 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.429Z  +   7207.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.466Z  +   7243.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 41 43 48 33 30 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MACH30IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MACH30IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 41 43 48 33 30 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:16.466Z  +   7243.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.504Z  +   7281.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 4F 44 44 4C 59 5F 4D 2E 5A 44 32 00 00 00 59 02 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MODDLY_M.ZD2...Y..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MODDLY_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 4F 44 44 4C 59 5F AE 5A C4 B2 00 00 80 82 01 00 80 80 00 80 00
+2026-10-16T03:26:16.504Z  +   7281.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.538Z  +   7316.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 4F 44 44 4C 59 5F 4D 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MODDLY_M.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MODDLY_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 4F 44 44 4C 59 5F AE 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.539Z  +   7316.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.670Z  +   7447.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 4F 4E 4F 50 49 54 43 2E 5A 44 32 00 00 00 1B 35 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MONOPITC.ZD2....5.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MONOPITC.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 4F 4E 4F 50 49 54 AE DA 44 32 00 00 80 B5 81 00 80 80 00 00 00
+2026-10-16T03:26:16.670Z  +   7448.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.794Z  +   7572.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 4F 4E 4F 50 49 54 43 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MONOPITC.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MONOPITC.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 4F 4E 4F 50 49 54 AE DA 49 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.794Z  +   7572.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.830Z  +   7607.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 31 39 35 39 49 52 2E 5A 44 32 00 00 00 11 40 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS1959IR.ZD2....@.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS1959IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 31 39 35 39 49 2E DA 44 32 80 00 80 C0 03 00 00 80 00 00 00
+2026-10-16T03:26:16.830Z  +   7607.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.871Z  +   7648.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 31 39 35 39 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS1959IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS1959IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 31 39 35 39 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.871Z  +   7648.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.904Z  +   7681.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 31 39 35 39 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS1959IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS1959IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 31 39 35 39 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:16.904Z  +   7681.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.938Z  +   7716.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 34 35 4F 53 49 52 2E 5A 44 32 00 00 00 3D 47 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS45OSIR.ZD2...=G.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS45OSIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 34 35 4F 53 49 2E DA 44 32 80 00 80 C7 03 80 80 80 80 00 00
+2026-10-16T03:26:16.938Z  +   7716.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:16.974Z  +   7751.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 34 35 4F 53 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS45OSIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS45OSIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 34 35 4F 53 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:16.974Z  +   7751.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.016Z  +   7794.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 34 35 4F 53 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS45OSIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS45OSIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 34 35 4F 53 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:17.016Z  +   7794.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.059Z  +   7836.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 38 30 30 5F 49 52 2E 5A 44 32 00 00 00 19 1A 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS800_IR.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS800_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 38 30 30 5F 49 2E DA 44 32 80 00 80 9A 03 00 80 80 00 00 00
+2026-10-16T03:26:17.059Z  +   7836.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.094Z  +   7872.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 38 30 30 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS800_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS800_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 38 30 30 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.094Z  +   7872.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.130Z  +   7907.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 53 38 30 30 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MS800_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MS800_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 53 38 30 30 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:17.130Z  +   7907.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.170Z  +   7947.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 55 44 44 59 5F 49 52 2E 5A 44 32 00 00 00 1A 2D 06 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MUDDY_IR.ZD2....-.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MUDDY_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 55 44 44 59 5F 49 2E DA 44 32 80 00 80 2D 86 00 80 80 00 00 00
+2026-10-16T03:26:17.170Z  +   7947.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.208Z  +   7985.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 55 44 44 59 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MUDDY_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MUDDY_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 55 44 44 59 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.208Z  +   7986.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.256Z  +   8033.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4D 55 44 44 59 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........MUDDY_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "MUDDY_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4D 55 44 44 59 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:17.256Z  +   8033.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.295Z  +   8073.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4E 59 43 5F 4D 55 46 46 2E 5A 44 32 00 00 00 20 08 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........NYC_MUFF.ZD2... ..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "NYC_MUFF.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4E 59 43 5F 4D 55 46 2E DA C4 32 00 00 80 08 01 00 00 00 80 00 00
+2026-10-16T03:26:17.295Z  +   8073.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.359Z  +   8137.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4E 59 43 5F 4D 55 46 46 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........NYC_MUFF.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "NYC_MUFF.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4E 59 43 5F 4D 55 46 2E DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.359Z  +   8137.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.397Z  +   8174.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4E 5F 47 41 54 45 2E 5A 44 32 00 00 00 00 00 69 3B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........N_GATE.ZD2.....i;.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "N_GATE.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4E 5F 47 41 54 45 2E 44 B2 00 80 80 00 80 BB 01 00 80 00 80 80 00
+2026-10-16T03:26:17.397Z  +   8175.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.439Z  +   8217.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4E 5F 47 41 54 45 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........N_GATE.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "N_GATE.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4E 5F 47 41 54 45 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.439Z  +   8217.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.491Z  +   8268.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 43 54 41 56 45 35 47 2E 5A 44 32 00 00 00 65 5E 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........OCTAVE5G.ZD2...e^.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "OCTAVE5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 43 54 41 56 45 35 AE DA C4 32 00 00 80 DE 00 80 00 00 80 80 00
+2026-10-16T03:26:17.491Z  +   8269.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.540Z  +   8318.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 43 54 41 56 45 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........OCTAVE5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "OCTAVE5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 43 54 41 56 45 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.540Z  +   8318.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.697Z  +   8475.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 43 54 46 55 5A 5A 2E 5A 44 32 00 00 00 00 77 4D 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........OCTFUZZ.ZD2....wM.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "OCTFUZZ.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 43 54 46 55 5A 5A 5A C4 B2 80 00 80 00 CD 81 80 00 80 80 80 00
+2026-10-16T03:26:17.697Z  +   8475.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.813Z  +   8590.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 43 54 46 55 5A 5A 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........OCTFUZZ.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "OCTFUZZ.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 43 54 46 55 5A 5A 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.813Z  +   8591.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.861Z  +   8638.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 52 47 31 32 30 49 52 2E 5A 44 32 00 00 00 42 25 04 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ORG120IR.ZD2...B%.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ORG120IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 52 47 31 32 30 49 2E DA 44 32 80 00 80 25 84 00 00 00 00 80 00
+2026-10-16T03:26:17.861Z  +   8638.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.909Z  +   8687.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 52 47 31 32 30 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ORG120IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ORG120IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 52 47 31 32 30 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.910Z  +   8687.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.956Z  +   8733.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 52 47 31 32 30 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ORG120IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ORG120IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 52 47 31 32 30 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:17.956Z  +   8733.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:17.997Z  +   8775.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 4F 55 54 5F 56 50 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........OUT_VP.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "OUT_VP.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 4F 55 54 5F 56 50 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:17.997Z  +   8775.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.043Z  +   8821.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 41 52 41 45 51 35 47 2E 5A 44 32 00 00 00 64 78 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PARAEQ5G.ZD2...dx.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PARAEQ5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 41 52 41 45 51 35 AE DA C4 32 00 00 80 78 00 80 00 00 80 80 00
+2026-10-16T03:26:18.043Z  +   8821.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.089Z  +   8866.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 41 52 41 45 51 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PARAEQ5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PARAEQ5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 41 52 41 45 51 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.089Z  +   8866.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.139Z  +   8916.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 41 52 54 43 4C 35 47 2E 5A 44 32 00 00 00 3F 26 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PARTCL5G.ZD2...?&.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PARTCL5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 41 52 54 43 4C 35 AE DA C4 32 00 00 80 A6 82 80 80 80 80 00 00
+2026-10-16T03:26:18.139Z  +   8916.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.188Z  +   8965.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 41 52 54 43 4C 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PARTCL5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PARTCL5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 41 52 54 43 4C 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.188Z  +   8965.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.235Z  +   9012.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 44 4C 56 4F 4C 35 47 2E 5A 44 32 00 00 00 1B 67 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PDLVOL5G.ZD2....g.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PDLVOL5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 44 4C 56 4F 4C 35 AE DA C4 32 00 00 80 E7 80 00 80 80 00 00 00
+2026-10-16T03:26:18.235Z  +   9012.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.282Z  +   9059.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 44 4C 56 4F 4C 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PDLVOL5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PDLVOL5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 44 4C 56 4F 4C 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.282Z  +   9059.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.330Z  +   9108.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 44 4C 5F 4D 4E 50 54 2E 5A 44 32 00 00 00 4F 58 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PDL_MNPT.ZD2...OX.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PDL_MNPT.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 44 4C 5F 4D 4E 50 2E 5A C4 32 80 00 80 D8 81 80 80 00 00 80 00
+2026-10-16T03:26:18.331Z  +   9108.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.380Z  +   9157.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 44 4C 5F 4D 4E 50 54 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PDL_MNPT.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PDL_MNPT.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 44 4C 5F 4D 4E 50 2E 5A C9 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.380Z  +   9158.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.441Z  +   9219.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 44 4C 5F 52 4F 54 2E 5A 44 32 00 00 00 00 69 38 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PDL_ROT.ZD2....i8.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PDL_ROT.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 44 4C 5F 52 4F 54 5A C4 B2 80 00 80 00 B8 01 00 80 00 80 80 00
+2026-10-16T03:26:18.441Z  +   9219.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.482Z  +   9259.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 44 4C 5F 52 4F 54 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PDL_ROT.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PDL_ROT.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 44 4C 5F 52 4F 54 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.482Z  +   9259.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.529Z  +   9306.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 48 41 53 45 52 2E 5A 44 32 00 00 00 00 00 6B 7B 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PHASER.ZD2.....k{.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PHASER.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 48 41 53 45 52 2E 44 B2 00 80 80 00 80 FB 80 00 80 00 80 80 00
+2026-10-16T03:26:18.529Z  +   9307.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.694Z  +   9471.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 48 41 53 45 52 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PHASER.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PHASER.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 48 41 53 45 52 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.694Z  +   9472.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.800Z  +   9578.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4C 54 52 45 56 35 47 2E 5A 44 32 00 00 00 59 1C 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PLTREV5G.ZD2...Y..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PLTREV5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4C 54 52 45 56 35 AE DA C4 32 00 00 80 9C 01 00 80 80 00 80 00
+2026-10-16T03:26:18.800Z  +   9578.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.846Z  +   9623.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4C 54 52 45 56 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PLTREV5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PLTREV5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4C 54 52 45 56 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.846Z  +   9623.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.896Z  +   9674.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4C 59 53 48 46 35 47 2E 5A 44 32 00 00 00 41 0C 04 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PLYSHF5G.ZD2...A..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PLYSHF5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4C 59 53 48 46 35 AE DA C4 32 00 00 80 8C 04 00 00 00 00 80 00
+2026-10-16T03:26:18.897Z  +   9674.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:18.941Z  +   9718.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4C 59 53 48 46 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PLYSHF5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PLYSHF5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4C 59 53 48 46 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:18.941Z  +   9718.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.000Z  +   9777.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4F 4C 45 58 5F 49 52 2E 5A 44 32 00 00 00 01 5F 06 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........POLEX_IR.ZD2...._.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "POLEX_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4F 4C 45 58 5F 49 2E DA 44 32 80 00 80 DF 06 00 00 00 00 00 00
+2026-10-16T03:26:19.000Z  +   9777.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.052Z  +   9830.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4F 4C 45 58 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........POLEX_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "POLEX_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4F 4C 45 58 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.052Z  +   9830.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.107Z  +   9884.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 4F 4C 45 58 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........POLEX_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "POLEX_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 4F 4C 45 58 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:19.107Z  +   9884.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.153Z  +   9930.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 50 5F 44 4C 59 5F 4D 2E 5A 44 32 00 00 00 0F 05 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PP_DLY_M.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PP_DLY_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 50 5F 44 4C 59 5F AE 5A C4 B2 00 00 80 85 81 80 80 00 00 00 00
+2026-10-16T03:26:19.153Z  +   9930.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.197Z  +   9975.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 50 50 5F 44 4C 59 5F 4D 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........PP_DLY_M.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "PP_DLY_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 50 50 5F 44 4C 59 5F AE 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.198Z  +   9975.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.253Z  +  10030.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 41 43 4B 43 4F 4D 50 2E 5A 44 32 00 00 00 24 08 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RACKCOMP.ZD2...$..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RACKCOMP.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 41 43 4B 43 4F 4D 2E 5A 44 32 80 00 80 08 01 80 00 00 80 00 00
+2026-10-16T03:26:19.253Z  +  10031.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.309Z  +  10087.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 41 43 4B 43 4F 4D 50 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RACKCOMP.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RACKCOMP.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 41 43 4B 43 4F 4D 2E 5A 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.309Z  +  10087.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.356Z  +  10134.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 41 5A 4F 52 44 52 56 2E 5A 44 32 00 00 00 10 25 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RAZORDRV.ZD2....%.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RAZORDRV.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 41 5A 4F 52 44 52 2E DA C4 32 80 00 80 25 01 00 00 80 00 00 00
+2026-10-16T03:26:19.356Z  +  10134.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.403Z  +  10181.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 41 5A 4F 52 44 52 56 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RAZORDRV.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RAZORDRV.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 41 5A 4F 52 44 52 2E DA C9 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.403Z  +  10181.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.460Z  +  10238.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 43 42 53 54 35 47 2E 5A 44 32 00 00 00 00 2B 2B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RCBST5G.ZD2....++.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RCBST5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 43 42 53 54 35 47 5A C4 B2 80 00 80 00 AB 81 00 80 00 80 00 00
+2026-10-16T03:26:19.460Z  +  10238.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.517Z  +  10295.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 43 42 53 54 35 47 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RCBST5G.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RCBST5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 43 42 53 54 35 47 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.517Z  +  10295.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.568Z  +  10346.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 43 54 4F 52 47 49 52 2E 5A 44 32 00 00 00 13 15 04 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RCTORGIR.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RCTORGIR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 43 54 4F 52 47 49 2E DA 44 32 80 00 80 95 84 00 00 80 00 00 00
+2026-10-16T03:26:19.568Z  +  10346.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.748Z  +  10525.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 43 54 4F 52 47 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RCTORGIR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RCTORGIR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 43 54 4F 52 47 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.748Z  +  10526.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.861Z  +  10638.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 43 54 4F 52 47 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RCTORGIR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RCTORGIR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 43 54 4F 52 47 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:19.861Z  +  10638.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.910Z  +  10687.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 45 44 43 52 35 47 2E 5A 44 32 00 00 00 00 26 29 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........REDCR5G.ZD2....&).........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "REDCR5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 45 44 43 52 35 47 5A C4 B2 80 00 80 00 29 81 80 00 00 80 00 00
+2026-10-16T03:26:19.910Z  +  10688.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:19.962Z  +  10740.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 45 44 43 52 35 47 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........REDCR5G.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "REDCR5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 45 44 43 52 35 47 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:19.962Z  +  10740.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.013Z  +  10790.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 45 44 4C 4D 5F 49 52 2E 5A 44 32 00 00 00 13 7F 04 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........REDLM_IR.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "REDLM_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 45 44 4C 4D 5F 49 2E DA 44 32 80 00 80 FF 84 00 00 80 00 00 00
+2026-10-16T03:26:20.013Z  +  10790.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.080Z  +  10858.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 45 44 4C 4D 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........REDLM_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "REDLM_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 45 44 4C 4D 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:20.080Z  +  10858.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.138Z  +  10915.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 45 44 4C 4D 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........REDLM_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "REDLM_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 45 44 4C 4D 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:20.138Z  +  10915.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.195Z  +  10973.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 49 4E 47 4D 4F 44 2E 5A 44 32 00 00 00 00 64 73 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RINGMOD.ZD2....ds.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RINGMOD.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 49 4E 47 4D 4F 44 5A C4 B2 80 00 80 00 73 00 80 00 00 80 80 00
+2026-10-16T03:26:20.196Z  +  10973.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.245Z  +  11022.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 49 4E 47 4D 4F 44 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RINGMOD.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RINGMOD.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 49 4E 47 4D 4F 44 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:20.245Z  +  11022.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.303Z  +  11080.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 4F 4F 4D 35 47 2E 5A 44 32 00 00 00 00 00 7D 0B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ROOM5G.ZD2.....}..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ROOM5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 4F 4F 4D 35 47 2E 44 B2 00 80 80 00 80 8B 01 80 80 80 80 80 00
+2026-10-16T03:26:20.303Z  +  11080.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.360Z  +  11137.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 4F 4F 4D 35 47 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ROOM5G.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ROOM5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 4F 4F 4D 35 47 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:20.360Z  +  11138.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.419Z  +  11196.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 56 52 53 44 4C 5F 4D 2E 5A 44 32 00 00 00 17 05 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RVRSDL_M.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RVRSDL_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 56 52 53 44 4C 5F AE 5A C4 B2 00 00 80 85 81 80 00 80 00 00 00
+2026-10-16T03:26:20.419Z  +  11197.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.477Z  +  11254.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 52 56 52 53 44 4C 5F 4D 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........RVRSDL_M.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "RVRSDL_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 52 56 52 53 44 4C 5F AE 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:20.477Z  +  11254.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.537Z  +  11314.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 45 51 46 4C 54 52 2E 5A 44 32 00 00 00 00 5A 19 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SEQFLTR.ZD2....Z..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SEQFLTR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 45 51 46 4C 54 52 5A C4 B2 80 00 80 00 19 81 00 80 80 00 80 00
+2026-10-16T03:26:20.537Z  +  11314.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.592Z  +  11369.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 45 51 46 4C 54 52 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SEQFLTR.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SEQFLTR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 45 51 46 4C 54 52 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:20.592Z  +  11369.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.789Z  +  11566.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 4C 57 41 54 4B 2E 5A 44 32 00 00 00 00 00 36 51 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SLWATK.ZD2.....6Q.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SLWATK.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 4C 57 41 54 4B 2E 44 B2 00 80 80 00 80 51 81 80 00 80 80 00 00
+2026-10-16T03:26:20.789Z  +  11566.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.891Z  +  11669.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 4C 57 41 54 4B 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SLWATK.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SLWATK.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 4C 57 41 54 4B 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:20.891Z  +  11669.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:20.953Z  +  11730.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 4F 46 54 45 43 35 47 2E 5A 44 32 00 00 00 31 45 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SOFTEC5G.ZD2...1E.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SOFTEC5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 4F 46 54 45 43 35 AE DA C4 32 00 00 80 C5 01 00 00 80 80 00 00
+2026-10-16T03:26:20.953Z  +  11731.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.016Z  +  11793.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 4F 46 54 45 43 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SOFTEC5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SOFTEC5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 4F 46 54 45 43 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.016Z  +  11794.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.073Z  +  11851.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 50 52 49 4E 47 35 47 2E 5A 44 32 00 00 00 5D 0C 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SPRING5G.ZD2...]..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SPRING5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 50 52 49 4E 47 35 AE DA C4 32 00 00 80 8C 01 80 80 80 00 80 00
+2026-10-16T03:26:21.073Z  +  11851.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.125Z  +  11903.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 50 52 49 4E 47 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SPRING5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SPRING5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 50 52 49 4E 47 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.125Z  +  11903.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.178Z  +  11956.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 51 55 45 41 4B 35 47 2E 5A 44 32 00 00 00 55 40 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SQUEAK5G.ZD2...U@.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SQUEAK5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 51 55 45 41 4B 35 AE DA C4 32 00 00 80 C0 01 80 00 80 00 80 00
+2026-10-16T03:26:21.179Z  +  11956.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.234Z  +  12011.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 51 55 45 41 4B 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SQUEAK5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SQUEAK5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 51 55 45 41 4B 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.234Z  +  12011.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.301Z  +  12079.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 54 45 50 35 47 2E 5A 44 32 00 00 00 00 00 67 73 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........STEP5G.ZD2.....gs.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "STEP5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 54 45 50 35 47 2E 44 B2 00 80 80 00 80 F3 80 80 00 00 80 80 00
+2026-10-16T03:26:21.301Z  +  12079.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.359Z  +  12137.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 54 45 50 35 47 2E 5A 49 43 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........STEP5G.ZIC.....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "STEP5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 54 45 50 35 47 2E 49 C3 00 80 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.360Z  +  12137.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.418Z  +  12196.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 54 45 52 45 4F 43 48 2E 5A 44 32 00 00 00 11 75 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........STEREOCH.ZD2....u.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "STEREOCH.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 54 45 52 45 4F 43 2E 5A 44 B2 00 00 80 F5 00 00 00 80 00 00 00
+2026-10-16T03:26:21.418Z  +  12196.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.478Z  +  12255.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 54 45 52 45 4F 43 48 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........STEREOCH.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "STEREOCH.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 54 45 52 45 4F 43 2E 5A 49 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.478Z  +  12255.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.531Z  +  12308.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 54 4F 4E 45 50 48 41 2E 5A 44 32 00 00 00 7E 2C 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........STONEPHA.ZD2...~,.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "STONEPHA.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 54 4F 4E 45 50 48 AE 5A 44 32 00 00 80 2C 81 80 80 80 80 80 00
+2026-10-16T03:26:21.531Z  +  12308.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.588Z  +  12366.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 54 4F 4E 45 50 48 41 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........STONEPHA.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "STONEPHA.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 54 4F 4E 45 50 48 AE 5A 49 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.588Z  +  12366.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.640Z  +  12417.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 55 50 45 52 43 48 4F 2E 5A 44 32 00 00 00 21 02 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SUPERCHO.ZD2...!..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SUPERCHO.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 55 50 45 52 43 48 AE DA C4 B2 00 00 80 82 01 00 00 00 80 00 00
+2026-10-16T03:26:21.640Z  +  12417.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.841Z  +  12618.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 55 50 45 52 43 48 4F 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SUPERCHO.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SUPERCHO.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 55 50 45 52 43 48 AE DA C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.841Z  +  12619.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.923Z  +  12700.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 57 45 45 54 44 52 56 2E 5A 44 32 00 00 00 39 64 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SWEETDRV.ZD2...9d.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SWEETDRV.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 57 45 45 54 44 52 2E DA C4 32 80 00 80 E4 01 00 80 80 80 00 00
+2026-10-16T03:26:21.924Z  +  12701.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:21.984Z  +  12761.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 57 45 45 54 44 52 56 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SWEETDRV.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SWEETDRV.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 57 45 45 54 44 52 2E DA C9 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:21.984Z  +  12761.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.036Z  +  12813.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 57 45 4C 4C 56 49 42 2E 5A 44 32 00 00 00 12 09 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SWELLVIB.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SWELLVIB.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 57 45 4C 4C 56 49 2E DA 44 32 00 00 80 09 81 00 00 80 00 00 00
+2026-10-16T03:26:22.036Z  +  12813.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.087Z  +  12864.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 53 57 45 4C 4C 56 49 42 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........SWELLVIB.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "SWELLVIB.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 53 57 45 4C 4C 56 49 2E DA 49 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:22.087Z  +  12864.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.146Z  +  12924.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 41 50 45 43 48 5F 4D 2E 5A 44 32 00 00 00 68 04 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TAPECH_M.ZD2...h..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TAPECH_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 41 50 45 43 48 5F AE 5A C4 B2 00 00 80 04 01 00 80 00 80 80 00
+2026-10-16T03:26:22.146Z  +  12924.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.205Z  +  12983.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 41 50 45 43 48 5F 4D 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TAPECH_M.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TAPECH_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 41 50 45 43 48 5F AE 5A C9 C3 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:22.205Z  +  12983.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.272Z  +  13049.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 42 5F 4D 4B 31 35 2E 5A 44 32 00 00 00 00 4F 34 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TB_MK15.ZD2....O4.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TB_MK15.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 42 5F 4D 4B 31 35 5A C4 B2 80 00 80 00 B4 82 80 80 00 00 80 00
+2026-10-16T03:26:22.272Z  +  13049.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.332Z  +  13109.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 42 5F 4D 4B 31 35 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TB_MK15.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TB_MK15.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 42 5F 4D 4B 31 35 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:22.332Z  +  13109.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.397Z  +  13175.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 48 45 56 49 42 45 2E 5A 44 32 00 00 00 00 6D 6C 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........THEVIBE.ZD2....ml.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "THEVIBE.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 48 45 56 49 42 45 5A C4 B2 80 00 80 00 EC 00 80 80 00 80 80 00
+2026-10-16T03:26:22.398Z  +  13175.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.457Z  +  13235.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 48 45 56 49 42 45 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........THEVIBE.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "THEVIBE.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 48 45 56 49 42 45 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:22.458Z  +  13235.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.527Z  +  13304.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 50 45 43 33 5F 4D 2E 5A 44 32 00 00 00 00 6E 1B 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TPEC3_M.ZD2....n..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TPEC3_M.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 50 45 43 33 5F 4D 5A C4 B2 80 00 80 00 1B 82 80 80 00 80 80 00
+2026-10-16T03:26:22.527Z  +  13304.8ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.585Z  +  13363.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 50 45 43 33 5F 4D 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TPEC3_M.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TPEC3_M.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 50 45 43 33 5F 4D 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:22.586Z  +  13363.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.653Z  +  13430.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 52 45 4D 4F 4C 4F 2E 5A 44 32 00 00 00 00 38 58 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TREMOLO.ZD2....8X.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TREMOLO.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 52 45 4D 4F 4C 4F 5A C4 B2 80 00 80 00 58 01 00 80 80 80 00 00
+2026-10-16T03:26:22.653Z  +  13430.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.894Z  +  13672.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 52 45 4D 4F 4C 4F 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TREMOLO.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TREMOLO.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 52 45 4D 4F 4C 4F 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:22.894Z  +  13672.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:22.983Z  +  13760.7ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 53 5F 44 52 49 56 45 2E 5A 44 32 00 00 00 69 12 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TS_DRIVE.ZD2...i..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TS_DRIVE.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 53 5F 44 52 49 56 AE 5A C4 32 00 00 80 92 01 00 80 00 80 80 00
+2026-10-16T03:26:22.983Z  +  13760.9ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.055Z  +  13832.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 54 53 5F 44 52 49 56 45 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........TS_DRIVE.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "TS_DRIVE.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 54 53 5F 44 52 49 56 AE 5A C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:23.055Z  +  13832.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.113Z  +  13890.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 55 4B 33 30 41 5F 49 52 2E 5A 44 32 00 00 00 0B 1F 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........UK30A_IR.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "UK30A_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 55 4B 33 30 41 5F 49 2E DA 44 32 80 00 80 9F 83 00 80 00 00 00 00
+2026-10-16T03:26:23.113Z  +  13890.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.193Z  +  13971.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 55 4B 33 30 41 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........UK30A_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "UK30A_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 55 4B 33 30 41 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:23.193Z  +  13971.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.269Z  +  14047.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 55 4B 33 30 41 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........UK30A_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "UK30A_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 55 4B 33 30 41 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:23.269Z  +  14047.3ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.337Z  +  14114.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 45 4C 56 54 5F 49 52 2E 5A 44 32 00 00 00 3A 6C 05 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VELVT_IR.ZD2...:l.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VELVT_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 45 4C 56 54 5F 49 2E DA 44 32 80 00 80 6C 85 00 80 80 80 00 00
+2026-10-16T03:26:23.337Z  +  14114.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.397Z  +  14175.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 45 4C 56 54 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VELVT_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VELVT_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 45 4C 56 54 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:23.397Z  +  14175.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.458Z  +  14235.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 45 4C 56 54 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VELVT_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VELVT_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 45 4C 56 54 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:23.458Z  +  14235.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.537Z  +  14315.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 49 4E 46 4C 4E 47 35 2E 5A 44 32 00 00 00 06 01 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VINFLNG5.ZD2..............
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VINFLNG5.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 49 4E 46 4C 4E 47 AE 5A C4 32 80 80 00 01 81 80 00 00 00 00 00
+2026-10-16T03:26:23.538Z  +  14315.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.600Z  +  14377.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 49 4E 46 4C 4E 47 35 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VINFLNG5.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VINFLNG5.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 49 4E 46 4C 4E 47 AE 5A C9 43 80 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:23.600Z  +  14377.7ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.662Z  +  14440.3ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 49 4F 4C 54 44 35 47 2E 5A 44 32 00 00 00 76 6F 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VIOLTD5G.ZD2...vo.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VIOLTD5G.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 49 4F 4C 54 44 35 AE DA C4 32 00 00 80 6F 81 80 00 80 80 80 00
+2026-10-16T03:26:23.662Z  +  14440.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:23.923Z  +  14700.5ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 56 49 4F 4C 54 44 35 47 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........VIOLTD5G.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "VIOLTD5G.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 56 49 4F 4C 54 44 35 AE DA C9 43 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:23.923Z  +  14700.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.009Z  +  14786.4ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 57 41 56 53 48 50 52 2E 5A 44 32 00 00 00 00 5B 11 02 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........WAVSHPR.ZD2....[..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "WAVSHPR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 57 41 56 53 48 50 52 5A C4 B2 80 00 80 00 91 82 00 80 80 00 80 00
+2026-10-16T03:26:24.009Z  +  14786.5ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.067Z  +  14845.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 57 41 56 53 48 50 52 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........WAVSHPR.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "WAVSHPR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 57 41 56 53 48 50 52 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:24.067Z  +  14845.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.146Z  +  14923.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 57 48 31 30 30 2E 5A 44 32 00 00 00 00 00 00 35 6C 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........WH100.ZD2......5l.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "WH100.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 57 48 31 30 30 2E 5A 32 00 80 00 00 00 80 EC 00 80 00 80 80 00 00
+2026-10-16T03:26:24.146Z  +  14924.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.220Z  +  14998.1ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 57 48 31 30 30 2E 5A 49 43 00 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........WH100.ZIC......8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "WH100.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 57 48 31 30 30 2E 5A C3 00 00 80 00 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:24.220Z  +  14998.2ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.325Z  +  15102.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 58 54 53 42 4C 5F 49 52 2E 5A 44 32 00 00 00 5C 29 03 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........XTSBL_IR.ZD2...\).........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "XTSBL_IR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 58 54 53 42 4C 5F 49 2E DA 44 32 80 00 80 29 03 80 80 80 00 80 00
+2026-10-16T03:26:24.325Z  +  15103.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.393Z  +  15170.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 58 54 53 42 4C 5F 49 52 2E 5A 49 43 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........XTSBL_IR.ZIC...8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "XTSBL_IR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 58 54 53 42 4C 5F 49 2E DA 49 43 80 00 80 07 00 00 80 80 80 00 00
+2026-10-16T03:26:24.393Z  +  15171.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.457Z  +  15234.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 58 54 53 42 4C 5F 49 52 2E 5A 49 52 00 00 00 00 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........XTSBL_IR.ZIR....`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "XTSBL_IR.ZIR"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 58 54 53 42 4C 5F 49 2E DA 49 52 80 00 80 60 00 00 00 00 00 00 00
+2026-10-16T03:26:24.457Z  +  15235.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.520Z  +  15298.0ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 5A 45 4E 5F 44 52 56 2E 5A 44 32 00 00 00 00 7B 4B 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ZEN_DRV.ZD2....{K.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ZEN_DRV.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 5A 45 4E 5F 44 52 56 5A C4 B2 80 00 80 00 CB 81 00 80 80 80 80 00
+2026-10-16T03:26:24.520Z  +  15298.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.585Z  +  15362.6ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 5A 45 4E 5F 44 52 56 2E 5A 49 43 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ZEN_DRV.ZIC....8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ZEN_DRV.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 5A 45 4E 5F 44 52 56 5A C9 C3 80 00 80 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:24.585Z  +  15362.6ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.657Z  +  15434.8ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 5A 4E 52 2E 5A 44 32 00 00 00 00 00 00 00 00 43 4D 01 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ZNR.ZD2........CM.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ZNR.ZD2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 5A 4E 52 2E 5A 44 32 00 00 00 00 00 00 00 CD 81 00 00 00 00 80 00
+2026-10-16T03:26:24.657Z  +  15435.0ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.890Z  +  15668.2ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 5A 4E 52 2E 5A 49 43 00 00 00 00 00 00 00 00 38 07 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........ZNR.ZIC........8..........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "ZNR.ZIC"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 5A 4E 52 2E 5A 49 43 00 00 00 00 00 00 00 07 00 00 80 80 80 00 00
+2026-10-16T03:26:24.890Z  +  15668.4ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:24.973Z  +  15750.9ms  IN    F0 52 00 6E 60 04 25 00 00 17 00 00 00 00 00 46 4C 53 54 5F 53 45 51 2E 5A 54 32 00 00 00 24 60 00 00 00 00 00 00 00 00 F7
+    ascii: .R.n`.%........FLST_SEQ.ZT2...$`.........
+    Zoom SysEx, ID 6E, cmd 60 04, body 36 bytes
+    ASCII: "FLST_SEQ.ZT2"
+    7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): 80 00 97 00 00 80 00 46 4C 53 54 5F 53 45 AE 5A 54 32 80 00 80 60 00 80 00 00 80 00 00
+2026-10-16T03:26:24.973Z  +  15751.1ms  OUT   F0 52 00 6E 60 26 00 00 2A 2E 2A 00 F7
+    ascii: .R.n`&..*.*..
+    file list: find next [read]
+2026-10-16T03:26:25.045Z  +  15823.3ms  IN    F0 52 00 6E 60 03 7A 7F 7F 7F 0F F7
+    ascii: .R.n`.z.....
+    Zoom SysEx, ID 6E, cmd 60 03, body 7 bytes
+2026-10-16T03:26:25.046Z  +  15823.4ms  OUT   F0 52 00 6E 60 27 F7
+    ascii: .R.n`'.
+    file list: find end [read]
+2026-10-16T03:26:25.097Z  +  15874.8ms  IN    F0 52 00 6E 60 03 00 00 00 00 00 F7
+    ascii: .R.n`.......
+    Zoom SysEx, ID 6E, cmd 60 03, body 7 bytes
+2026-10-16T03:26:25.097Z  +  15874.9ms  INFO  File listing done: 260 entries. Stop: Reply holds no file name (assumed end of list).
+    G_OUT_EQ.BDL
+    IR.ZIC
+    LP-MONO.ZIC
+    LP-ST.ZIC
+    RHYTHM.ZIC
+    DUMMY.WAV
+    INFBKUP.BIN
+    IR000.ZIR
+    IR001.ZIR
+    IR_INFO.BIN
+    Clap.raw
+    ClapAmb.raw
+    Click.raw
+    HHC.raw
+    HHCAmb.raw
+    HHF.raw
+    HHO.raw
+    HHOAmb.raw
+    Kik1.raw
+    Kik2.raw
+    KikAmb.raw
+    Ride.raw
+    Rim.raw
+    RimAmb.raw
+    Snr1.raw
+    Snr2.raw
+    Snr3.raw
+    Snr4.raw
+    SnrAmb.raw
+    Tamb.raw
+    TomF.raw
+    TomFAmb.raw
+    TomH.raw
+    TomL.raw
+    7HEVN_IR.ZD2
+    7HEVN_IR.ZIC
+    7HEVN_IR.ZIR
+    ACOSIM.ZD2
+    ACOSIM.ZIC
+    AIR5G.ZD2
+    AIR5G.ZIC
+    ANDLY_M.ZD2
+    ANDLY_M.ZIC
+    AUTOWAH.ZD2
+    AUTOWAH.ZIC
+    BGMK1_IR.ZD2
+    BGMK1_IR.ZIC
+    BGMK1_IR.ZIR
+    BGMK3_IR.ZD2
+    BGMK3_IR.ZIC
+    BGMK3_IR.ZIR
+    BGTHRTTL.ZD2
+    BGTHRTTL.ZIC
+    BLACKOPT.ZD2
+    BLACKOPT.ZIC
+    BLCK_WAH.ZD2
+    BLCK_WAH.ZIC
+    BOMBER.ZD2
+    BOMBER.ZIC
+    CHRM_WAH.ZD2
+    CHRM_WAH.ZIC
+    CHURCH5G.ZD2
+    CHURCH5G.ZIC
+    CLONECHO.ZD2
+    CLONECHO.ZIC
+    COMP.ZD2
+    COMP.ZIC
+    CRNTRI5G.ZD2
+    CRNTRI5G.ZIC
+    DELAY_M.ZD2
+    DELAY_M.ZIC
+    DETUNE5G.ZD2
+    DETUNE5G.ZIC
+    DIST1_5G.ZD2
+    DIST1_5G.ZIC
+    DISTPL5G.ZD2
+    DISTPL5G.ZIC
+    DUADLY_M.ZD2
+    DUADLY_M.ZIC
+    DYNDRIVE.ZD2
+    DYNDRIVE.ZIC
+    DZ_DRVIR.ZD2
+    DZ_DRVIR.ZIC
+    DZ_DRVIR.ZIR
+    EARLYREF.ZD2
+    EARLYREF.ZIC
+    EPSTMP5G.ZD2
+    EPSTMP5G.ZIC
+    FDBMANIR.ZD2
+    FDBMANIR.ZIC
+    FDBMANIR.ZIR
+    FDDLXRIR.ZD2
+    FDDLXRIR.ZIC
+    FDDLXRIR.ZIR
+    FDMSTRIR.ZD2
+    FDMSTRIR.ZIC
+    FDMSTRIR.ZIR
+    FDSPRING.ZD2
+    FDSPRING.ZIC
+    FD_TWRIR.ZD2
+    FD_TWRIR.ZIC
+    FD_TWRIR.ZIR
+    GATERV5G.ZD2
+    GATERV5G.ZIC
+    GEMINOS.ZD2
+    GEMINOS.ZIC
+    GOLD_DRV.ZD2
+    GOLD_DRV.ZIC
+    GRAYCOMP.ZD2
+    GRAYCOMP.ZIC
+    GTGEQ75G.ZD2
+    GTGEQ75G.ZIC
+    HALL5G.ZD2
+    HALL5G.ZIC
+    HDHALL5G.ZD2
+    HDHALL5G.ZIC
+    HPS.ZD2
+    HPS.ZIC
+    HW100_IR.ZD2
+    HW100_IR.ZIC
+    HW100_IR.ZIR
+    ICEDLY_M.ZD2
+    ICEDLY_M.ZIC
+    KRMPS_IR.ZD2
+    KRMPS_IR.ZIC
+    KRMPS_IR.ZIR
+    LMT1176.ZD2
+    LMT1176.ZIC
+    LOOPROLL.ZD2
+    LOOPROLL.ZIC
+    LOWPASSF.ZD2
+    LOWPASSF.ZIC
+    MACH30IR.ZD2
+    MACH30IR.ZIC
+    MACH30IR.ZIR
+    MODDLY_M.ZD2
+    MODDLY_M.ZIC
+    MONOPITC.ZD2
+    MONOPITC.ZIC
+    MS1959IR.ZD2
+    MS1959IR.ZIC
+    MS1959IR.ZIR
+    MS45OSIR.ZD2
+    MS45OSIR.ZIC
+    MS45OSIR.ZIR
+    MS800_IR.ZD2
+    MS800_IR.ZIC
+    MS800_IR.ZIR
+    MUDDY_IR.ZD2
+    MUDDY_IR.ZIC
+    MUDDY_IR.ZIR
+    NYC_MUFF.ZD2
+    NYC_MUFF.ZIC
+    N_GATE.ZD2
+    N_GATE.ZIC
+    OCTAVE5G.ZD2
+    OCTAVE5G.ZIC
+    OCTFUZZ.ZD2
+    OCTFUZZ.ZIC
+    ORG120IR.ZD2
+    ORG120IR.ZIC
+    ORG120IR.ZIR
+    OUT_VP.ZIC
+    PARAEQ5G.ZD2
+    PARAEQ5G.ZIC
+    PARTCL5G.ZD2
+    PARTCL5G.ZIC
+    PDLVOL5G.ZD2
+    PDLVOL5G.ZIC
+    PDL_MNPT.ZD2
+    PDL_MNPT.ZIC
+    PDL_ROT.ZD2
+    PDL_ROT.ZIC
+    PHASER.ZD2
+    PHASER.ZIC
+    PLTREV5G.ZD2
+    PLTREV5G.ZIC
+    PLYSHF5G.ZD2
+    PLYSHF5G.ZIC
+    POLEX_IR.ZD2
+    POLEX_IR.ZIC
+    POLEX_IR.ZIR
+    PP_DLY_M.ZD2
+    PP_DLY_M.ZIC
+    RACKCOMP.ZD2
+    RACKCOMP.ZIC
+    RAZORDRV.ZD2
+    RAZORDRV.ZIC
+    RCBST5G.ZD2
+    RCBST5G.ZIC
+    RCTORGIR.ZD2
+    RCTORGIR.ZIC
+    RCTORGIR.ZIR
+    REDCR5G.ZD2
+    REDCR5G.ZIC
+    REDLM_IR.ZD2
+    REDLM_IR.ZIC
+    REDLM_IR.ZIR
+    RINGMOD.ZD2
+    RINGMOD.ZIC
+    ROOM5G.ZD2
+    ROOM5G.ZIC
+    RVRSDL_M.ZD2
+    RVRSDL_M.ZIC
+    SEQFLTR.ZD2
+    SEQFLTR.ZIC
+    SLWATK.ZD2
+    SLWATK.ZIC
+    SOFTEC5G.ZD2
+    SOFTEC5G.ZIC
+    SPRING5G.ZD2
+    SPRING5G.ZIC
+    SQUEAK5G.ZD2
+    SQUEAK5G.ZIC
+    STEP5G.ZD2
+    STEP5G.ZIC
+    STEREOCH.ZD2
+    STEREOCH.ZIC
+    STONEPHA.ZD2
+    STONEPHA.ZIC
+    SUPERCHO.ZD2
+    SUPERCHO.ZIC
+    SWEETDRV.ZD2
+    SWEETDRV.ZIC
+    SWELLVIB.ZD2
+    SWELLVIB.ZIC
+    TAPECH_M.ZD2
+    TAPECH_M.ZIC
+    TB_MK15.ZD2
+    TB_MK15.ZIC
+    THEVIBE.ZD2
+    THEVIBE.ZIC
+    TPEC3_M.ZD2
+    TPEC3_M.ZIC
+    TREMOLO.ZD2
+    TREMOLO.ZIC
+    TS_DRIVE.ZD2
+    TS_DRIVE.ZIC
+    UK30A_IR.ZD2
+    UK30A_IR.ZIC
+    UK30A_IR.ZIR
+    VELVT_IR.ZD2
+    VELVT_IR.ZIC
+    VELVT_IR.ZIR
+    VINFLNG5.ZD2
+    VINFLNG5.ZIC
+    VIOLTD5G.ZD2
+    VIOLTD5G.ZIC
+    WAVSHPR.ZD2
+    WAVSHPR.ZIC
+    WH100.ZD2
+    WH100.ZIC
+    XTSBL_IR.ZD2
+    XTSBL_IR.ZIC
+    XTSBL_IR.ZIR
+    ZEN_DRV.ZD2
+    ZEN_DRV.ZIC
+    ZNR.ZD2
+    ZNR.ZIC
+    FLST_SEQ.ZT2
