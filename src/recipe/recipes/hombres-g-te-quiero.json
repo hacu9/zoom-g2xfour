@@ -1,0 +1,10 @@
+{
+  "song": "Te quiero",
+  "artist": "Hombres G",
+  "patchName": "Te Quiero",
+  "source": "Starting point, not official. Rafa Gutierrez (Danny Gomez interview, 2018): an early manager imposed a Roland Jazz Chorus ('super limpio'); his board was one or two distortions, a chorus, a tuner, a compressor as solo boost. No song-specific gear found for 'Te quiero' (La cagaste... Burt Lancaster, 1986). FD TWIN-R (bright Fender clean) stands in for the JC-120, ChorusOne for its built-in chorus. Clean choice and all values are estimates.",
+  "amp": { "type": "clean", "gain": 20, "knobs": { "BRGHT": "ON" } },
+  "eq": { "low": 45, "mid": 50, "high": 65 },
+  "modulation": { "type": "chorus", "rate": 30, "depth": 45, "mix": 35 },
+  "reverb": { "type": "spring", "decay": 30, "mix": 15 }
+}

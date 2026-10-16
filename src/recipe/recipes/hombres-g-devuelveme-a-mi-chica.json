@@ -1,0 +1,9 @@
+{
+  "song": "Devuélveme a mi chica",
+  "artist": "Hombres G",
+  "patchName": "Devuelveme",
+  "source": "Starting point, not official. Rafa Gutierrez (Danny Gomez interview, 2018): for distortion he used a vintage VOX AC30 with every knob maxed and a blanket over it. UK 30A is the pedal's AC30-style model; gain high, Tone Cut part-way to tame the fizz. No song-specific gear found for the 1985 recording. Values and the small room are estimates.",
+  "amp": { "type": "crunch", "gain": 80, "knobs": { "Tone Cut": 40 } },
+  "eq": { "low": 50, "high": 65 },
+  "reverb": { "type": "room", "decay": 25, "mix": 10 }
+}

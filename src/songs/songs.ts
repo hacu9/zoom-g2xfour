@@ -39,6 +39,14 @@ const PATCHES: Record<string, string[]> = {
   'metallica-master-of-puppets': ['MoP Dist', 'MoP Clean'],
   'metallica-one': ['One Clean', 'One Dist'],
   'metallica-the-day-that-never-comes': ['TDTNC Clean', 'TDTNC Dist'],
+  'metallica-enter-sandman': ['Sandman Clean', 'Sandman Dist'],
+  'metallica-nothing-else-matters': ['NEM Clean', 'NEM Dist'],
+  'the-strokes-reptilia': ['Reptilia'],
+  'scouting-for-girls-this-ain-t-a-love-song': ['Aint LoveSong'],
+  'hombres-g-te-quiero': ['Te Quiero'],
+  'hombres-g-devuelveme-a-mi-chica': ['Devuelveme'],
+  'the-killers-mr-brightside': ['Brightside'],
+  'arctic-monkeys-i-bet-you-look-good-on-the-dancefloor': ['Dancefloor'],
 };
 
 const NOTES: Record<string, string[]> = {

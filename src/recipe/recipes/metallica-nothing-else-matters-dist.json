@@ -1,0 +1,9 @@
+{
+  "song": "Nothing Else Matters (distorted)",
+  "artist": "Metallica",
+  "patchName": "NEM Dist",
+  "source": "Starting point, not official. Bonedo solo workshop: Black Album amps were modified Marshalls and Mesa Mark IIC+ / IV; solo on the neck humbucker, an amp with plenty of gain, a light delay and some reverb. BG MARK3 is the closest Mesa. Amp knobs follow the Enter Sandman averages with more mid for the neck-pickup solo; delay and reverb values are estimates. Delay follows the pedal tempo (tap tempo).",
+  "amp": { "type": "high-gain", "model": "BG MARK3", "knobs": { "Gain1": 70, "Gain2": 70, "Bass": 50, "MID": 45, "Treble": 60, "PRESENC": 55 } },
+  "delay": { "type": "digital", "note": "1/4", "feedback": 25, "mix": 18 },
+  "reverb": { "type": "hall", "decay": 35, "mix": 15 }
+}

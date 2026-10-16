@@ -1,0 +1,9 @@
+{
+  "song": "Reptilia",
+  "artist": "The Strokes",
+  "patchName": "Reptilia",
+  "source": "Starting point, not official. Rig: Fender Hot Rod DeVille + Visual Sound Jekyll & Hyde overdrive (MXR Micro Amp for leads) on Is This It / Room on Fire (Mixdown, Gearnews). Amp EQ from Killer Rig 'Reptilia': gain 6-7, treble 8, mids 4, bass 5, no reverb listed. FD TWIN-R stands in for the Hot Rod (Fender, has a MID knob); TS Drive stands in for the Jekyll side. Drive values are estimates.",
+  "drive": { "type": "overdrive", "gain": 40, "tone": 65 },
+  "amp": { "type": "clean", "gain": 65 },
+  "eq": { "low": 50, "mid": 40, "high": 80 }
+}

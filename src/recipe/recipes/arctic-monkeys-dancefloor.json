@@ -1,0 +1,9 @@
+{
+  "song": "I Bet You Look Good on the Dancefloor",
+  "artist": "Arctic Monkeys",
+  "patchName": "Dancefloor",
+  "source": "Starting point, not official. 2006 rig (musicteacher.com, Mixdown): Alex Turner's white Mexican Strat into an Orange AD30TC set clean, two ProCo RAT 2s (one crunchy, one heavy); the Dancefloor intro uses the Rat. Jamie Cook: '62 Tele into a Hiwatt Custom 50 (LinkedIn article, Equipboard). SqueakDST is assumed to be Zoom's RAT model (FLTR knob); ORG120 is the pedal's only Orange-style amp. Knob values are estimates.",
+  "drive": { "type": "distortion", "model": "SqueakDST", "gain": 55, "knobs": { "FLTR": 40, "VOL": 70 } },
+  "amp": { "type": "british", "model": "ORG120", "gain": 30, "knobs": { "Bass": 50, "Treble": 60, "PRESENC": 55 } },
+  "reverb": { "type": "room", "decay": 20, "mix": 8 }
+}

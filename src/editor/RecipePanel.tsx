@@ -9,6 +9,16 @@ import mopClean from '../recipe/recipes/metallica-master-of-puppets-clean.json';
 import mopDist from '../recipe/recipes/metallica-master-of-puppets-dist.json';
 import tdtncClean from '../recipe/recipes/metallica-day-that-never-comes-clean.json';
 import tdtncDist from '../recipe/recipes/metallica-day-that-never-comes-dist.json';
+import sandmanClean from '../recipe/recipes/metallica-enter-sandman-clean.json';
+import sandmanDist from '../recipe/recipes/metallica-enter-sandman-dist.json';
+import nemClean from '../recipe/recipes/metallica-nothing-else-matters-clean.json';
+import nemDist from '../recipe/recipes/metallica-nothing-else-matters-dist.json';
+import reptilia from '../recipe/recipes/strokes-reptilia.json';
+import loveSong from '../recipe/recipes/scouting-for-girls-this-aint-a-love-song.json';
+import teQuiero from '../recipe/recipes/hombres-g-te-quiero.json';
+import devuelveme from '../recipe/recipes/hombres-g-devuelveme-a-mi-chica.json';
+import brightside from '../recipe/recipes/killers-mr-brightside.json';
+import dancefloor from '../recipe/recipes/arctic-monkeys-dancefloor.json';
 
 export const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Rain — Rob Scallon', recipe: rain },
@@ -20,6 +30,16 @@ export const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Master of Puppets (distorted) — Metallica', recipe: mopDist },
   { label: 'The Day That Never Comes (clean) — Metallica', recipe: tdtncClean },
   { label: 'The Day That Never Comes (distorted) — Metallica', recipe: tdtncDist },
+  { label: 'Enter Sandman (clean intro) — Metallica', recipe: sandmanClean },
+  { label: 'Enter Sandman (distorted) — Metallica', recipe: sandmanDist },
+  { label: 'Nothing Else Matters (clean) — Metallica', recipe: nemClean },
+  { label: 'Nothing Else Matters (distorted) — Metallica', recipe: nemDist },
+  { label: 'Reptilia — The Strokes', recipe: reptilia },
+  { label: "This Ain't a Love Song (estimate) — Scouting for Girls", recipe: loveSong },
+  { label: 'Te quiero — Hombres G', recipe: teQuiero },
+  { label: 'Devuélveme a mi chica — Hombres G', recipe: devuelveme },
+  { label: 'Mr. Brightside — The Killers', recipe: brightside },
+  { label: 'I Bet You Look Good on the Dancefloor — Arctic Monkeys', recipe: dancefloor },
 ];
 import { translate } from '../recipe/translate';
 import type { ToneRecipe } from '../recipe/types';

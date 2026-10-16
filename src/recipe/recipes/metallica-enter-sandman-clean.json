@@ -1,0 +1,10 @@
+{
+  "song": "Enter Sandman (clean intro)",
+  "artist": "Metallica",
+  "patchName": "Sandman Clean",
+  "source": "Estimate, weak sources. Tab sites say the intro riff is played clean (the riff came from chopping a clean figure). Bonedo names a Roland JC-120 for the Black Album clean intro of Nothing Else Matters; this patch assumes the same clean amp. FD TWIN-R stands in for the JC-120, ChorusOne for its chorus. All values are estimates.",
+  "amp": { "type": "clean", "gain": 20, "knobs": { "BRGHT": "ON" } },
+  "eq": { "low": 50, "mid": 45, "high": 65 },
+  "modulation": { "type": "chorus", "rate": 25, "depth": 35, "mix": 20 },
+  "reverb": { "type": "room", "decay": 30, "mix": 15 }
+}

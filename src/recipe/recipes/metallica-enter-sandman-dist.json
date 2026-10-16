@@ -1,0 +1,11 @@
+{
+  "song": "Enter Sandman (distorted)",
+  "artist": "Metallica",
+  "patchName": "Sandman Dist",
+  "source": "Starting point, not official. Black Album rig: Mesa Mark IIC+ / Simul-Class Mark II (Guitar World 1991 via Ground Guitar) blended with a Jose-modded Marshall, 9-11 cabs, Aphex EQ in the loop, a 1.2 kHz cut for tight rhythm (Guitar Chalk). Amp averages tonemirror (7/6/5/6/6), rigtone (7/3/3/9/4), Guitar Chalk (7/6/3/6/5) as gain/bass/mid/treble/presence. BG MARK3 is the closest Mesa; the Marshall blend cannot be built in one chain. GEQ cut around 1.2 kHz and the small room are estimates.",
+  "amp": { "type": "high-gain", "model": "BG MARK3", "knobs": { "Gain1": 70, "Gain2": 70, "Bass": 50, "MID": 35, "Treble": 70, "PRESENC": 50 } },
+  "afterAmp": [
+    { "model": "Gt GEQ 7", "knobs": { "100Hz": "-1.0", "200Hz": "0.0", "400Hz": "-1.0", "800Hz": "-4.0", "1.6kHz": "-4.0", "3.2kHz": "1.0", "6.4kHz": "-1.0", "VOL": 85 } }
+  ],
+  "reverb": { "type": "room", "decay": 25, "mix": 10 }
+}

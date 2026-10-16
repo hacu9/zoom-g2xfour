@@ -1,0 +1,11 @@
+{
+  "song": "This Ain't a Love Song",
+  "artist": "Scouting for Girls",
+  "patchName": "Aint LoveSong",
+  "source": "Estimate only. No gear source found for the band or the 2010 recording (Wikipedia credits: guitar and piano Roy Stride, producer Andy Green, Heliocentric studio; Equipboard lists no gear). Chain is a generic piano-pop-rock rhythm crunch: light comp, light TS, UK 30A edge of breakup, small room. Tune by ear against the record.",
+  "compressor": { "amount": 30 },
+  "drive": { "type": "overdrive", "gain": 25, "tone": 55 },
+  "amp": { "type": "crunch", "gain": 45 },
+  "eq": { "low": 50, "high": 60 },
+  "reverb": { "type": "room", "decay": 30, "mix": 12 }
+}

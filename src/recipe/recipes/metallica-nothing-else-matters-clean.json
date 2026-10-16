@@ -1,0 +1,11 @@
+{
+  "song": "Nothing Else Matters (clean)",
+  "artist": "Metallica",
+  "patchName": "NEM Clean",
+  "source": "Starting point, not official. Bonedo intro workshop: the amp for the intro was a Roland JC-120, 'maximal clean', probably its chorus set subtly; Hetfield linked to an MXR Dyna Comp; suggests a light compressor and some reverb. FD TWIN-R stands in for the JC-120, ChorusOne for its chorus. Values are estimates.",
+  "compressor": { "amount": 25 },
+  "amp": { "type": "clean", "gain": 15, "knobs": { "BRGHT": "ON" } },
+  "eq": { "low": 50, "mid": 50, "high": 65 },
+  "modulation": { "type": "chorus", "rate": 25, "depth": 35, "mix": 20 },
+  "reverb": { "type": "hall", "decay": 35, "mix": 18 }
+}

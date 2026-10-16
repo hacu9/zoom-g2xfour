@@ -1,0 +1,9 @@
+{
+  "song": "Mr. Brightside",
+  "artist": "The Killers",
+  "patchName": "Brightside",
+  "source": "Starting point, not official. Dave Keuning (Guitar Player): the song, like ~90% of Hot Fuss, was his Ibanez Destroyer into a Fender Hot Rod DeVille. Amp values from tonematch.io (drive 5, bass 5, mids 7, treble 6, reverb 2; the page marks them as approximations). Mixer Mark Needham named a Supro for the guitar amp, which conflicts. The 84 ms Echo Farm delay was on the vocal, so no guitar delay. FD TWIN-R stands in for the Hot Rod.",
+  "amp": { "type": "clean", "gain": 55 },
+  "eq": { "low": 50, "mid": 70, "high": 60 },
+  "reverb": { "type": "spring", "decay": 30, "mix": 10 }
+}
