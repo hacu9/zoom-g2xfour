@@ -1,0 +1,11 @@
+{
+  "song": "One (clean)",
+  "artist": "Metallica",
+  "patchName": "One Clean",
+  "source": "Starting point, not official. tonesmatch 'One' clean: compressor, chorus, analog delay into a Mesa Mark IIC+ clean channel (gain 0, bass 6, mid 3.5, treble 8.5, presence 5.5), hall reverb. BG MARK3 (Mesa Mark III) is the pedal's closest model. No reliable tempo found: the delay syncs to the pedal tempo — set it with tap tempo.",
+  "compressor": { "amount": 35 },
+  "amp": { "type": "american", "model": "BG MARK3", "knobs": { "Gain1": 8, "Gain2": 8, "Bass": 60, "MID": 35, "Treble": 85, "PRESENC": 55 } },
+  "modulation": { "type": "chorus", "rate": 30, "depth": 50, "mix": 35 },
+  "delay": { "type": "analog", "note": "1/4", "feedback": 35, "mix": 30 },
+  "reverb": { "type": "hall", "decay": 40, "mix": 25 }
+}

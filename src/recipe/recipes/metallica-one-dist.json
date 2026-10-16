@@ -1,0 +1,10 @@
+{
+  "song": "One (distorted)",
+  "artist": "Metallica",
+  "patchName": "One Dist",
+  "source": "Starting point, not official. Mesa Mark IIC+ lead, scooped mids (tonemirror: gain 8, bass 6, mid 4, treble 6, presence 7; Guitar Chalk Mark IV guide: gain 7, treble 7, presence 6, light delay on solos). BG MARK3 is the pedal's closest Mesa. A low-gain Tube Screamer tightens the palm mutes. Solo delay syncs to the pedal tempo (tap tempo).",
+  "drive": { "type": "overdrive", "gain": 10, "tone": 60, "knobs": { "VOL": 85 } },
+  "amp": { "type": "high-gain", "model": "BG MARK3", "knobs": { "Gain1": 80, "Gain2": 80, "Bass": 60, "MID": 40, "Treble": 60, "PRESENC": 70 } },
+  "delay": { "type": "digital", "note": "1/4", "feedback": 25, "mix": 15 },
+  "reverb": { "type": "room", "decay": 30, "mix": 10 }
+}

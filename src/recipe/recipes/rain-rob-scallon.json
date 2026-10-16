@@ -2,11 +2,11 @@
   "song": "Rain",
   "artist": "Rob Scallon",
   "patchName": "Rain Scallon",
-  "source": "Fan settings, not official: dotted-eighth delay at 123 BPM (Line 6 CustomTone 3964711, ToneLib forum threads); clean Fender-style amp; light comp; hall reverb. v1 used AnalogDly Repeat 35 / Mix 48 (the Line 6 numbers) and the repeats were inaudible on the pedal; v2 uses the clean Delay, Repeat 60 (cf. the Zoom B1on fan preset, F.B 63), Mix 55; v3 raised Mix to 70 on request (louder repeats); v4 = Repeat 72, Mix 80 (more and louder echoes, on request).",
+  "source": "Fan settings, not official: dotted-eighth delay at 123 BPM (Line 6 CustomTone 3964711, ToneLib forum threads); clean Fender-style amp; light comp; hall reverb. v1 used AnalogDly Repeat 35 / Mix 48 (the Line 6 numbers) and the repeats were inaudible on the pedal; v2 uses the clean Delay, Repeat 60 (cf. the Zoom B1on fan preset, F.B 63), Mix 55; v3 raised Mix to 70 on request (louder repeats); v4 = Repeat 72, Mix 80 (more and louder echoes); v5 = Mix 90 (louder repeats), all on request.",
   "bpm": 123,
   "compressor": { "amount": 40 },
   "amp": { "type": "clean", "gain": 25 },
   "eq": { "low": 45, "mid": 50, "high": 55 },
-  "delay": { "type": "digital", "note": "1/8.", "feedback": 72, "mix": 80 },
+  "delay": { "type": "digital", "note": "1/8.", "feedback": 72, "mix": 90 },
   "reverb": { "type": "hall", "decay": 40, "mix": 30 }
 }

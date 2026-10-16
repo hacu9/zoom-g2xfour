@@ -176,8 +176,9 @@ Effect file names do not map 1:1 to effect names (`AIR5G.ZD2` = AirReverb).
 |---|---|
 | 0–249 | Patches (factory or user — not told apart) |
 | 140 | "Evil Eye 1984" (the patch at the start) |
-| **250** | **"Rain Scallon"** — written by this project, selected on the pedal. Delay changed to v4 (digital Delay, Repeat 72, Mix 80); auto-save stores it at the next patch change. |
-| 251–296, 298, 299 | "Empty" |
+| **250** | **"Rain Scallon"** — written by this project, selected on the pedal. Delay now v5 (digital Delay, Repeat 72, Mix 90); auto-save stores it at the next patch change. |
+| 251–254 | Metallica: Fade2Black Cln, Fade2Black Dst, One Clean, One Dist — written by this project |
+| 255–296, 298, 299 | "Empty" |
 | 297 | "USER-001" — made on the pedal before this project, not touched |
 
 Backups: `backups/*.syx` (gitignored).

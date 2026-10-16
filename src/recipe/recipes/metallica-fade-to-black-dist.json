@@ -1,0 +1,11 @@
+{
+  "song": "Fade to Black (distorted)",
+  "artist": "Metallica",
+  "patchName": "Fade2Black Dst",
+  "source": "Starting point, not official. Marshall JCM800 2203 pushed by a Tube Screamer-type drive (tonemirror: gain 7, bass 5, mid 5, treble 7, presence 7; rigtone/tonesmatch solo: neck pickup, wah, delay). MS 800 = the pedal's JCM800 model. Quarter-note delay for the solos at 116 BPM.",
+  "bpm": 116,
+  "drive": { "type": "overdrive", "gain": 15, "tone": 60, "knobs": { "VOL": 85 } },
+  "amp": { "type": "british", "model": "MS 800", "gain": 70, "knobs": { "Bass": 50, "MID": 50, "Treble": 70, "PRESENC": 70, "Input": "HI" } },
+  "delay": { "type": "digital", "note": "1/4", "feedback": 30, "mix": 25 },
+  "reverb": { "type": "room", "decay": 30, "mix": 15 }
+}

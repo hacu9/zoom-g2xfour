@@ -18,7 +18,7 @@ Empty slot (`src/recipe/apply.ts`). Recipes live in `src/recipe/recipes/`.
   "amp": { "type": "clean", "gain": 25 },
   "eq": { "low": 45, "mid": 50, "high": 55 },
   "modulation": { "type": "chorus", "rate": 30, "depth": 40, "mix": 30 },
-  "delay": { "type": "digital", "note": "1/8.", "feedback": 72, "mix": 80 },
+  "delay": { "type": "digital", "note": "1/8.", "feedback": 72, "mix": 90 },
   "reverb": { "type": "hall", "decay": 40, "mix": 30 }
 }
 ```
@@ -57,13 +57,55 @@ it, because the meaning of SHORT and LONG is not verified.
 - The patch output EQ (no known write command). Use the amp's EQ knobs.
 - Effects outside the mapping table. Add them to `ROLE_EFFECT` in `translate.ts`.
 
+## Format extras: `model` and `knobs`
+
+Every part also takes `model` (an exact catalog effect name, for example
+`"MS 800"`) and `knobs` (knobs by catalog name: a number is 0–100 of the
+knob's range, a string is an exact value such as `"ON"` or `"HI"`). `knobs`
+wins over the generic values. An unknown knob name gives a warning.
+
+A `note` without `bpm` syncs the delay to the pedal's current tempo and does
+not change it — set it with tap tempo.
+
+## Metallica (slots 251–254)
+
+Written and verified on the pedal on 2026-10-15. Clean and distorted versions
+sit next to each other. All values are starting points from fan sources —
+tune by ear.
+
+| Slot | Patch | Chain |
+|---|---|---|
+| 251 | Fade2Black Cln | Comp → FD TWIN-R (bright, Gain 23) → ChorusOne (Mix 25) → Delay ¼ (Repeat 25, Mix 25) → Hall REV (Mix 20); 116 BPM |
+| 252 | Fade2Black Dst | TS Drive (Gain 15, VOL 85) → **MS 800** = JCM800 (Gain 70, Treble 70, Presence 70) → Delay ¼ (Repeat 30, Mix 25) → RoomREV (Mix 15); 116 BPM |
+| 253 | One Clean | Comp → **BG MARK3** = Mesa, clean (Gain 8, Treble 85) → ChorusOne (Mix 35) → AnalogDly ¼ (Repeat 35, Mix 30) → Hall REV (Mix 25); tap tempo |
+| 254 | One Dist | TS Drive (Gain 10, VOL 85) → **BG MARK3** (Gain 80, Mid 40, Presence 70) → Delay ¼ (Repeat 25, Mix 15) → RoomREV (Mix 10); tap tempo |
+
+Notes:
+
+- 116 BPM for Fade to Black comes from two tab transcriptions. No reliable
+  tempo was found for One, so its delays follow tap tempo.
+- The recorded intro of Fade to Black is acoustic; slot 251 is the clean
+  electric part. Its chorus and delay are a choice, not documented.
+- The pedal has no Mark IIC+; BG MARK3 (Mesa Mark III) is the closest model.
+
+Sources: [tonemirror — Fade to Black](https://www.tonemirror.so/tones/metallica-fade-to-black),
+[tonesmatch — riff clean](https://tonesmatch.com/tones/fade-to-black-metallica-riff-clean-5054),
+[tonesmatch — solo](https://tonesmatch.com/tones/fade-to-black-metallica-solo-distorted-1592),
+[rigtone](https://www.rigtone.com/tone/fade-to-black-amp-settings),
+[Skyminds tab (116 BPM)](https://www.skyminds.net/metallica/fade.tab),
+[Guitar Tabs Explorer bass tab (116 BPM)](https://www.guitartabsexplorer.com/metallica/fade-to-black-(ver2)-btab),
+[tonemirror — One](https://www.tonemirror.so/tones/metallica-one),
+[tonesmatch — One](https://tonesmatch.com/tones/one-metallica-solo-clean-50),
+[Guitar Chalk — One](https://www.guitarchalk.com/amp-settings-one-metallica/),
+[Wikipedia — Mark IIC+](https://en.wikipedia.org/wiki/Mesa/Boogie_Mark_IIC%2B).
+
 ## Rain — Rob Scallon (slot 250)
 
 | Slot | Effect | Settings |
 |---|---|---|
 | 1 | Comp | Sense 4 |
 | 2 | FD TWIN-R | Gain 32, Bass 50, MID 55, Treble 59 |
-| 3 | **Delay** | Dotted eighth, BPM SYNC, **Repeat 72, Mix 80** |
+| 3 | **Delay** | Dotted eighth, BPM SYNC, **Repeat 72, Mix 90** |
 | 4 | Hall REV | Decay 13, Mix 30 |
 | — | Tempo | 123 BPM |
 
@@ -86,8 +128,8 @@ audible repeats.
 v2 changed slot 3 live with the editor (search → Delay, then Time, Mode,
 Repeat, Mix 55) and the pedal confirmed every value. v3 raised Mix to 70 for
 louder repeats (pedal ack `64 20 01 02 05 46`). v4 = Repeat 72, Mix 80 for
-more and louder echoes (acks `… 02 04 48`, `… 02 05 50`). The recipe JSON now
-writes v4. Above Repeat ~75 the repeats may build into runaway feedback. `tests/fixtures/g2xfour-rain-slot250.hex` still holds the v1 dump, as a
+more and louder echoes (acks `… 02 04 48`, `… 02 05 50`). v5 = Mix 90 (ack
+`… 02 05 5A`). The recipe JSON now writes v5. Above Repeat ~75 the repeats may build into runaway feedback. `tests/fixtures/g2xfour-rain-slot250.hex` still holds the v1 dump, as a
 real-data decode test.
 
 The settings come from fan posts, not from Rob Scallon. Tune Mix and Gain by

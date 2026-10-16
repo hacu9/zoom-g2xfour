@@ -4,8 +4,8 @@
  * becomes a warning. The plan holds raw value indices, ready for 64 20 00.
  */
 import { effectByName, type CatalogEffect, type CatalogParam } from '../catalog/g2four';
-import { delayMs, NOTE_FACTORS } from '../tempo/delay';
-import type { NoteValue, ToneRecipe } from './types';
+import { NOTE_FACTORS } from '../tempo/delay';
+import type { NoteValue, PartOverrides, ToneRecipe } from './types';
 
 export const MAX_SLOTS = 6;
 export const MAX_NAME = 14;
@@ -71,25 +71,36 @@ const ROLE_EFFECT = {
 export function translate(r: ToneRecipe): Plan {
   const warnings: string[] = [];
   const effects: PlannedEffect[] = [];
+  let tempo: number | undefined;
 
-  const add = (role: string, effectName: string, settings: Record<string, Target | undefined>) => {
-    const fx = effectByName(effectName);
+  const add = (role: string, effectName: string, settings: Record<string, Target | undefined>, part?: PartOverrides) => {
+    const fx = effectByName(part?.model ?? effectName);
     if (!fx) {
-      warnings.push(`${role}: effect "${effectName}" not in the catalog — skipped.`);
+      warnings.push(`${role}: effect "${part?.model ?? effectName}" not in the catalog — skipped.`);
       return;
     }
-    effects.push({ role, id: fx.id, name: fx.effect.name, params: plan(role, fx.effect, settings, warnings) });
+    // Explicit knobs win over the generic mapping.
+    const all: Record<string, Target | undefined> = { ...settings };
+    for (const [k, v] of Object.entries(part?.knobs ?? {})) {
+      for (const key of Object.keys(all)) if (key.toUpperCase() === k.toUpperCase()) delete all[key];
+      all[k] = typeof v === 'number' ? { pct: v } : { text: v };
+    }
+    const params = plan(role, fx.effect, all, warnings);
+    for (const k of Object.keys(part?.knobs ?? {})) {
+      if (!fx.effect.parameters.some((p) => p.name.toUpperCase() === k.toUpperCase())) warnings.push(`${role}: ${fx.effect.name} has no knob "${k}".`);
+    }
+    effects.push({ role, id: fx.id, name: fx.effect.name, params });
   };
 
-  if (r.compressor) add('compressor', ROLE_EFFECT.compressor, { Sense: { pct: r.compressor.amount } });
-  if (r.drive) add('drive', ROLE_EFFECT.drive[r.drive.type], { Gain: { pct: r.drive.gain }, Drive: { pct: r.drive.gain }, Tone: r.drive.tone === undefined ? undefined : { pct: r.drive.tone } });
+  if (r.compressor) add('compressor', ROLE_EFFECT.compressor, { Sense: { pct: r.compressor.amount } }, r.compressor);
+  if (r.drive) add('drive', ROLE_EFFECT.drive[r.drive.type], { Gain: { pct: r.drive.gain }, Drive: { pct: r.drive.gain }, Tone: r.drive.tone === undefined ? undefined : { pct: r.drive.tone } }, r.drive);
   if (r.amp) {
     add('amp', ROLE_EFFECT.amp[r.amp.type], {
       Gain: r.amp.gain === undefined ? undefined : { pct: r.amp.gain },
       Bass: r.eq?.low === undefined ? undefined : { pct: r.eq.low },
       MID: r.eq?.mid === undefined ? undefined : { pct: r.eq.mid },
       Treble: r.eq?.high === undefined ? undefined : { pct: r.eq.high },
-    });
+    }, r.amp);
   } else if (r.eq) warnings.push('eq: no amp in the recipe, and the output EQ has no verified write command — skipped.');
   if (r.modulation) {
     const m = r.modulation;
@@ -97,23 +108,23 @@ export function translate(r: ToneRecipe): Plan {
       Rate: m.rate === undefined ? undefined : { pct: m.rate },
       Depth: m.depth === undefined ? undefined : { pct: m.depth },
       Mix: m.mix === undefined ? undefined : { pct: m.mix },
-    });
+    }, m);
   }
-  let tempo: number | undefined;
   if (r.delay) {
     const d = r.delay;
-    if (d.note && r.bpm) {
-      // Sync to the patch tempo, so tap tempo still works live.
-      tempo = Math.round(r.bpm);
-      add('delay', ROLE_EFFECT.delay[d.type ?? 'digital'], { Time: { note: d.note }, Mode: { text: 'BPM SYNC' }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } });
+    const model = ROLE_EFFECT.delay[d.type ?? 'digital'];
+    if (d.note) {
+      // Sync to the patch tempo, so tap tempo still works live. Without a bpm
+      // the patch keeps the pedal's tempo: set it with tap tempo.
+      if (r.bpm) tempo = Math.round(r.bpm);
+      else warnings.push('delay: no bpm — synced to the pedal tempo; use tap tempo.');
+      add('delay', model, { Time: { note: d.note }, Mode: { text: 'BPM SYNC' }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } }, d);
     } else {
-      const ms = d.timeMs ?? (d.note ? delayMs(120, d.note) : undefined);
-      if (d.note) warnings.push('delay: note value given without bpm — using 120 BPM as milliseconds.');
-      if (ms !== undefined) warnings.push('delay: millisecond time with Mode left as the pedal sets it (SHORT/LONG meaning unverified).');
-      add('delay', ROLE_EFFECT.delay[d.type ?? 'digital'], { Time: ms === undefined ? undefined : { num: Math.round(ms) }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } });
+      if (d.timeMs !== undefined) warnings.push('delay: millisecond time with Mode left as the pedal sets it (SHORT/LONG meaning unverified).');
+      add('delay', model, { Time: d.timeMs === undefined ? undefined : { num: Math.round(d.timeMs) }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } }, d);
     }
   }
-  if (r.reverb) add('reverb', ROLE_EFFECT.reverb[r.reverb.type], { Decay: r.reverb.decay === undefined ? undefined : { pct: r.reverb.decay }, Mix: { pct: r.reverb.mix } });
+  if (r.reverb) add('reverb', ROLE_EFFECT.reverb[r.reverb.type], { Decay: r.reverb.decay === undefined ? undefined : { pct: r.reverb.decay }, Mix: { pct: r.reverb.mix } }, r.reverb);
 
   if (effects.length > MAX_SLOTS) {
     warnings.push(`${effects.length} effects, the pedal has ${MAX_SLOTS} slots — dropped: ${effects.slice(MAX_SLOTS).map((e) => e.name).join(', ')}.`);

@@ -1,6 +1,18 @@
 import { useMemo, useState } from 'react';
 import { applyPlan } from '../recipe/apply';
 import rain from '../recipe/recipes/rain-rob-scallon.json';
+import ftbClean from '../recipe/recipes/metallica-fade-to-black-clean.json';
+import ftbDist from '../recipe/recipes/metallica-fade-to-black-dist.json';
+import oneClean from '../recipe/recipes/metallica-one-clean.json';
+import oneDist from '../recipe/recipes/metallica-one-dist.json';
+
+const BUILT_IN: { label: string; recipe: unknown }[] = [
+  { label: 'Rain — Rob Scallon', recipe: rain },
+  { label: 'Fade to Black (clean) — Metallica', recipe: ftbClean },
+  { label: 'Fade to Black (distorted) — Metallica', recipe: ftbDist },
+  { label: 'One (clean) — Metallica', recipe: oneClean },
+  { label: 'One (distorted) — Metallica', recipe: oneDist },
+];
 import { translate } from '../recipe/translate';
 import type { ToneRecipe } from '../recipe/types';
 import type { ProbeSession } from '../midi/session';
@@ -45,6 +57,21 @@ export function RecipePanel({ session, deviceId, policy, onSlotWritten, log }: P
 
   return (
     <div>
+      <div className="row">
+        <label>
+          Built-in recipe{' '}
+          <select defaultValue="" onChange={(e) => e.target.value !== '' && setText(JSON.stringify(BUILT_IN[Number(e.target.value)].recipe, null, 2))}>
+            <option value="" disabled>
+              — choose —
+            </option>
+            {BUILT_IN.map((b, i) => (
+              <option key={i} value={i}>
+                {b.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
       <textarea className="mono" rows={12} value={text} onChange={(e) => setText(e.target.value)} aria-label="Tone recipe JSON" />
       {plan.ok ? (
         <div className="plan">

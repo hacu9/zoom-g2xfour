@@ -5,6 +5,16 @@
  */
 export type NoteValue = '1/1' | '1/2' | '1/4' | '1/4.' | '1/4T' | '1/8' | '1/8.' | '1/8T' | '1/16' | '1/16.' | '1/16T';
 
+/**
+ * Optional on every part: `model` picks an exact catalog effect ("MS 800"),
+ * `knobs` sets knobs by their catalog name — a number is 0-100 of the knob's
+ * range, a string is an exact display value ("ON", "HI").
+ */
+export interface PartOverrides {
+  model?: string;
+  knobs?: Record<string, number | string>;
+}
+
 export interface ToneRecipe {
   song: string;
   /** Patch name on the pedal, max 14 characters. Defaults to the song. */
@@ -13,15 +23,15 @@ export interface ToneRecipe {
   source?: string;
   artist?: string;
   bpm?: number;
-  compressor?: { amount: number };
-  drive?: { type: 'overdrive' | 'distortion' | 'fuzz' | 'boost'; gain: number; tone?: number };
-  amp?: { type: 'clean' | 'crunch' | 'high-gain' | 'american' | 'british'; gain?: number };
+  compressor?: { amount: number } & PartOverrides;
+  drive?: { type: 'overdrive' | 'distortion' | 'fuzz' | 'boost'; gain: number; tone?: number } & PartOverrides;
+  amp?: { type: 'clean' | 'crunch' | 'high-gain' | 'american' | 'british'; gain?: number } & PartOverrides;
   eq?: { low?: number; mid?: number; high?: number };
-  modulation?: { type: 'chorus' | 'flanger' | 'phaser' | 'tremolo' | 'vibrato'; rate?: number; depth?: number; mix?: number };
+  modulation?: { type: 'chorus' | 'flanger' | 'phaser' | 'tremolo' | 'vibrato'; rate?: number; depth?: number; mix?: number } & PartOverrides;
   /** Give either timeMs or note (+ bpm); the delay calculator resolves note -> ms. */
   /** type: digital (clean repeats, default), analog (darker, repeats fade fast), tape. */
-  delay?: { type?: 'digital' | 'analog' | 'tape'; timeMs?: number; note?: NoteValue; feedback: number; mix: number };
-  reverb?: { type: 'room' | 'hall' | 'plate' | 'spring'; decay?: number; mix: number };
+  delay?: { type?: 'digital' | 'analog' | 'tape'; timeMs?: number; note?: NoteValue; feedback: number; mix: number } & PartOverrides;
+  reverb?: { type: 'room' | 'hall' | 'plate' | 'spring'; decay?: number; mix: number } & PartOverrides;
 }
 
 /** What the translator returns: the patch plus every compromise it made. */

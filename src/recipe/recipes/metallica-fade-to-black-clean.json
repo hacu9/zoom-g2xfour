@@ -1,0 +1,12 @@
+{
+  "song": "Fade to Black (clean)",
+  "artist": "Metallica",
+  "patchName": "Fade2Black Cln",
+  "source": "Starting point, not official. 116 BPM from two tab transcriptions (Carl Culpepper / Skyminds; Guitar Tabs Explorer). Clean amp, bright, little reverb (tonesmatch 'riff clean': bass 5.5, mid 4, treble 7, presence 5.5, reverb low; says no pedal on the clean part). Light chorus and a soft quarter-note delay are a choice for the arpeggios, not documented.",
+  "bpm": 116,
+  "compressor": { "amount": 30 },
+  "amp": { "type": "clean", "gain": 15, "knobs": { "Bass": 55, "MID": 40, "Treble": 70, "BRGHT": "ON" } },
+  "modulation": { "type": "chorus", "rate": 30, "depth": 40, "mix": 25 },
+  "delay": { "type": "digital", "note": "1/4", "feedback": 25, "mix": 25 },
+  "reverb": { "type": "hall", "decay": 35, "mix": 20 }
+}
