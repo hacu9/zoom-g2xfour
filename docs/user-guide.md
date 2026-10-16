@@ -114,11 +114,21 @@ pedal's headphones, set the G2X FOUR as the Windows sound output.
 - **Set patch tempo to N** writes the tempo into the current patch, so a synced
   delay matches the click. Warning: auto-save keeps it. The write gate applies:
   the backup must be done, and a real patch needs EDIT REAL PATCHES.
-- **Find a song** searches the built-in list by title or artist. Picking a song
-  loads its tempo map and selects its patch, if the patch is on the pedal.
-  A song with several parts shows them in order. The click moves on by itself
-  after a part's bars, or at the next bar line when you press **Next section**.
-  **Free tempo** leaves the song.
+- **Find a song** searches 37 songs by title or artist (accents ignored).
+  Picking a song loads its tempo map and selects its patch, if a recipe wrote
+  one and it is on the pedal. See [songs.md](songs.md) for where the maps come
+  from.
+- **Parts:** the song shows its parts in order (Intro, Verse, Chorus …) with
+  their tempo, meter and bars. Pick a part to start there. While the click
+  plays, a picked part starts at the next bar line, so the click never stumbles.
+  **Next part** does the same for the next one.
+- **Loop this part** repeats the part, for practice.
+- **Tempo %** scales every part (50 % to learn a riff, 200 % for a half-time
+  chart). **Count-in bar** plays one bar at the start tempo before the song.
+- The screen shows the part and "bar 3/16". The first beat of a new part has the
+  highest tone. Bars in odd meters (21/32 in Master of Puppets) end on a short
+  click, so beat 1 stays on time.
+- **Free tempo** leaves the song.
 
 ### Patches
 

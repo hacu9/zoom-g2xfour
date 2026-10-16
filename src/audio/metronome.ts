@@ -11,6 +11,8 @@ export interface Section {
   bpm: number;
   /** Beats per bar (the top number of the meter). */
   beats: number;
+  /** The note that gets one beat (the bottom number of the meter). Default 4. */
+  unit?: number;
   /** Bars in this section. Leave out to loop until "next section". */
   bars?: number;
   /** End tempo for a ramp (accelerando or ritardando). */
@@ -26,6 +28,21 @@ export interface Click {
   /** Beat 1 of a bar. */
   accent: boolean;
   bpm: number;
+}
+
+/**
+ * Click lengths of one bar, in quarter notes. The tempo always counts quarter
+ * notes, like Guitar Pro and Songsterr. x/1, x/2, x/4 click every beat; x/8
+ * clicks every eighth (6/8 = 6 clicks); x/16 and x/32 click quarters and end on
+ * the short rest of the bar (21/32 = 1, 1, 0.625).
+ */
+export function barPulses(beats: number, unit = 4): number[] {
+  if (unit <= 8) return Array.from({ length: beats }, () => 4 / unit);
+  const total = (beats * 4) / unit;
+  const out = Array.from({ length: Math.floor(total) }, () => 1);
+  const rest = total - out.length;
+  if (rest > 1e-9) out.push(rest);
+  return out;
 }
 
 export const MIN_BPM = 30;
@@ -48,7 +65,9 @@ export class ClickWalker {
   private bar = 0;
   private beat = 0;
   private time = 0;
-  private skipAtBar = false;
+  private jumpTo: number | null = null;
+  /** Play sections from..to (inclusive) again and again. */
+  loop: { from: number; to: number } | null = null;
 
   constructor(private readonly map: readonly Section[], startSection = 0) {
     this.section = Math.max(0, Math.min(startSection, map.length - 1));
@@ -56,26 +75,39 @@ export class ClickWalker {
 
   /** Move on to the next section when the current bar ends. */
   skip(): void {
-    this.skipAtBar = true;
+    this.jumpTo = this.section + 1;
+  }
+
+  /** Seconds from the start to the next click. */
+  get elapsed(): number {
+    return this.time;
+  }
+
+  /** Jump to a section when the current bar ends. */
+  skipTo(section: number): void {
+    this.jumpTo = section;
   }
 
   next(): Click | null {
     const s = this.map[this.section];
     if (!s) return null;
-    const total = s.bars === undefined ? 0 : s.bars * s.beats;
-    const index = this.bar * s.beats + this.beat;
+    const pulses = barPulses(s.beats, s.unit);
+    const total = s.bars === undefined ? 0 : s.bars * pulses.length;
+    const index = this.bar * pulses.length + this.beat;
     const bpm = s.bars === undefined ? s.bpm : beatBpm(s, index, total);
     const click: Click = { time: this.time, section: this.section, bar: this.bar, beat: this.beat, accent: this.beat === 0, bpm };
-    this.time += 60 / bpm;
+    this.time += (pulses[this.beat] * 60) / bpm;
     this.beat++;
-    if (this.beat >= s.beats) {
+    if (this.beat >= pulses.length) {
       this.beat = 0;
       this.bar++;
-      const done = (s.bars !== undefined && this.bar >= s.bars) || this.skipAtBar;
-      if (done) {
-        this.skipAtBar = false;
+      if (this.jumpTo !== null) {
+        this.section = this.jumpTo;
+        this.jumpTo = null;
         this.bar = 0;
-        this.section++;
+      } else if (s.bars !== undefined && this.bar >= s.bars) {
+        this.bar = 0;
+        this.section = this.loop && this.section === this.loop.to ? this.loop.from : this.section + 1;
       }
     }
     return click;

@@ -11,6 +11,7 @@ An unofficial browser editor for the Zoom G2X FOUR guitar pedal, over USB
 - Turn a song's "tone recipe" (JSON) into a patch. Examples: Rain (Rob Scallon),
   four Metallica songs.
 - Record what you play through the pedal's USB audio, loop it, save it.
+- Metronome with 37 song tempo maps (tempo and meter changes, part by part).
 - Two safety gates: known dangerous commands are blocked; writes need a backup
   and an Empty slot.
 
@@ -26,6 +27,7 @@ npm test
 | [docs/g2x-four-protocol.md](docs/g2x-four-protocol.md) | Everything found about the pedal's protocol |
 | [docs/recipes.md](docs/recipes.md) | Recipe format, effect mapping, Rain |
 | [docs/architecture.md](docs/architecture.md) | Code structure and decisions |
+| [docs/songs.md](docs/songs.md) | Song tempo maps: source, checks, limits |
 
 ## Credits
 
@@ -42,6 +44,9 @@ This project stands on other people's reverse-engineering work.
   for the FOUR series, the file listing, and the warning about `64 47`.
 - **[shooking/ZoomPedalFun](https://github.com/shooking/ZoomPedalFun)** (CC0).
   Background research on the Zoom FOUR pedals.
+- **[Songsterr](https://www.songsterr.com)**: the song tempo maps (tempo,
+  meter, bar counts and section names) come from its tab data. Each song links
+  its Songsterr page. See [docs/songs.md](docs/songs.md).
 - **Tone recipes.** The song settings are fan estimates, not official. Each
   recipe links its sources in [docs/recipes.md](docs/recipes.md): Line 6
   CustomTone, the ToneLib forum, ToneMirror, TonesMatch, Rigtone, Guitar Chalk,
