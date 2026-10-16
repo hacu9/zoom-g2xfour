@@ -27,7 +27,7 @@ describe('classify', () => {
     expect(classify([0xf0, 0x7e, 0x7f, 0x09, 0x01, 0xf7]).verdict).toBe('blocked');
   });
   it('a near-miss of a read command is unknown and needs research mode', () => {
-    const c = classify(z(0x64, 0x02, 0x00, 0x07, 0x01));
+    const c = classify(z(0x64, 0x02, 0x00, 0x07, 0x02));
     expect(c.verdict).toBe('unknown');
     expect(c.needsResearchMode).toBe(true);
   });
@@ -38,5 +38,32 @@ describe('classify', () => {
   });
   it('blocks malformed messages', () => {
     expect(classify([0xf0, 0x52, 0x00]).verdict).toBe('blocked');
+  });
+});
+
+describe('zoom-explorer documented dangers', () => {
+  it('hard-blocks firmware mode, factory reset and patch writes', () => {
+    for (const body of [[0x01], [0x04], [0x5b], [0x28, 0x00], [0x45, 0x00, 0x00], [0x64, 0x12, 0x01], [0x32, 0x01]]) {
+      expect(classify(z(...body)).verdict, body.join(',')).toBe('blocked');
+    }
+  });
+  it('blocks every undocumented one-byte command, even in research mode', () => {
+    for (const cmd of [0x02, 0x06, 0x09, 0x12, 0x52, 0x56, 0x57, 0x5a, 0x7f]) {
+      expect(classify(z(cmd)).verdict, cmd.toString(16)).toBe('blocked');
+    }
+  });
+  it('blocks patch-structure and global settings edits (64 20 00 64 xx)', () => {
+    expect(classify(z(0x64, 0x20, 0x00, 0x64, 0x09, 0x0b, 0, 0, 0, 0)).verdict).toBe('blocked');
+    expect(classify(z(0x64, 0x20, 0x00, 0x64, 0x0f, 0x01, 0, 0, 0, 0)).verdict).toBe('blocked');
+  });
+  it('allows the documented reads, including shaped ones', () => {
+    for (const body of [[0x64, 0x13], [0x33], [0x07], [0x50], [0x51], [0x64, 0x02, 0x00, 0x03, 0x01], [0x46, 0x00, 0x00, 0x00, 0x00, 0x05, 0x00]]) {
+      expect(classify(z(...body)).verdict, body.join(',')).toBe('read');
+    }
+  });
+  it('a plain parameter edit stays unknown (research mode only)', () => {
+    const c = classify(z(0x64, 0x20, 0x00, 0x01, 0x02, 0x10, 0x00, 0, 0, 0));
+    expect(c.verdict).toBe('unknown');
+    expect(c.needsResearchMode).toBe(true);
   });
 });

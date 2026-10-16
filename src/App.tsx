@@ -306,7 +306,7 @@ export function App() {
         </div>
         {researchMode && (
           <p className="warn-text">
-            Research mode is ON. Unknown Zoom commands can write, delete or install data. Known writes (64 47, 60 2x file ops, long payloads) stay blocked.
+            Research mode is ON. Unknown Zoom commands can write, delete or install data. Known dangers stay blocked: firmware mode, factory reset, bank delete (64 47), patch writes, file ops, undocumented one-byte commands.
           </p>
         )}
       </section>

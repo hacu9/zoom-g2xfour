@@ -1,7 +1,9 @@
-import { byteHex, toHex } from './hex';
+import { byteHex } from './hex';
 import { isIdentityReply, parseIdentityReply, ZOOM_6E_MEMBERS } from './identity';
+import { displayValue, effectById } from '../catalog/g2four';
 import { decodeFileEntry, decodeFlashInfo, decodePatchDisplay } from './decode';
-import { asciiRuns, isZoomSysex, unpack7to8, zoomBody } from './zoom';
+import { decodeRawPatch } from './ptcf';
+import { asciiRuns, isZoomSysex, zoomBody } from './zoom';
 
 /** Human notes for an incoming message. Decodes only what is known; flags the rest as guesses. */
 export function annotate(bytes: ArrayLike<number>): string[] {
@@ -27,6 +29,18 @@ export function annotate(bytes: ArrayLike<number>): string[] {
     if (flash) return [...notes, `Flash: ${flash.totalBytes} bytes total, ${flash.freeBytes} bytes free`];
     const file = decodeFileEntry(b);
     if (file) return [...notes, `File: ${file.name} (${file.sizeBytes} bytes)`];
+    const raw = decodeRawPatch(b);
+    if (raw) {
+      return [
+        ...notes,
+        `Raw patch "${raw.name ?? raw.shortName}" — chunks ${raw.chunks.join(' ')}; tempo ${raw.tempo ?? '?'}, volume ${raw.volume ?? '?'} (PRM2 layout unverified)`,
+        ...raw.effects.map((e) => {
+          const fx = effectById(e.id);
+          const params = fx ? fx.parameters.map((p, i) => `${p.name}=${displayValue(p, e.params[i])}`).join(', ') : e.params.join(' ');
+          return `Slot ${e.slot}: ${e.on ? 'ON ' : 'off'} ${fx?.name ?? 'unknown'} (id ${e.id.toString(16).padStart(8, '0')}) — ${params}`;
+        }),
+      ];
+    }
     const patch = decodePatchDisplay(b);
     if (patch) {
       return [
@@ -36,7 +50,6 @@ export function annotate(bytes: ArrayLike<number>): string[] {
     }
     const runs = asciiRuns(body);
     if (runs.length) notes.push(`ASCII: ${runs.map((r) => JSON.stringify(r)).join(', ')}`);
-    if (body.length > 8) notes.push(`7→8 unpack GUESS (from body byte 2, bit0→first byte; verify before use): ${toHex(unpack7to8(body.slice(2)))}`);
     return notes;
   }
   const status = b[0] & 0xf0;

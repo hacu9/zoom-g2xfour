@@ -1,4 +1,4 @@
-import { BLOCKED_PATTERNS, MAX_ZOOM_BODY, READ_COMMANDS } from './commands';
+import { BLOCKED_PATTERNS, MAX_ZOOM_BODY, READ_COMMANDS, READ_PATTERNS } from './commands';
 import { IDENTITY_REQUEST } from './identity';
 import { validateMidiMessage } from './hex';
 import { isZoomSysex, zoomBody } from './zoom';
@@ -56,6 +56,8 @@ export function classify(bytes: number[]): Classification {
 
   const known = READ_COMMANDS.find((c) => sameBytes(c.body, body));
   if (known) return { verdict: 'read', reason: `Known read-only: ${known.label}. ${known.note}`, needsResearchMode: false };
+  const shaped = READ_PATTERNS.find((p) => p.matches(body));
+  if (shaped) return { verdict: 'read', reason: `Known read-only: ${shaped.label}. ${shaped.note}`, needsResearchMode: false };
 
   return {
     verdict: 'unknown',

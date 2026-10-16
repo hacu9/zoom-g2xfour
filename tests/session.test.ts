@@ -32,9 +32,10 @@ describe('ProbeSession against the mock pedal', () => {
 
   it('refuses unknown Zoom commands unless research mode is on', () => {
     const { session, sent } = setup();
-    expect(() => session.send(zoomSysex(0x6e, [0x33]), 'x')).toThrow(/Research mode/);
+    const edit = zoomSysex(0x6e, [0x64, 0x20, 0x00, 0x01, 0x02, 0x10, 0x00, 0, 0, 0]);
+    expect(() => session.send(edit, 'x')).toThrow(/Research mode/);
     expect(sent).toHaveLength(0);
-    session.send(zoomSysex(0x6e, [0x33]), 'x', { researchMode: true });
+    session.send(edit, 'x', { researchMode: true });
     expect(sent).toHaveLength(1);
   });
 

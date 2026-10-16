@@ -55,9 +55,12 @@ starts at body byte 2. Treat it as a hint, never as a decode.
 
 - `src/midi/session.ts` is the only path to the output port. Every send goes
   through `classify()` in `src/midi/safety.ts`.
-- **Blocked, no override:** `64 47` (creates a new patch — confirmed in issue #64),
-  any `60 xx` file op except `25/26/27/29`, Zoom bodies longer than 48 bytes,
-  non-Zoom SysEx, universal SysEx other than the Identity Request.
+- **Blocked, no override:** `64 47` (deletes the current bank), `01`/`03`/`04`
+  (firmware mode), `5B` (factory reset), `28`/`45`/`08`/`64 12` (patch writes),
+  `31`/`32` (MS edits/store), `64 20 00 64 xx` (structure and global settings),
+  every undocumented one-byte command, any `60 xx` file op except `25/26/27/29`,
+  Zoom bodies longer than 48 bytes, non-Zoom SysEx, and universal SysEx other
+  than the Identity Request.
 - **Unknown Zoom commands** need research mode AND a second confirmation.
   Research mode is off at every page load.
 - Every console send shows a confirmation dialog with the bytes and the verdict.
@@ -78,3 +81,10 @@ patches in Handy Guitar Lab before you turn it on.
 | 2026-10-15 | `44`, `48`, `55`, `64 42`, `64 0A`, `64 18` | Replies `43 …`, `47 …`, `54 10 …`, `64 43 …`, `64 09 …` (contains "Aco.Sim", "222P"), `64 19 …`. Meaning still unknown. |
 
 Decoders for the confirmed formats: `src/midi/decode.ts`. Real dumps: `tests/fixtures/`.
+| 2026-10-15 | `64 13` | `64 12 01 <len 40 06 = 832> <7-bit data MSB-first> <5-byte CRC>` → PTCF patch. Name "Evil Eye 1984", chunks TXJ1 TXE1 EDTB PRM2 NAME, 8 EDTB entries. Entries 0–3 match the screen dump exactly through the zoom-explorer catalog. Open: entry 6 = `Output VP` (0b000010), entry 7 = unknown `1c000010`, while the screen shows ZNR in slot 6. PRM2 tempo 120 / volume 100 use the MS Plus layout — unverified. |
+| 2026-10-15 | `07` | `06 2C 02 40 06` → 300 patches, 832 bytes each. |
+| 2026-10-15 | `33` | `B0 00 00`, `B0 20 0E`, `C0 00` → bank 14, program 0. |
+
+## External sources
+
+- [thammer/zoom-explorer](https://github.com/thammer/zoom-explorer) (MIT), commit `aee0143`: command table, PTCF patch format, and the G2 FOUR parameter catalog vendored in `src/catalog/vendor/`. Its README lists the dangerous commands that the gate now blocks: `01` firmware mode, `5B` factory reset, `64 47` bank delete, `28`/`45` patch writes.

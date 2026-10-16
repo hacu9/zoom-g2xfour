@@ -28,18 +28,25 @@ export function zoomBody(bytes: ArrayLike<number>): number[] {
 
 /**
  * Unpack MIDI 7-bit data to 8-bit. Each group of up to 8 bytes starts with one
- * byte that holds the high bits of the next 7 bytes (bit 0 -> first byte).
- * The bit order is a hypothesis; the UI shows the raw bytes next to this.
+ * byte that holds the high bits of the next 7 bytes, MSB-first: bit 6 goes to
+ * the first byte, bit 0 to the seventh. Same as seven2eight() in
+ * thammer/zoom-explorer src/tools.ts.
  */
 export function unpack7to8(data: number[]): number[] {
   const out: number[] = [];
   for (let i = 0; i < data.length; i += 8) {
     const msbs = data[i];
     for (let j = 1; j < 8 && i + j < data.length; j++) {
-      out.push(data[i + j] | (((msbs >> (j - 1)) & 1) << 7));
+      out.push(data[i + j] | (((msbs >> (7 - j)) & 1) << 7));
     }
   }
   return out;
+}
+
+/** How many 8-bit bytes a run of 7-bit bytes unpacks to. */
+export function unpackedLength(sevenBitLength: number): number {
+  const rest = sevenBitLength % 8;
+  return Math.floor(sevenBitLength / 8) * 7 + (rest < 2 ? 0 : rest - 1);
 }
 
 /** Printable ASCII runs of at least minLen chars — useful to spot file names. */
