@@ -88,3 +88,7 @@ Decoders for the confirmed formats: `src/midi/decode.ts`. Real dumps: `tests/fix
 ## External sources
 
 - [thammer/zoom-explorer](https://github.com/thammer/zoom-explorer) (MIT), commit `aee0143`: command table, PTCF patch format, and the G2 FOUR parameter catalog vendored in `src/catalog/vendor/`. Its README lists the dangerous commands that the gate now blocks: `01` firmware mode, `5B` factory reset, `64 47` bank delete, `28`/`45` patch writes.
+| 2026-10-15 | `46 00 00 <bank> <prog>` | All 300 slots read in 33 s, all PTCF. Slots 250–296, 298, 299 = identical "Empty" (no effects). Slot 297 = "USER-001" (user patch). Backup: `backups/` (gitignored), `.syx` = raw `45` replies. |
+| 2026-10-15 | **WRITE** `64 20 00 <slot> 01 <id 5 septets>` | Slot 299 ("Empty"): slot 0 → Comp (`10 00 00 08 00` = 0x01000010). Pedal pushes `64 12 00` with defaults (Sense 6, SLOW, Tone 6, VOL 80) and auto-renames the patch to "USER-002" (burst of `64 20 00 5F <i> <char>`). |
+| 2026-10-15 | **WRITE** `64 20 00 <slot> <2+knob> <value 5 septets>` | Sense 6 → 9. Ack `64 20 01 00 02 09 …`; `64 13` read-back shows Sense=9. Param number = knob index + 2 (0 = on/off, 1 = effect). |
+| 2026-10-15 | Auto-save | **ON.** On a patch change the pedal sends `45 00 00` (stored dump) by itself: edits persist when you leave the patch. Slot 299 is now a blank patch named "USER-002" instead of "Empty". A patch change also emits `64 26` (bank/program) and `64 20 00 64 02 78` (tempo 120). |

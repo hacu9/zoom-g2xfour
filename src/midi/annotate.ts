@@ -2,7 +2,8 @@ import { byteHex } from './hex';
 import { isIdentityReply, parseIdentityReply, ZOOM_6E_MEMBERS } from './identity';
 import { displayValue, effectById } from '../catalog/g2four';
 import { decodeFileEntry, decodeFlashInfo, decodePatchDisplay } from './decode';
-import { decodeRawPatch } from './ptcf';
+import { decodeRawPatch, parsePTCF } from './ptcf';
+import { patchBytesFromSlotDump } from './backup';
 import { asciiRuns, isZoomSysex, zoomBody } from './zoom';
 
 /** Human notes for an incoming message. Decodes only what is known; flags the rest as guesses. */
@@ -29,6 +30,13 @@ export function annotate(bytes: ArrayLike<number>): string[] {
     if (flash) return [...notes, `Flash: ${flash.totalBytes} bytes total, ${flash.freeBytes} bytes free`];
     const file = decodeFileEntry(b);
     if (file) return [...notes, `File: ${file.name} (${file.sizeBytes} bytes)`];
+    const slotBytes = patchBytesFromSlotDump(b);
+    if (slotBytes) {
+      const p = parsePTCF(slotBytes);
+      const bank = body[3] | (body[4] << 7);
+      const prog = body[5] | (body[6] << 7);
+      return [...notes, `Stored patch bank ${bank} program ${prog}: "${p?.name ?? p?.shortName ?? '?'}" — ${p?.effects.map((e) => effectById(e.id)?.name ?? (e.id ? e.id.toString(16) : '-')).join(' → ') ?? 'not PTCF'}`];
+    }
     const raw = decodeRawPatch(b);
     if (raw) {
       return [

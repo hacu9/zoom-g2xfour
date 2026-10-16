@@ -32,7 +32,11 @@ export function exportText(entries: LogEntry[], header: Record<string, string>):
 }
 
 export function downloadText(filename: string, text: string) {
-  const url = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+  downloadBlob(filename, new Blob([text], { type: 'text/plain' }));
+}
+
+export function downloadBlob(filename: string, blob: Blob) {
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;

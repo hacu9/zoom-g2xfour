@@ -9,7 +9,10 @@ import { createMockBackend } from './midi/mock';
 import { classify, type Classification } from './midi/safety';
 import { ProbeSession, SafetyError } from './midi/session';
 import { DEFAULT_ZOOM_ID, zoomSysex } from './midi/zoom';
-import { downloadText, exportText } from './log/log';
+import { downloadBlob, downloadText, exportText } from './log/log';
+import { backupAll, duplicateGroups, toSyx } from './midi/backup';
+import { effectById } from './catalog/g2four';
+import { isZoomSysex, zoomBody } from './midi/zoom';
 import { useLog } from './log/useLog';
 import { ConfirmDialog } from './probe/ConfirmDialog';
 import { LogView } from './probe/LogView';
@@ -27,7 +30,11 @@ export function App() {
   const [hexText, setHexText] = useState('');
   const [researchMode, setResearchMode] = useState(false);
   const [pending, setPending] = useState<{ bytes: number[]; cls: Classification } | null>(null);
+  // One long job at a time (file listing or backup); it also locks the console.
   const [listing, setListing] = useState<AbortController | null>(null);
+  const [progress, setProgress] = useState('');
+  // Chrome blocks a second automatic download, so the summary waits for a click.
+  const [summary, setSummary] = useState<{ name: string; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const logAdd = log.add;
 
@@ -151,6 +158,59 @@ export function App() {
       logAdd('error', `File listing failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setListing(null);
+    }
+  };
+
+  const runBackup = async () => {
+    if (!session || deviceId === null) return;
+    const ctl = new AbortController();
+    setListing(ctl);
+    try {
+      // 44 → 43 <count 2> <length 2> <? 2> <per bank 2> (zoom-explorer README)
+      const info = await session.request(zoomSysex(deviceId, [0x44, 0x00, 0x00, 0x00, 0x00]), 'backup: bank info', (d) => isZoomSysex(d) && d[4] === 0x43, 1500);
+      if (!info) throw new Error('No reply to 44 (bank info)');
+      const b = zoomBody(info);
+      const count = b[1] | (b[2] << 7);
+      const perBank = b[7] | (b[8] << 7);
+      logAdd('info', `Backup started: ${count} patches, ${perBank} per bank (46 00 00 read).`);
+      const dumps = await backupAll(session, deviceId, { count, perBank, signal: ctl.signal, onProgress: (n) => setProgress(`${n} / ${count}`) });
+      const ok = dumps.filter((d) => d.patch);
+      const dups = duplicateGroups(dumps);
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+      downloadBlob(`g2xfour-backup-${stamp}.syx`, new Blob([toSyx(dumps)], { type: 'application/octet-stream' }));
+      setSummary({
+        name: `g2xfour-backup-${stamp}.json`,
+        text: JSON.stringify(
+          {
+            exported: new Date().toISOString(),
+            count,
+            perBank,
+            duplicates: dups,
+            patches: dumps.map((d) => ({
+              slot: d.slot,
+              bank: d.bank,
+              program: d.program,
+              name: d.patch?.name ?? d.patch?.shortName ?? null,
+              effects: d.patch?.effects.map((e) => ({ on: e.on, id: e.id.toString(16).padStart(8, '0'), name: effectById(e.id)?.name ?? null, params: e.params })) ?? null,
+              tempo: d.patch?.tempo ?? null,
+              volume: d.patch?.volume ?? null,
+            })),
+          },
+          null,
+          1,
+        ),
+      });
+      logAdd(
+        ok.length === count ? 'info' : 'warn',
+        `Backup done: ${ok.length}/${dumps.length} patches decoded${ctl.signal.aborted ? ' (stopped by user)' : ''}. ${dups.length} duplicate group(s). Saved g2xfour-backup-${stamp}.syx. Click "Save summary" for the .json.`,
+        undefined,
+        dups.map((g) => `same bytes: slots ${g.join(', ')} — "${dumps[g[0]].patch?.name ?? '?'}"`),
+      );
+    } catch (e) {
+      logAdd('error', `Backup failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setListing(null);
+      setProgress('');
     }
   };
 
@@ -299,7 +359,12 @@ export function App() {
           <button disabled={!session || deviceId === null || !!listing} onClick={runListing}>
             List flash files
           </button>
-          {listing && <button onClick={() => listing.abort()}>Stop listing</button>}
+          <button disabled={!session || deviceId === null || !!listing} onClick={runBackup}>
+            Back up all patches
+          </button>
+          {summary && <button onClick={() => downloadText(summary.name, summary.text)}>Save summary (.json)</button>}
+          {listing && <button onClick={() => listing.abort()}>Stop</button>}
+          {progress && <span className="muted small">{progress}</span>}
           <label className="research">
             <input type="checkbox" checked={researchMode} onChange={(e) => setResearchMode(e.target.checked)} /> Research mode: allow unknown Zoom commands
           </label>
