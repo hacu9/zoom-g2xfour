@@ -70,6 +70,13 @@ describe('applyPlan', () => {
     expect(sent.filter((b) => b[4] === 0x64)).toEqual([]);
   });
 
+  it('lets this tab write again over the patch it wrote there', async () => {
+    slotName = 'Rain Scallon';
+    const own = { ...policy, slotNames: new Map([[250, 'Rain Scallon']]) };
+    const err = await applyPlan(fakePedal(null).session, 0x6e, plan, 250, 140, own).then(() => null, (e: Error) => e.message);
+    expect(err ?? '').not.toMatch(/now holds|Could not read/);
+  });
+
   it('refuses when the slot cannot be read', async () => {
     slotName = null;
     const { session, sent } = fakePedal(null);

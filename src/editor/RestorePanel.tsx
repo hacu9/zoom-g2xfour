@@ -72,7 +72,7 @@ export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotW
     setBusy(true);
     try {
       // An "Empty" target needs no typed confirmation, so check that it still is.
-      if (isScratch) await assertStillEmpty(session, deviceId, targetSlot, policy.perBank);
+      if (isScratch) await assertStillEmpty(session, deviceId, targetSlot, policy);
       const msg = retargetSlotDump(src.msg, targetSlot, policy.perBank);
       const w: WritePolicy = { ...policy, confirmedSlot: isScratch ? null : targetSlot };
       await session.request(msg, `restore "${src.name}" → slot ${targetSlot}`, (d) => isZoomSysex(d) && d[4] === 0x00, 3000, w);

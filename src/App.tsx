@@ -86,8 +86,8 @@ export function App() {
     setScratchSlots((cur) => new Set(cur).add(slot));
   }, [setName]);
   const policy: WritePolicy = useMemo(
-    () => ({ backupTaken: sessionBackup.length > 0, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits, confirmedSlot: null }),
-    [sessionBackup, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits],
+    () => ({ backupTaken: sessionBackup.length > 0, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits, confirmedSlot: null, slotNames: names }),
+    [sessionBackup, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits, names],
   );
 
   const deviceId = /^[0-7][0-9a-f]$/i.test(deviceIdText.trim()) ? parseInt(deviceIdText.trim(), 16) : null;

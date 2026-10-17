@@ -44,17 +44,18 @@ export interface ApplyResult {
 }
 
 /**
- * Reads the slot again right before a write. The Empty list comes from this
+ * Reads the slot again right before a write. The writable list comes from this
  * tab's backup, which can be out of date: another tab or a pedal edit may have
- * filled the slot since.
+ * filled the slot since. Passes for "Empty", or for the patch this tab wrote there.
  */
-export async function assertStillEmpty(session: ProbeSession, deviceId: number, slot: number, perBank: number): Promise<void> {
-  const name = (await readSlot(session, deviceId, slot, perBank)).patch?.name?.trimEnd();
-  if (name === 'Empty') return;
+export async function assertStillEmpty(session: ProbeSession, deviceId: number, slot: number, policy: WritePolicy): Promise<void> {
+  const name = (await readSlot(session, deviceId, slot, policy.perBank)).patch?.name?.trimEnd();
+  const expected = policy.slotNames?.get(slot)?.trimEnd() ?? 'Empty';
+  if (name === 'Empty' || name === expected) return;
   throw new Error(
     name === undefined
-      ? `Could not read slot ${slot} to check that it is still Empty. Nothing written.`
-      : `Slot ${slot} now holds "${name}", not Empty. Nothing written. Click "Back up again" to refresh the list.`,
+      ? `Could not read slot ${slot} to check that it is still free. Nothing written.`
+      : `Slot ${slot} now holds "${name}", not ${expected === 'Empty' ? 'Empty' : `"${expected}"`}. Nothing written. Click "Back up again" to refresh the list.`,
   );
 }
 
@@ -69,7 +70,7 @@ export async function applyPlan(
   const steps: string[] = [];
   const mismatches: string[] = [];
   if (!policy.scratchSlots.has(target)) throw new Error(`Slot ${target} is not a scratch ("Empty") slot.`);
-  await assertStillEmpty(session, deviceId, target, policy.perBank);
+  await assertStillEmpty(session, deviceId, target, policy);
 
   if (!(await selectSlot(session, deviceId, target, policy.perBank))) throw new Error(`Pedal did not confirm the change to slot ${target}.`);
   const w: WritePolicy = { ...policy, currentSlot: target };

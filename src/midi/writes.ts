@@ -27,6 +27,8 @@ export interface WritePolicy {
   allowRealPatchEdits: boolean;
   /** A non-scratch slot the user confirmed by typing its number, for one restore. */
   confirmedSlot: number | null;
+  /** What this tab believes each slot holds (backup + its own writes). A write checks the pedal against it. */
+  slotNames?: ReadonlyMap<number, string>;
 }
 
 export type WriteKind = 'slot-upload' | 'param-edit' | 'name-edit' | 'tempo';
