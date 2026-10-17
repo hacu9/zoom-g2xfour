@@ -84,6 +84,27 @@ GuitarSet is clean, solo acoustic guitar. This is the best case. A band mix
 with distorted guitars scores lower, and two guitars in the same channel merge
 into one track. Judge the tool on the song itself.
 
+### On real songs: compare with a Songsterr tab
+
+GuitarSet is clean solo guitar. To score the tool on a real band mix, use a
+song that has a Songsterr tab, for example Los Mesoneros' "Indeleble"
+(Songsterr 382134: "Luis (Rythym)" and "Juan (Lead)").
+
+```bash
+.venv/bin/python autotab.py ~/music/indeleble.mp3 --out out/indeleble
+.venv/bin/python compare_songsterr.py out/indeleble/indeleble-notes.json --song 382134
+```
+
+- Every draft track is scored against every Songsterr guitar track: note F1
+  and tab F1, as above. The pairing with the best score shows which side of
+  the mix holds which guitar.
+- It compares in beats, on the draft's own detected beats, so tempo drift is
+  not an error. It finds the offset where the two line up (all same-pitch note
+  pairs vote for a shift) and tries double and half tempo.
+- The Songsterr tab is cached in `~/.cache/autotab/songsterr` and only used for
+  the score. Nothing of it is printed or saved in the repo.
+- Songsterr tabs are fan transcriptions: the score means "agrees with that tab".
+
 ## Tests
 
 ```bash

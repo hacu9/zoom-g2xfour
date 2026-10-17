@@ -141,6 +141,7 @@ def main() -> None:
 
     tuning = TUNINGS[args.tuning]
     tracks, stats = [], {}
+    placed_notes: dict[str, list[dict]] = {}
     bars = []
     for label, path in tracks_in:
         notes, midi = find_notes(path, args.onset, args.frame, args.min_ms)
@@ -150,6 +151,9 @@ def main() -> None:
         events = assign(notes, tuning)
         bars, slots = quantize(events, beats, downbeats)
         tracks.append((label, slots))
+        placed_notes[label] = [
+            {"onset": round(n.onset, 4), "pitch": n.pitch, "string": n.string, "fret": n.fret} for ev in events for n in ev.notes
+        ]
         stats[label] = {
             "notes": len(notes),
             "placed": sum(len(e.notes) for e in events),
@@ -176,6 +180,8 @@ def main() -> None:
         "hint": "Many notes below the low string: try --tuning half-down or drop-d." if low > 0.05 * max(1, total) else "",
     }
     (args.out / f"{name}.json").write_text(json.dumps(report, indent=1))
+    # For compare_songsterr.py: every placed note, and the beat times to place them in the bar.
+    (args.out / f"{name}-notes.json").write_text(json.dumps({"beats": beats, "downbeats": downbeats, "tracks": placed_notes}))
     say(json.dumps(report, indent=1))
 
 

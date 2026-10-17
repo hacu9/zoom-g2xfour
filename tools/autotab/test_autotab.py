@@ -1,6 +1,7 @@
 """Unit tests for the pure parts (no audio, no GPU): .venv/bin/python -m pytest -q"""
 from fretting import STANDARD, TUNINGS, Note, assign, candidates, drop_overtones, group_events, positions
 from tabwriter import alphatex, ascii_tab, bars_from, quantize, split
+from compare_songsterr import score, to_quarters
 
 
 def test_positions_of_low_and_high_notes():
@@ -69,3 +70,15 @@ def test_a_note_after_the_last_beat_is_left_out():
     assert all(s.step < n * 4 for s in slots for b, (_, n) in enumerate(bars) if b == s.bar)
     tex = alphatex(bars, [("Guitar", slots)], title="t", tempo=120, tuning_names=["E4", "B3", "G3", "D3", "A2", "E2"])
     assert tex.count("|") == 1  # two bars, nothing past the end
+
+
+def test_compare_finds_a_known_offset():
+    # A reference riff, and a "draft" of it that starts 6 beats later, recorded at 120 BPM.
+    ref = [(i * 0.5, 40 + (i % 5), 6, i % 5) for i in range(64)]
+    beats = [0.5 * i for i in range(80)]
+    onsets = [(q + 6) * 0.5 for q, *_ in ref]
+    pred = [(q, p, s, f) for q, (_, p, s, f) in zip(to_quarters(onsets, beats, 1.0), ref)]
+    off, note_f1, tab_f1 = score(pred, ref)
+    assert off == -6.0 and note_f1 == 1.0 and tab_f1 == 1.0
+    wrong_strings = [(q, p, 5, f) for q, p, _, f in pred]
+    assert score(wrong_strings, ref)[1:] == (1.0, 0.0)
