@@ -8,3 +8,6 @@ tools/autotab/.venv
 tools/autotab/out
 __pycache__
 .pytest_cache
+# alphaTab Vite plugin copies these from node_modules on every start
+public/font
+public/soundfont
