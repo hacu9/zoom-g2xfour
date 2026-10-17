@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Runs the g2x CLI with Windows Node: the pedal's MIDI ports live on Windows and WSL cannot see them.
+# First run: installs jzz (Web MIDI for Node) into %LOCALAPPDATA%\g2x. Each run rebuilds the bundle when the code changed.
+set -euo pipefail
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+JZZ_VERSION=1.9.6
+
+# Paths that exist (from the directory you ran g2x in) become Windows paths. Done before any cd.
+ARGS=()
+HAS_OUT=0
+PREV=
+for a in "$@"; do
+  [ "$a" = "--out" ] && HAS_OUT=1
+  if [ "$PREV" = "--out" ]; then # the folder may not exist yet
+    mkdir -p "$a"
+    ARGS+=("$(wslpath -w "$(realpath "$a")")")
+  elif [ -e "$a" ]; then
+    ARGS+=("$(wslpath -w "$(realpath "$a")")")
+  else
+    ARGS+=("$a")
+  fi
+  PREV="$a"
+done
+if [ "$HAS_OUT" = 0 ]; then
+  mkdir -p "$REPO/backups"
+  ARGS+=(--out "$(wslpath -w "$REPO/backups")")
+fi
+
+BUNDLE="$REPO/dist-cli/g2x.mjs"
+if [ ! -f "$BUNDLE" ] || [ -n "$(find "$REPO/cli" "$REPO/src" -newer "$BUNDLE" -type f -print -quit)" ]; then
+  (cd "$REPO" && ./node_modules/.bin/vite build --config vite.cli.config.ts --logLevel error) >&2
+fi
+
+cd /mnt/c # cmd.exe refuses a WSL working directory
+WIN_HOME_W="$(cmd.exe /c 'echo %LOCALAPPDATA%' 2>/dev/null | tr -d '\r')"
+WIN_DIR="$(wslpath -u "$WIN_HOME_W")/g2x"
+WIN_DIR_W="$WIN_HOME_W\\g2x"
+mkdir -p "$WIN_DIR"
+
+if [ ! -f "$WIN_DIR/node_modules/jzz/package.json" ]; then
+  echo "g2x: installing jzz@$JZZ_VERSION in $WIN_DIR_W" >&2
+  printf '{ "name": "g2x-runtime", "private": true, "type": "module" }\n' > "$WIN_DIR/package.json"
+  cmd.exe /c "cd /d $WIN_DIR_W && npm install jzz@$JZZ_VERSION --no-audit --no-fund --loglevel=error" >&2
+fi
+cp "$BUNDLE" "$WIN_DIR/g2x.mjs"
+
+cd "$WIN_DIR"
+exec node.exe g2x.mjs "${ARGS[@]}"

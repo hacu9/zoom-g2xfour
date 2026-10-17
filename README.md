@@ -14,11 +14,14 @@ An unofficial browser editor for the Zoom G2X FOUR guitar pedal, over USB
 - Metronome with 41 song tempo maps (tempo and meter changes, part by part).
 - Two safety gates: known dangerous commands are blocked; writes need a backup
   and an Empty slot.
+- `g2x`, a command-line tool with the same code and rules: backup, read, write
+  a recipe, restore. No browser needed.
 
 ```bash
 npm install
 npm run dev     # http://localhost:5173 — open in Windows Chrome/Edge
 npm test
+scripts/g2x help   # the command-line tool (WSL → Windows Node)
 ```
 
 | Document | Content |
@@ -28,6 +31,7 @@ npm test
 | [docs/recipes.md](docs/recipes.md) | Recipe format, effect mapping, Rain |
 | [docs/architecture.md](docs/architecture.md) | Code structure and decisions |
 | [docs/songs.md](docs/songs.md) | Song tempo maps: source, checks, limits |
+| [docs/cli.md](docs/cli.md) | The `g2x` command-line tool |
 
 ## Credits
 
@@ -44,6 +48,8 @@ This project stands on other people's reverse-engineering work.
   for the FOUR series, the file listing, and the warning about `64 47`.
 - **[shooking/ZoomPedalFun](https://github.com/shooking/ZoomPedalFun)** (CC0).
   Background research on the Zoom FOUR pedals.
+- **[jzz](https://github.com/jazz-soft/JZZ)** by Jazz-Soft (MIT): Web MIDI for
+  Node, used by `g2x`. Installed at run time, not copied into this repo.
 - **[Songsterr](https://www.songsterr.com)**: the song tempo maps (tempo,
   meter, bar counts and section names) come from its tab data. Each song links
   its Songsterr page. See [docs/songs.md](docs/songs.md).

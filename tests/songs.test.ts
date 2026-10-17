@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { SONGS, findSongSlot, partsOf, searchSongs } from '../src/songs/songs';
-import { BUILT_IN } from '../src/editor/RecipePanel';
+import { BUILT_IN } from '../src/recipe/builtin';
 
 describe('songs', () => {
   it('finds songs by title or artist words in any order', () => {

@@ -10,15 +10,17 @@ import { classify, type Classification } from './midi/safety';
 import { ProbeSession, SafetyError } from './midi/session';
 import { DEFAULT_ZOOM_ID, zoomSysex } from './midi/zoom';
 import { downloadBlob, downloadText, exportText } from './log/log';
-import { backupAll, duplicateGroups, toSyx } from './midi/backup';
+import { backupAll, duplicateGroups, readBankInfo, toSyx } from './midi/backup';
 import { effectById } from './catalog/g2four';
-import { isZoomSysex, zoomBody } from './midi/zoom';
+import { isZoomSysex } from './midi/zoom';
 import { useLog } from './log/useLog';
 import { ConfirmDialog } from './probe/ConfirmDialog';
 import { LogView } from './probe/LogView';
 import { PatchEditor } from './editor/PatchEditor';
-import { BUILT_IN, RecipePanel } from './editor/RecipePanel';
-import { RestorePanel, type SyxEntry } from './editor/RestorePanel';
+import { RecipePanel } from './editor/RecipePanel';
+import { BUILT_IN } from './recipe/builtin';
+import { RestorePanel } from './editor/RestorePanel';
+import type { SyxEntry } from './midi/syx';
 import type { WritePolicy } from './midi/writes';
 import type { RawPatch } from './midi/ptcf';
 import { patchSelect, stepSlot } from './midi/patchSelect';
@@ -283,12 +285,7 @@ export function App() {
     jobRef.current = ctl;
     setBackupState('running');
     try {
-      // 44 → 43 <count 2> <length 2> <? 2> <per bank 2> (zoom-explorer README)
-      const info = await session.request(zoomSysex(deviceId, [0x44, 0x00, 0x00, 0x00, 0x00]), 'backup: bank info', (d) => isZoomSysex(d) && d[4] === 0x43, 1500);
-      if (!info) throw new Error('No reply to 44 (bank info)');
-      const b = zoomBody(info);
-      const count = b[1] | (b[2] << 7);
-      const perBank = b[7] | (b[8] << 7);
+      const { count, perBank } = await readBankInfo(session, deviceId);
       logAdd('info', `Backup started: ${count} patches, ${perBank} per bank (46 00 00 read).`);
       const dumps = await backupAll(session, deviceId, { count, perBank, signal: ctl.signal, onProgress: (n) => setProgress(`${n} / ${count}`) });
       // A reconnect during the backup: this run belongs to a closed session. Touch nothing.

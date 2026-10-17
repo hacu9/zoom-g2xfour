@@ -37,6 +37,20 @@ export async function selectSlot(session: ProbeSession, deviceId: number, slot: 
   }
 }
 
+/** Which slot the pedal is on: 33 makes it echo Bank Select LSB + Program Change. Null if it does not answer. */
+export async function readCurrentSlot(session: ProbeSession, deviceId: number, perBank: number): Promise<number | null> {
+  let bank = -1;
+  const off = session.subscribe((d) => {
+    if ((d[0] & 0xf0) === 0xb0 && d[1] === 0x20) bank = d[2];
+  });
+  try {
+    const pc = await session.request(zoomSysex(deviceId, [0x33]), 'which patch is active', (d) => (d[0] & 0xf0) === 0xc0, 1500);
+    return pc && bank >= 0 ? bank * perBank + pc[1] : null;
+  } finally {
+    off();
+  }
+}
+
 export interface ApplyResult {
   ok: boolean;
   steps: string[];

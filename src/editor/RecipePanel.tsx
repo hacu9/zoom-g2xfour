@@ -1,54 +1,6 @@
 import { useMemo, useState } from 'react';
 import { applyPlan } from '../recipe/apply';
-import rain from '../recipe/recipes/rain-rob-scallon.json';
-import ftbClean from '../recipe/recipes/metallica-fade-to-black-clean.json';
-import ftbDist from '../recipe/recipes/metallica-fade-to-black-dist.json';
-import oneClean from '../recipe/recipes/metallica-one-clean.json';
-import oneDist from '../recipe/recipes/metallica-one-dist.json';
-import mopClean from '../recipe/recipes/metallica-master-of-puppets-clean.json';
-import mopDist from '../recipe/recipes/metallica-master-of-puppets-dist.json';
-import tdtncClean from '../recipe/recipes/metallica-day-that-never-comes-clean.json';
-import tdtncDist from '../recipe/recipes/metallica-day-that-never-comes-dist.json';
-import sandmanClean from '../recipe/recipes/metallica-enter-sandman-clean.json';
-import sandmanDist from '../recipe/recipes/metallica-enter-sandman-dist.json';
-import nemClean from '../recipe/recipes/metallica-nothing-else-matters-clean.json';
-import nemDist from '../recipe/recipes/metallica-nothing-else-matters-dist.json';
-import reptilia from '../recipe/recipes/strokes-reptilia.json';
-import loveSong from '../recipe/recipes/scouting-for-girls-this-aint-a-love-song.json';
-import teQuiero from '../recipe/recipes/hombres-g-te-quiero.json';
-import devuelveme from '../recipe/recipes/hombres-g-devuelveme-a-mi-chica.json';
-import brightside from '../recipe/recipes/killers-mr-brightside.json';
-import dancefloor from '../recipe/recipes/arctic-monkeys-dancefloor.json';
-import akfg from '../recipe/recipes/akfg-crunch.json';
-import wind from '../recipe/recipes/akeboshi-wind.json';
-import coralineClean from '../recipe/recipes/maneskin-coraline-clean.json';
-import coralineDist from '../recipe/recipes/maneskin-coraline-dist.json';
-
-export const BUILT_IN: { label: string; recipe: unknown }[] = [
-  { label: 'Rain — Rob Scallon', recipe: rain },
-  { label: 'Fade to Black (clean) — Metallica', recipe: ftbClean },
-  { label: 'Fade to Black (distorted) — Metallica', recipe: ftbDist },
-  { label: 'One (clean) — Metallica', recipe: oneClean },
-  { label: 'One (distorted) — Metallica', recipe: oneDist },
-  { label: 'Master of Puppets (clean) — Metallica', recipe: mopClean },
-  { label: 'Master of Puppets (distorted) — Metallica', recipe: mopDist },
-  { label: 'The Day That Never Comes (clean) — Metallica', recipe: tdtncClean },
-  { label: 'The Day That Never Comes (distorted) — Metallica', recipe: tdtncDist },
-  { label: 'Enter Sandman (clean intro) — Metallica', recipe: sandmanClean },
-  { label: 'Enter Sandman (distorted) — Metallica', recipe: sandmanDist },
-  { label: 'Nothing Else Matters (clean) — Metallica', recipe: nemClean },
-  { label: 'Nothing Else Matters (distorted) — Metallica', recipe: nemDist },
-  { label: 'Reptilia — The Strokes', recipe: reptilia },
-  { label: "This Ain't a Love Song (estimate) — Scouting for Girls", recipe: loveSong },
-  { label: 'Te quiero — Hombres G', recipe: teQuiero },
-  { label: 'Devuélveme a mi chica — Hombres G', recipe: devuelveme },
-  { label: 'Mr. Brightside — The Killers', recipe: brightside },
-  { label: 'I Bet You Look Good on the Dancefloor — Arctic Monkeys', recipe: dancefloor },
-  { label: 'Haruka Kanata / Rewrite — Asian Kung-Fu Generation', recipe: akfg },
-  { label: 'Wind — Akeboshi', recipe: wind },
-  { label: 'Coraline (clean) — Måneskin', recipe: coralineClean },
-  { label: 'Coraline (distorted) — Måneskin', recipe: coralineDist },
-];
+import { BUILT_IN } from '../recipe/builtin';
 import { translate } from '../recipe/translate';
 import type { ToneRecipe } from '../recipe/types';
 import type { ProbeSession } from '../midi/session';
@@ -63,7 +15,7 @@ interface Props {
 }
 
 export function RecipePanel({ session, deviceId, policy, onSlotWritten, log }: Props) {
-  const [text, setText] = useState(JSON.stringify(rain, null, 2));
+  const [text, setText] = useState(JSON.stringify(BUILT_IN[0].recipe, null, 2));
   const [target, setTarget] = useState('');
   const [busy, setBusy] = useState(false);
   const scratch = useMemo(() => [...policy.scratchSlots].sort((a, b) => a - b), [policy.scratchSlots]);

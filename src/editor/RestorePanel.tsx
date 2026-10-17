@@ -1,34 +1,8 @@
 import { useMemo, useState } from 'react';
-import { patchBytesFromSlotDump, patchFingerprint, readSlot } from '../midi/backup';
-import { assertStillEmpty } from '../recipe/apply';
-import { parsePTCF } from '../midi/ptcf';
+import { restoreEntry } from '../midi/restore';
 import type { ProbeSession } from '../midi/session';
-import { retargetSlotDump, type WritePolicy } from '../midi/writes';
-import { isZoomSysex } from '../midi/zoom';
-
-export interface SyxEntry {
-  slot: number;
-  name: string;
-  msg: number[];
-}
-
-/** Split a .syx into 45 slot dumps. */
-export function parseSyx(bytes: Uint8Array, perBank: number): SyxEntry[] {
-  const out: SyxEntry[] = [];
-  let start = -1;
-  for (let i = 0; i < bytes.length; i++) {
-    if (bytes[i] === 0xf0) start = i;
-    else if (bytes[i] === 0xf7 && start >= 0) {
-      const msg = Array.from(bytes.slice(start, i + 1));
-      start = -1;
-      if (!isZoomSysex(msg) || msg[4] !== 0x45) continue;
-      const slot = (msg[7] | (msg[8] << 7)) * perBank + (msg[9] | (msg[10] << 7));
-      const p = parsePTCF(patchBytesFromSlotDump(msg) ?? []);
-      out.push({ slot, name: p?.name ?? p?.shortName ?? '?', msg });
-    }
-  }
-  return out;
-}
+import { parseSyx, type SyxEntry } from '../midi/syx';
+import type { WritePolicy } from '../midi/writes';
 
 interface Props {
   session: ProbeSession | null;
@@ -71,16 +45,10 @@ export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotW
     if (!session || !src || targetSlot === undefined) return;
     setBusy(true);
     try {
-      // An "Empty" target needs no typed confirmation, so check that it still is.
-      if (isScratch) await assertStillEmpty(session, deviceId, targetSlot, policy);
-      const msg = retargetSlotDump(src.msg, targetSlot, policy.perBank);
-      const w: WritePolicy = { ...policy, confirmedSlot: isScratch ? null : targetSlot };
-      await session.request(msg, `restore "${src.name}" → slot ${targetSlot}`, (d) => isZoomSysex(d) && d[4] === 0x00, 3000, w);
-      const back = await readSlot(session, deviceId, targetSlot, policy.perBank);
-      const want = patchFingerprint(patchBytesFromSlotDump(src.msg) ?? []);
-      onSlotWritten(targetSlot, back.patch?.name?.trimEnd() ?? '?');
-      if (back.fingerprint === want) log('info', `Restore verified: slot ${targetSlot} now holds "${back.patch?.name}"; the patch data matches byte for byte.`);
-      else log('warn', `Restore sent, but slot ${targetSlot} reads back as "${back.patch?.name}" and the bytes differ.`);
+      const r = await restoreEntry(session, deviceId, src, targetSlot, policy, confirmed);
+      onSlotWritten(targetSlot, r.name);
+      if (r.verified) log('info', `Restore verified: slot ${targetSlot} now holds "${r.name}"; the patch data matches byte for byte.`);
+      else log('warn', `Restore sent, but slot ${targetSlot} reads back as "${r.name}" and the bytes differ.`);
     } catch (e) {
       log('error', `Restore failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {

@@ -12,7 +12,9 @@ src/
     safety.ts      classify(): read | unknown | blocked  (read path)
     commands.ts    Read allowlist + hard blocklist, each with its source
     writes.ts      classifyWrite(): the write gate (4 shapes, scratch-slot policy)
-    backup.ts      46 slot reads, .syx export, duplicate detection
+    backup.ts      44 bank info, 46 slot reads, .syx export, duplicate detection
+    syx.ts         .syx file → slot dumps
+    restore.ts     restoreEntry(): upload one dump, fresh Empty check, byte-for-byte read-back
     ptcf.ts        Raw patch reader (PTCF): effects, params, name, tempo
     decode.ts      Screen text, file entries, flash info
     patchSelect.ts Bank Select + Program Change for patch up/down and the patch list
@@ -24,13 +26,16 @@ src/
   audio/           recorder.ts (input pick, file name, level), pedal.ts (learn + toe switch),
                    metronome.ts (tempo map walker, ramps, tap tempo)
   songs/           songs.ts: the song list (tempo map + patch names + source)
-  recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal), recipes/*.json
+  recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal),
+                   builtin.ts (the shipped list), recipes/*.json
   tempo/delay.ts   ms = 60000 / BPM × note value
   log/ probe/      Log, export, console UI
   styles.css       Look: a dark pedal build sheet (graph paper, copper traces and labels,
                    a circuit-board screen, enclosures in their category colour)
   App.tsx          Page: auto-connect, auto-backup, header, board, patch list; recipes,
                    restore and the lab (ports, identity, console, log) fold away
+cli/               g2x: the same code from the command line on Windows Node (jzz). See docs/cli.md
+scripts/g2x        Starts g2x from WSL: installs jzz once, rebuilds the bundle, converts paths
 tests/             Vitest; fixtures/ hold real pedal dumps
 ```
 

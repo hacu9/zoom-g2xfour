@@ -68,6 +68,14 @@ export async function readSlot(session: ProbeSession, deviceId: number, slot: nu
   };
 }
 
+/** 44 → 43 <count 2> <length 2> <? 2> <per bank 2> (zoom-explorer README). */
+export async function readBankInfo(session: ProbeSession, deviceId: number): Promise<{ count: number; perBank: number }> {
+  const info = await session.request(zoomSysex(deviceId, [0x44, 0x00, 0x00, 0x00, 0x00]), 'backup: bank info', (d) => isZoomSysex(d) && d[4] === 0x43, 1500);
+  if (!info) throw new Error('No reply to 44 (bank info)');
+  const b = zoomBody(info);
+  return { count: b[1] | (b[2] << 7), perBank: b[7] | (b[8] << 7) };
+}
+
 export async function backupAll(
   session: ProbeSession,
   deviceId: number,

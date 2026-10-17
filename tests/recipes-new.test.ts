@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { translate } from '../src/recipe/translate';
 import type { ToneRecipe } from '../src/recipe/types';
-import { BUILT_IN } from '../src/editor/RecipePanel';
+import { BUILT_IN } from '../src/recipe/builtin';
 
 describe('every built-in recipe', () => {
   it.each(BUILT_IN.map((b) => [b.label, b.recipe] as const))('%s translates with real models and a short name', (_, recipe) => {
