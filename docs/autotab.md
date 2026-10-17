@@ -23,8 +23,11 @@ YouTube: its terms forbid it. Keep the tabs for your own practice.
    that starts at the same time is dropped. `--keep-overtones` turns this off.
 6. **Frets:** `fretting.py` picks a string and fret for every note. A Viterbi
    pass prefers narrow hand shapes, low positions and small hand moves.
-7. **Write:** `song.tex` (alphaTex, opens in alphaTab), `song.txt` (ASCII tab),
-   one `.mid` per track, and `song.json` (tempo, note counts, hints).
+7. **Write:** `song.tex` (alphaTex), `song.txt` (ASCII tab), one `.mid` per
+   track, and `song.json` (tempo, note counts, hints).
+
+Open `song.tex` in the app's **Tabs** panel: it draws the tab and plays it, so
+you can compare it with the record by ear.
 
 ## Set up
 

@@ -13,6 +13,8 @@ An unofficial browser editor for the Zoom G2X FOUR guitar pedal, over USB
   and more, each with its sources.
 - Record what you play through the pedal's USB audio, loop it, save it.
   **Listen** sends the pedal's sound to a headset you pick.
+- Tabs: open and play Guitar Pro / MusicXML files, and the drafts of
+  `tools/autotab`, which makes a draft tab from a recording you own.
 - Metronome with 41 song tempo maps (tempo and meter changes, part by part).
 - Two safety gates: known dangerous commands are blocked; writes need a backup
   and an Empty slot.
@@ -35,6 +37,7 @@ scripts/g2x help   # the command-line tool (WSL → Windows Node)
 | [docs/architecture.md](docs/architecture.md) | Code structure and decisions |
 | [docs/songs.md](docs/songs.md) | Song tempo maps: source, checks, limits |
 | [docs/cli.md](docs/cli.md) | The `g2x` command-line tool |
+| [docs/autotab.md](docs/autotab.md) | Draft tabs from a recording: how, setup, accuracy |
 
 ## Credits
 
@@ -51,6 +54,12 @@ This project stands on other people's reverse-engineering work.
   for the FOUR series, the file listing, and the warning about `64 47`.
 - **[shooking/ZoomPedalFun](https://github.com/shooking/ZoomPedalFun)** (CC0).
   Background research on the Zoom FOUR pedals.
+- **[alphaTab](https://www.alphatab.net)** by Danielsoft (MPL-2.0): renders and plays the tabs.
+  The Bravura font (SIL OFL) and the Sonivox sound bank (Apache-2.0) ship with it.
+- **autotab** runs [Demucs](https://github.com/facebookresearch/demucs) (MIT),
+  [basic-pitch](https://github.com/spotify/basic-pitch) (Apache-2.0) and
+  [beat_this](https://github.com/CPJKU/beat_this) (MIT); its score uses
+  [GuitarSet](https://zenodo.org/records/3371780) (CC BY 4.0).
 - **[jzz](https://github.com/jazz-soft/JZZ)** by Jazz-Soft (MIT): Web MIDI for
   Node, used by `g2x`. Installed at run time, not copied into this repo.
 - **[Songsterr](https://www.songsterr.com)**: the song tempo maps (tempo,

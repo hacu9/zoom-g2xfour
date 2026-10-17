@@ -27,6 +27,7 @@ import { PedalHeader } from './ui/PedalHeader';
 import { PatchList } from './ui/PatchList';
 import { Recorder } from './ui/Recorder';
 import { Metronome } from './ui/Metronome';
+import { TabViewer } from './ui/TabViewer';
 import { fileStamp } from './text';
 import pkg from '../package.json';
 
@@ -76,6 +77,8 @@ export function App() {
   const ownSlots = useRef(new Set<number>());
   // A recipe write or a restore runs: nothing in the app may change patch until it ends.
   const [writing, setWriting] = useState(false);
+  // The tab viewer (alphaTab, about 2 MB) loads on the first open and then stays.
+  const [tabsOpened, setTabsOpened] = useState(false);
   // A restore: the slot now holds a restored patch (real) or Empty, never this app's recipe.
   const onSlotWritten = useCallback((slot: number, name: string) => {
     setName(slot, name);
@@ -446,6 +449,11 @@ export function App() {
         </div>
         <PatchList names={names} count={names.size ? total : 0} perBank={perBank} current={currentSlot} mine={mine} disabled={!session || locked} onSelect={selectPatch} />
       </section>
+
+      <details className="panel" onToggle={(e) => e.currentTarget.open && setTabsOpened(true)}>
+        <summary>Tabs: Guitar Pro, MusicXML, autotab drafts</summary>
+        {tabsOpened && <TabViewer />}
+      </details>
 
       <details className="panel">
         <summary>Song recipes → new patch</summary>

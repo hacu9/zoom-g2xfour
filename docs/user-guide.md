@@ -157,6 +157,17 @@ you tick **Show Empty slots**. A ★ marks the patches that the built-in song
 recipes write. **Back up again** reads all 300 patches again, for example after
 you edit patches on the pedal itself.
 
+### Tabs
+
+Opens a tab file and plays it: Guitar Pro (`.gp`, `.gpx`, `.gp3`–`.gp5`),
+MusicXML, or a draft from [autotab](autotab.md) (`.tex`). The panel loads
+alphaTab only the first time you open it.
+
+- **Track** picks one guitar when the file has several (an autotab draft of a
+  two-guitar song has "Guitar L" and "Guitar R").
+- **Play / Stop**, **Speed** (50–110 %) and **Click** (a metronome on the
+  beat). The sound comes out of the computer's output, not the pedal.
+
 ### Song recipes → new patch
 
 Pick or paste a recipe (JSON). The preview shows the effects, knob values

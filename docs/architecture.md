@@ -21,7 +21,7 @@ src/
     identity.ts / zoom.ts / hex.ts / annotate.ts / fileList.ts
   catalog/         G2 FOUR effect + parameter catalog (vendored from zoom-explorer)
   editor/          PatchEditor (stompbox board), EffectPicker (search), RestorePanel, RecipePanel
-  ui/              PedalHeader (LCD, patch up/down, lights), Knob (rotary pot), PatchList,
+  ui/              TabViewer (alphaTab, loaded on first open), PedalHeader (LCD, patch up/down, lights), Knob (rotary pot), PatchList,
                    Recorder (USB audio takes, expression pedal learn)
   audio/           recorder.ts (input pick, file name, level), pedal.ts (learn + toe switch),
                    metronome.ts (tempo map walker, ramps, tap tempo)
