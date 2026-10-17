@@ -23,6 +23,8 @@ export function TabViewer() {
   const [tracks, setTracks] = useState<TrackInfo[]>([]);
   const [track, setTrack] = useState(0);
   const [ready, setReady] = useState(false);
+  /** The whole tab is drawn. Playing before that competes with the layout and stutters. */
+  const [drawn, setDrawn] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [click, setClick] = useState(false);
@@ -51,7 +53,16 @@ export function TabViewer() {
             scoreInfoColor: color('--ink', '#e8edf5'),
           },
         },
-        player: { playerMode: alphaTab.PlayerMode.EnabledAutomatic, soundFont: '/soundfont/sonivox.sf2', scrollElement: host.current },
+        player: {
+          playerMode: alphaTab.PlayerMode.EnabledAutomatic,
+          soundFont: '/soundfont/sonivox.sf2',
+          scrollElement: host.current,
+          // Scroll only when the cursor leaves the view: Continuous jumped ahead of the playing bar.
+          scrollMode: alphaTab.ScrollMode.OffScreen,
+          scrollOffsetY: -40,
+          // A larger buffer survives the busy moments (default 500 ms crackled while the layout still ran).
+          bufferTimeInMilliseconds: 1000,
+        },
       });
       a.scoreLoaded.on((score) => {
         setTitle(score.title || null);
@@ -61,6 +72,7 @@ export function TabViewer() {
         soloTrack(a, 0, playAllRef.current);
       });
       a.playerReady.on(() => setReady(true));
+      a.postRenderFinished.on(() => setDrawn(true));
       a.playerStateChanged.on((e) => setPlaying(e.state === alphaTab.synth.PlayerState.Playing));
       a.error.on((e) => setError(e.message));
       api.current = a;
@@ -76,7 +88,7 @@ export function TabViewer() {
     const a = api.current;
     if (!file || !a) return;
     setError(null);
-    setReady(false);
+    setDrawn(false);
     try {
       if (/\.(tex|txt)$/i.test(file.name)) a.tex(await file.text());
       else a.load(new Uint8Array(await file.arrayBuffer()));
@@ -115,10 +127,10 @@ export function TabViewer() {
       </div>
       {tracks.length > 0 && (
         <div className="row">
-          <button className="primary" disabled={!ready} onClick={() => api.current?.playPause()}>
+          <button className="primary" disabled={!ready || !drawn} onClick={() => api.current?.playPause()}>
             {playing ? 'Pause' : 'Play'}
           </button>
-          <button disabled={!ready} onClick={() => api.current?.stop()}>
+          <button disabled={!ready || !drawn} onClick={() => api.current?.stop()}>
             Stop
           </button>
           <label className="small">
@@ -162,7 +174,7 @@ export function TabViewer() {
             />{' '}
             Click
           </label>
-          {!ready && <span className="small muted">Loading the sound…</span>}
+          {(!ready || !drawn) && <span className="small muted">{!ready ? 'Loading the sound…' : 'Drawing the tab…'}</span>}
         </div>
       )}
       {title && <p className="small muted">{title}</p>}
