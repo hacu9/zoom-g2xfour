@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ProbeSession } from '../midi/session';
 import { PedalTracker, readControl, type PedalSignature } from '../audio/pedal';
-import { extensionFor, formatDuration, peakLevel, pickMimeType, pickPedalInput, takeFileName } from '../audio/recorder';
+import { extensionFor, formatDuration, isPedalDevice, isWireless, latencyNote, peakLevel, pickMimeType, pickPedalInput, takeFileName } from '../audio/recorder';
 import { downloadBlob } from '../log/log';
 
 interface Take {
@@ -39,14 +39,26 @@ export function Recorder({ session, patchName }: Props) {
   const [pedal, setPedal] = useState<PedalState>({ mode: 'off' });
   const [pedalPos, setPedalPos] = useState<number | null>(null);
   const [pedalToggles, setPedalToggles] = useState(true);
+  const [outputs, setOutputs] = useState<MediaDeviceInfo[]>([]);
+  /** Send the input to an output so you hear the pedal through the computer. Off at each load. */
+  const [listen, setListen] = useState(false);
+  /** '' = the system default output. */
+  const [sinkId, setSinkId] = useState('');
+  const [listenVol, setListenVol] = useState(0.8);
+  const [latencyMs, setLatencyMs] = useState<number | null>(null);
+  const listenGain = useRef<GainNode | null>(null);
+  const listenVolRef = useRef(listenVol);
+  listenVolRef.current = listenVol;
   const recorder = useRef<MediaRecorder | null>(null);
   const nextId = useRef(1);
 
   const supported = typeof navigator !== 'undefined' && !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== 'undefined';
 
   const listInputs = useCallback(async () => {
-    const all = (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind === 'audioinput');
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const all = devices.filter((d) => d.kind === 'audioinput');
     setInputs(all);
+    setOutputs(devices.filter((d) => d.kind === 'audiooutput'));
     return all;
   }, []);
 
@@ -127,7 +139,7 @@ export function Recorder({ session, patchName }: Props) {
     const ctx = new AudioContext();
     const analyser = ctx.createAnalyser();
     analyser.fftSize = 1024;
-    ctx.createMediaStreamSource(stream).connect(analyser); // not to the speakers: you hear the pedal's own output
+    ctx.createMediaStreamSource(stream).connect(analyser); // not to the speakers: Listen does that, on request
     const buf = new Uint8Array(analyser.fftSize);
     let raf = 0;
     let shown = 0;
@@ -143,6 +155,40 @@ export function Recorder({ session, patchName }: Props) {
       void ctx.close();
     };
   }, [stream]);
+
+  // Listen: input -> volume -> the chosen output. Its own context, so the meter keeps running when it is off.
+  useEffect(() => {
+    if (!stream || !listen) {
+      setLatencyMs(null);
+      return;
+    }
+    const ctx = new AudioContext({ latencyHint: 'interactive' });
+    const gain = ctx.createGain();
+    gain.gain.value = listenVolRef.current;
+    ctx.createMediaStreamSource(stream).connect(gain).connect(ctx.destination);
+    listenGain.current = gain;
+    let alive = true;
+    const out = ctx as AudioContext & { setSinkId?: (id: string) => Promise<void> };
+    if (sinkId && out.setSinkId) {
+      out.setSinkId(sinkId).catch((e) => alive && setError(`Chrome cannot play to that output: ${String(e)}`));
+    }
+    void ctx.resume();
+    // Input + processing + output delay. outputLatency settles after the first callbacks, so read it again.
+    const input = stream.getAudioTracks()[0]?.getSettings() as (MediaTrackSettings & { latency?: number }) | undefined;
+    const measure = () => setLatencyMs(Math.round(((input?.latency ?? 0) + ctx.baseLatency + (ctx.outputLatency || 0)) * 1000));
+    measure();
+    const t = setInterval(measure, 1000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+      listenGain.current = null;
+      void ctx.close();
+    };
+  }, [stream, listen, sinkId]);
+  useEffect(() => {
+    const g = listenGain.current;
+    g?.gain.setTargetAtTime(listenVol, g.context.currentTime, 0.02);
+  }, [listenVol]);
 
   // Timer while recording.
   useEffect(() => {
@@ -291,6 +337,18 @@ export function Recorder({ session, patchName }: Props) {
           )}
         </div>
       </div>
+      {stream && (
+        <ListenControls
+          listen={listen}
+          onListen={setListen}
+          volume={listenVol}
+          onVolume={setListenVol}
+          outputs={outputs}
+          sinkId={sinkId}
+          onSink={setSinkId}
+          latencyMs={latencyMs}
+        />
+      )}
       {error && <p className="warn-text">{error}</p>}
       {stream && !pickPedalInput(inputs) && <p className="small warn-text">I do not see the G2X FOUR as an audio input. Plug it in with USB: it appears in the Input list.</p>}
       {stream && !recording && (() => {
@@ -360,6 +418,62 @@ export function Recorder({ session, patchName }: Props) {
           <p className="small muted">The takes stay only until you reload the page. Save the ones you want to keep.</p>
         </div>
       )}
+    </div>
+  );
+}
+
+interface ListenProps {
+  listen: boolean;
+  onListen: (on: boolean) => void;
+  volume: number;
+  onVolume: (v: number) => void;
+  outputs: MediaDeviceInfo[];
+  sinkId: string;
+  onSink: (id: string) => void;
+  latencyMs: number | null;
+}
+
+const canPickOutput = typeof AudioContext !== 'undefined' && 'setSinkId' in AudioContext.prototype;
+
+function ListenControls({ listen, onListen, volume, onVolume, outputs, sinkId, onSink, latencyMs }: ListenProps) {
+  const label = outputs.find((d) => d.deviceId === (sinkId || 'default'))?.label ?? '';
+  const note = latencyMs === null ? null : latencyNote(latencyMs);
+  return (
+    <div className="listen">
+      <div className="row">
+        <button className={listen ? 'on' : ''} aria-pressed={listen} onClick={() => onListen(!listen)}>
+          {listen ? 'Listening' : 'Listen'}
+        </button>
+        <label className="small">
+          Volume{' '}
+          <input type="range" min={0} max={1.5} step={0.05} value={volume} onChange={(e) => onVolume(Number(e.target.value))} aria-label="Listen volume" />
+        </label>
+        {canPickOutput && (
+          <label className="small">
+            Output{' '}
+            <select value={sinkId} onChange={(e) => onSink(e.target.value)}>
+              <option value="">System default</option>
+              {outputs
+                .filter((d) => d.deviceId && d.deviceId !== 'default')
+                .map((d) => (
+                  <option key={d.deviceId} value={d.deviceId}>
+                    {d.label || 'Output'}
+                  </option>
+                ))}
+            </select>
+          </label>
+        )}
+        {listen && note && (
+          <span className={`small mono latency ${note.level}`} title="Input + processing + output delay, as Chrome reports it">
+            {latencyMs} ms
+          </span>
+        )}
+      </div>
+      <p className="small muted">
+        {listen && note ? `${note.text} ` : 'Hear the pedal through the computer, in the output you pick. '}
+        {listen && label && isWireless(label) && <span className="warn-text">Bluetooth adds 100–300 ms that Chrome does not always report. Use a wired headset. </span>}
+        {listen && label && isPedalDevice(label) && <span className="warn-text">This output is the pedal itself: you hear the sound twice. Pick your headset. </span>}
+      </p>
     </div>
   );
 }

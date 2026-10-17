@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { MIN_SPAN, PedalTracker, readControl } from '../src/audio/pedal';
-import { extensionFor, formatDuration, peakLevel, pickMimeType, pickPedalInput, takeFileName } from '../src/audio/recorder';
+import { extensionFor, formatDuration, isPedalDevice, isWireless, latencyNote, peakLevel, pickMimeType, pickPedalInput, takeFileName } from '../src/audio/recorder';
 
 const zoomKnob = (slot: number, param: number, value: number, ack = 0) =>
   new Uint8Array([0xf0, 0x52, 0x00, 0x6e, 0x64, 0x20, ack, slot, param, value & 0x7f, (value >> 7) & 0x7f, 0, 0, 0, 0xf7]);
@@ -87,6 +87,18 @@ describe('recorder helpers', () => {
     expect(pickPedalInput(devs)?.label).toBe('Line (ZOOM G2X FOUR Audio)');
     expect(pickPedalInput(devs.slice(0, 2))).toBeUndefined();
     expect(pickPedalInput([{ kind: 'audioinput', label: 'Microphone (Logitech G233)' }])).toBeUndefined();
+  });
+  it('spots the pedal and wireless outputs for listening', () => {
+    expect(isPedalDevice('Speakers (ZOOM G2X FOUR Audio)')).toBe(true);
+    expect(isPedalDevice('Headphones (Logitech G233)')).toBe(false);
+    expect(isWireless('Headphones (WH-1000XM4 Hands-Free AG Audio)')).toBe(true);
+    expect(isWireless('Headset (Galaxy Buds2 Pro)')).toBe(true);
+    expect(isWireless('Speakers (Realtek(R) Audio)')).toBe(false);
+  });
+  it('rates the listen delay', () => {
+    expect(latencyNote(10).level).toBe('ok');
+    expect(latencyNote(25).level).toBe('meh');
+    expect(latencyNote(60).level).toBe('bad');
   });
   it('prefers webm/opus', () => {
     expect(pickMimeType(() => true)).toBe('audio/webm;codecs=opus');

@@ -277,7 +277,15 @@ input[type='checkbox'] { accent-color: var(--copper); width: 15px; height: 15px;
 .exp-fill { height: 100%; background: var(--copper); }
 .rec-source select { max-width: 260px; }
 .count-in, .rec-source label { color: var(--ink-soft); }
-.exp, .takes { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--ink-faint); }
+.listen button.on { border-color: var(--go); color: var(--go); box-shadow: 0 0 10px #4fd38a44; }
+.listen label { color: var(--ink-soft); }
+.listen input[type='range'] { vertical-align: middle; width: 110px; }
+.listen select { max-width: 240px; }
+.latency { padding: 2px 6px; border: 1px solid currentColor; border-radius: 2px; }
+.latency.ok { color: var(--go); }
+.latency.meh { color: var(--amber); }
+.latency.bad { color: var(--signal); }
+.listen, .exp, .takes { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--ink-faint); }
 .exp strong { font: 600 10.5px/1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--copper); }
 .takes ul { list-style: none; margin: 10px 0; padding: 0; display: grid; gap: 8px; }
 .take { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(220px, 2fr) auto auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--ink-faint); }

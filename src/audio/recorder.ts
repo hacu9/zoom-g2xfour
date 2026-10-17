@@ -1,8 +1,27 @@
 /** Helpers for the audio recorder. The browser APIs stay in the component. */
 
+const PEDAL_LABEL = /zoom|g2x?\s*four/i;
+
 /** The pedal's USB audio input, if the browser lists it. */
 export function pickPedalInput<T extends { kind: string; label: string }>(devices: T[]): T | undefined {
-  return devices.find((d) => d.kind === 'audioinput' && /zoom|g2x?\s*four/i.test(d.label));
+  return devices.find((d) => d.kind === 'audioinput' && PEDAL_LABEL.test(d.label));
+}
+
+/** True for the pedal's own USB output: listening through it doubles the sound you already hear. */
+export function isPedalDevice(label: string): boolean {
+  return PEDAL_LABEL.test(label);
+}
+
+/** Bluetooth adds 100–300 ms, and Chrome often reports less than that. */
+export function isWireless(label: string): boolean {
+  return /bluetooth|hands-?free|airpods|buds|\bbt\b/i.test(label);
+}
+
+/** What the listen delay means for playing along. */
+export function latencyNote(ms: number): { level: 'ok' | 'meh' | 'bad'; text: string } {
+  if (ms <= 15) return { level: 'ok', text: 'Fine to play along.' };
+  if (ms <= 30) return { level: 'meh', text: 'You may feel the delay on fast picking.' };
+  return { level: 'bad', text: 'Too late to play along comfortably. Plug the headset into the PHONES jack on the pedal for zero delay.' };
 }
 
 /** The first container the browser can record. Chrome: webm/opus. */
