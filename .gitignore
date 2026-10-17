@@ -4,3 +4,7 @@ dist
 .playwright-mcp
 backups
 dist-cli
+tools/autotab/.venv
+tools/autotab/out
+__pycache__
+.pytest_cache
