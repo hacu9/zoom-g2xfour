@@ -11,7 +11,7 @@ An unofficial browser editor for the Zoom G2X FOUR guitar pedal, over USB
 - Turn a song's "tone recipe" (JSON) into a patch. Examples: Rain (Rob Scallon),
   four Metallica songs.
 - Record what you play through the pedal's USB audio, loop it, save it.
-- Metronome with 37 song tempo maps (tempo and meter changes, part by part).
+- Metronome with 40 song tempo maps (tempo and meter changes, part by part).
 - Two safety gates: known dangerous commands are blocked; writes need a backup
   and an Empty slot.
 

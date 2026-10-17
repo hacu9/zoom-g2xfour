@@ -348,6 +348,59 @@ Chain: SqueakDST (RAT) → ORG120 (clean-ish) → RoomREV.
 - https://equipboard.com/jamie-cook
 - https://en.wikipedia.org/wiki/I_Bet_You_Look_Good_on_the_Dancefloor — recorded at 2fly (Sheffield) and Chapel studios, producer Jim Abbiss.
 
+## Haruka Kanata, Rewrite (Asian Kung-Fu Generation) and Wind (Akeboshi)
+
+Three songs, two patches. The two AKFG songs share one patch. Wind needs its own.
+
+### Why one patch for both AKFG songs
+
+- **Same guitarists, same roles:** Gotoh plays rhythm, Kita plays lead, on both songs. Sourced (Wikipedia).
+- **Same frame:** standard tuning, key of E, fast 4/4 (175 and 180 BPM). Sourced (Songsterr, songbpm).
+- **Different sessions:** Haruka Kanata is the 2002 indie EP *Hōkai Amplifier*. Rewrite is a 2004 major-label recording with a different studio and engineer. Sourced (Wikipedia).
+- **Different guitars:** Kita got his '59 Les Paul reissue in 2004, so only Rewrite can have it. Sourced (Guitar Magazine 2022).
+- For Rewrite, turn the amp gain and the bass down a little: it is tighter and more palm-muted. Estimate.
+
+### AKFG Crunch (`akfg-crunch.json`)
+
+Chain: TS Drive → MS 800 → RoomREV.
+
+| Value | Status |
+|---|---|
+| Kita's past amps: Marshall JCM900 + 1960A cabinet (no dates) | Sourced (ja.wikipedia) |
+| Gotoh's early gear: Gibson Marauder, Roland JC-160 | Sourced (ja.wikipedia, 2009 blog) |
+| A G2X user answer for Rewrite: Les Paul, Fender-type tube amp, Tube Screamer, no numbers | Weak source (Yahoo Chiebukuro) |
+| MS 800 for the Marshall, TS Drive for the Tube Screamer | Choice |
+| Drive 30, tone 55, amp gain 55, EQ 50/60/65, room mix 10 | Estimate |
+
+No source names the gear used in the 2002–2004 sessions.
+
+- https://en.wikipedia.org/wiki/H%C5%8Dkai_Amplifier
+- https://en.wikipedia.org/wiki/Rewrite_(song)
+- https://ja.wikipedia.org/wiki/%E5%96%9C%E5%A4%9A%E5%BB%BA%E4%BB%8B
+- https://ja.wikipedia.org/wiki/%E5%BE%8C%E8%97%A4%E6%AD%A3%E6%96%87
+- https://guitarmagazine.jp/gear/2022-0517-kita-guitar/
+- https://guitarmagazine.jp/interview/2022-0530-kensuke-kita/
+- http://darikou.blogspot.com/2010/07/asian-kung-fu-generation-and-gear.html
+- https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11319139351
+- https://songbpm.com/@asian-kung-fu-generation/haruka-kanata
+- https://songbpm.com/@asian-kung-fu-generation/rewrite
+
+### Wind Acoustic (`akeboshi-wind.json`)
+
+Chain: Comp → Aco.Sim → FD TWIN-R (clean) → Hall REV.
+
+| Value | Status |
+|---|---|
+| Credits on *Stoned Town* (2002): acoustic guitar (Taichi Ohira), piano, violin, cello, tin whistle, acoustic bass, drums. No electric guitar. | Sourced (Discogs API, checked) |
+| Capo 3, Am–Em–F–C shapes, sounds in C minor | Sourced (chord sites) |
+| Aco.Sim to make an electric guitar sound closer to an acoustic one; neck or middle pickup | Choice |
+| Comp 30, Aco.Sim Top 55 / Body 60 / Tone 50, hall mix 20 | Estimate |
+
+- https://www.discogs.com/release/4262317-Akeboshi-Stoned-Town
+- https://tabs.ultimate-guitar.com/tab/akeboshi/wind-chords-795352
+- https://niewmedia.com/en/news/090990/ — the five-beat rhythm
+- https://www.musicnotes.com/sheetmusic/joe-jeremiah/wind/MN0177747 — 5/8, eighth = 190
+
 ### Zoom model names
 
 - https://zoomcorp.com/en/us/multi-effects/guitar-effects/g2-four-g2x-four — describes only the six Zoom-original amps (KRAMPUS, REDLOOM, VELVET, MUDDY, 7 HEAVEN, POLLEX).

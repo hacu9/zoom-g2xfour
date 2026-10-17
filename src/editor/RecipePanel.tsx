@@ -19,6 +19,8 @@ import teQuiero from '../recipe/recipes/hombres-g-te-quiero.json';
 import devuelveme from '../recipe/recipes/hombres-g-devuelveme-a-mi-chica.json';
 import brightside from '../recipe/recipes/killers-mr-brightside.json';
 import dancefloor from '../recipe/recipes/arctic-monkeys-dancefloor.json';
+import akfg from '../recipe/recipes/akfg-crunch.json';
+import wind from '../recipe/recipes/akeboshi-wind.json';
 
 export const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Rain — Rob Scallon', recipe: rain },
@@ -40,6 +42,8 @@ export const BUILT_IN: { label: string; recipe: unknown }[] = [
   { label: 'Devuélveme a mi chica — Hombres G', recipe: devuelveme },
   { label: 'Mr. Brightside — The Killers', recipe: brightside },
   { label: 'I Bet You Look Good on the Dancefloor — Arctic Monkeys', recipe: dancefloor },
+  { label: 'Haruka Kanata / Rewrite — Asian Kung-Fu Generation', recipe: akfg },
+  { label: 'Wind — Akeboshi', recipe: wind },
 ];
 import { translate } from '../recipe/translate';
 import type { ToneRecipe } from '../recipe/types';

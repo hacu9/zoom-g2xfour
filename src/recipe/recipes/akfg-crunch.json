@@ -1,0 +1,10 @@
+{
+  "song": "Haruka Kanata / Rewrite",
+  "artist": "Asian Kung-Fu Generation",
+  "patchName": "AKFG Crunch",
+  "source": "Starting point, not official. One patch for both songs: same guitarists (Gotoh rhythm, Kita lead), standard tuning, key of E, fast 4/4 (175 and 180 BPM), distortion mostly from the amp (Wikipedia: Hokai Amplifier, Rewrite). Kita's past amps: Marshall JCM900 + 1960A (ja.wikipedia), so MS 800 stands in. A G2X user answer for Rewrite names a Les Paul, a Fender-type tube amp and a Tube Screamer, no numbers (Yahoo Chiebukuro). No session gear for 2002-2004 is documented: every value is an estimate. For Rewrite, try a little less amp gain and less bass.",
+  "drive": { "type": "overdrive", "gain": 30, "tone": 55 },
+  "amp": { "type": "british", "model": "MS 800", "gain": 55 },
+  "eq": { "low": 50, "mid": 60, "high": 65 },
+  "reverb": { "type": "room", "decay": 25, "mix": 10 }
+}

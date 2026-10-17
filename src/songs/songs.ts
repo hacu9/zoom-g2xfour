@@ -47,6 +47,9 @@ const PATCHES: Record<string, string[]> = {
   'hombres-g-devuelveme-a-mi-chica': ['Devuelveme'],
   'the-killers-mr-brightside': ['Brightside'],
   'arctic-monkeys-i-bet-you-look-good-on-the-dancefloor': ['Dancefloor'],
+  'asian-kung-fu-generation-haruka-kanata': ['AKFG Crunch'],
+  'asian-kung-fu-generation-rewrite': ['AKFG Crunch'],
+  'akeboshi-wind': ['Wind Acoustic'],
 };
 
 const NOTES: Record<string, string[]> = {

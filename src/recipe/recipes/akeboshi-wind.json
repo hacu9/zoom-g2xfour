@@ -1,0 +1,11 @@
+{
+  "song": "Wind",
+  "artist": "Akeboshi",
+  "patchName": "Wind Acoustic",
+  "source": "Starting point, not official. The release credits list acoustic guitar (Taichi Ohira), piano, violin, cello, tin whistle, acoustic bass and drums, and no electric guitar (Discogs). Aco.Sim makes an electric guitar sound closer to an acoustic one; use the neck or middle pickup. Chord sites play it with capo 3 (Am-Em-F-C shapes, sounds in C minor). All values are estimates.",
+  "compressor": { "amount": 30 },
+  "drive": { "type": "boost", "gain": 0, "model": "Aco.Sim", "knobs": { "Top": 55, "Body": 60, "Tone": 50 } },
+  "amp": { "type": "clean", "gain": 10 },
+  "eq": { "low": 45, "mid": 50, "high": 60 },
+  "reverb": { "type": "hall", "decay": 40, "mix": 20 }
+}
