@@ -401,6 +401,34 @@ Chain: Comp → Aco.Sim → FD TWIN-R (clean) → Hall REV.
 - https://niewmedia.com/en/news/090990/ — the five-beat rhythm
 - https://www.musicnotes.com/sheetmusic/joe-jeremiah/wind/MN0177747 — 5/8, eighth = 190
 
+## Coraline (Måneskin)
+
+Two patches: the song moves between a soft finger-picked part and a loud picked part four times. A solo boost does not get its own patch: turn the drive up on the distorted patch.
+
+### `maneskin-coraline-clean.json` and `maneskin-coraline-dist.json`
+
+Chain: TS Drive → MS 1959 → RoomREV.
+
+| Value | Status |
+|---|---|
+| No source names the gear on Coraline or *Teatro d'ira* (recorded live in the studio at Mulino Recording Studio) | Sourced absence (Revenews, 2021) |
+| Raggi's rig: Strat (1970s Japanese Squier, SSL-5 bridge), two OCDs, Marshall Plexi; "clean" = light crunch from OCD 1, rhythm = OCD 2, solo = OCD 2 + boost | Sourced (Guitar World, Jan 2026), live rig, not session |
+| Amp: 100 W Plexi (Guitar World 2026) or two 1987X 50 W heads (Guitar Player 2023) | Sources disagree |
+| Standard tuning, D minor; intro on the Strat neck pickup | Sourced (Ultimate Guitar, Songsterr, Musicnotes) |
+| No reverb, delay, modulation or fuzz is named for the song | Sourced absence |
+| MS 1959 for the Plexi, TS Drive for the OCD | Choice |
+| Drive 15/55, amp gain 25/50, EQ, room mix 12/10 | Estimate |
+| Solo: the GuitarZero2Hero Katana file raises the preamp gain from about 61 to 78 | Estimate (my decode of the file) |
+
+- https://www.guitarworld.com/artists/guitarists/thomas-raggi-masquerade — his three sounds, the Plexi
+- https://www.guitarworld.com/news/maneskin-thomas-raggi-squier-strat
+- https://www.guitarplayer.com/players/maneskin — two 1987X heads
+- https://www.revenews.it/interviste/2021/03/22/maneskin-teatro-dira-vol-1-intervista/ — recorded live at Mulino
+- https://equipboard.com/pros/thomas-raggi
+- https://www.songsterr.com/a/wsa/maneskin-coraline-tab-s485944 — tempo map
+- https://www.youtube.com/watch?v=M27E6Jrp1CA — GuitarZero2Hero tutorial with a Katana patch file
+- https://en.wikipedia.org/wiki/Coraline_(song) — 5:00
+
 ### Zoom model names
 
 - https://zoomcorp.com/en/us/multi-effects/guitar-effects/g2-four-g2x-four — describes only the six Zoom-original amps (KRAMPUS, REDLOOM, VELVET, MUDDY, 7 HEAVEN, POLLEX).

@@ -50,6 +50,7 @@ const PATCHES: Record<string, string[]> = {
   'asian-kung-fu-generation-haruka-kanata': ['AKFG Crunch'],
   'asian-kung-fu-generation-rewrite': ['AKFG Crunch'],
   'akeboshi-wind': ['Wind Acoustic'],
+  'maneskin-coraline': ['Coraline Cln', 'Coraline Dst'],
 };
 
 const NOTES: Record<string, string[]> = {
