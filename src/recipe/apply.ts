@@ -141,6 +141,9 @@ export async function applyPlan(
       await sleep(25);
     }
     steps.push(`name "${plan.name}"`);
+    // Name edits get no ack. Under Node (jzz) the read below overtook the last
+    // characters (2026-10-17: "Sandman Cl" in the buffer, "Sandman Clean" stored).
+    await sleep(300);
 
     // Read back the edit buffer before it is stored.
     const live = await session.request(zoomSysex(deviceId, [0x64, 0x13]), 'verify edit buffer', (d) => is(d, 0x64, 0x12), 2000);
