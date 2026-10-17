@@ -3,6 +3,7 @@ import { restoreEntry } from '../midi/restore';
 import type { ProbeSession } from '../midi/session';
 import { parseSyx, type SyxEntry } from '../midi/syx';
 import type { WritePolicy } from '../midi/writes';
+import { slotLabel } from '../midi/patchSelect';
 
 interface Props {
   session: ProbeSession | null;
@@ -11,10 +12,13 @@ interface Props {
   sessionBackup: SyxEntry[];
   /** A slot's content changed; the app keeps its list of writable slots current. */
   onSlotWritten(slot: number, name: string): void;
+  /** A write runs (any panel). App-wide: the patch controls stay locked until it ends. */
+  busy: boolean;
+  setBusy(busy: boolean): void;
   log(level: 'info' | 'warn' | 'error', text: string, notes?: string[]): void;
 }
 
-export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotWritten, log }: Props) {
+export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotWritten, log, busy, setBusy }: Props) {
   // Keep the file bytes; slot numbers depend on perBank, which the backup may change.
   const [file, setFile] = useState<Uint8Array | null>(null);
   const loaded = useMemo(() => (file ? parseSyx(file, policy.perBank) : null), [file, policy.perBank]);
@@ -22,7 +26,6 @@ export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotW
   const [source, setSource] = useState(0);
   const [target, setTarget] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [busy, setBusy] = useState(false);
 
   const src = entries[source];
   const targetSlot = target === '' ? src?.slot : Number(target);
@@ -30,7 +33,7 @@ export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotW
   const confirmed = isScratch || confirm.trim() === String(targetSlot);
   // Restoring the slot the pedal is on can be undone by auto-save when the patch changes.
   const isCurrent = targetSlot !== undefined && targetSlot === policy.currentSlot;
-  const sorted = useMemo(() => entries.map((e, i) => ({ e, i })), [entries]);
+  const options = useMemo(() => entries.map((e, i) => ({ e, i })), [entries]);
 
   const onFile = async (f: File | undefined) => {
     if (!f) return;
@@ -70,9 +73,9 @@ export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotW
           <label>
             Patch{' '}
             <select value={source} onChange={(e) => setSource(Number(e.target.value))}>
-              {sorted.map(({ e, i }) => (
+              {options.map(({ e, i }) => (
                 <option key={i} value={i}>
-                  {e.slot}: {e.name}
+                  {slotLabel(e.slot)} {e.name}
                 </option>
               ))}
             </select>

@@ -2,7 +2,7 @@ import { byteHex } from './hex';
 import { isIdentityReply, parseIdentityReply, ZOOM_6E_MEMBERS } from './identity';
 import { displayValue, effectById } from '../catalog/g2four';
 import { decodeFileEntry, decodeFlashInfo, decodePatchDisplay } from './decode';
-import { decodeRawPatch, parsePTCF } from './ptcf';
+import { decodeRawPatch, parsePTCF, patchName } from './ptcf';
 import { patchBytesFromSlotDump } from './backup';
 import { asciiRuns, isZoomSysex, zoomBody } from './zoom';
 
@@ -35,13 +35,13 @@ export function annotate(bytes: ArrayLike<number>): string[] {
       const p = parsePTCF(slotBytes);
       const bank = body[3] | (body[4] << 7);
       const prog = body[5] | (body[6] << 7);
-      return [...notes, `Stored patch bank ${bank} program ${prog}: "${p?.name ?? p?.shortName ?? '?'}" — ${p?.effects.map((e) => effectById(e.id)?.name ?? (e.id ? e.id.toString(16) : '-')).join(' → ') ?? 'not PTCF'}`];
+      return [...notes, `Stored patch bank ${bank} program ${prog}: "${patchName(p) ?? '?'}" — ${p?.effects.map((e) => effectById(e.id)?.name ?? (e.id ? e.id.toString(16) : '-')).join(' → ') ?? 'not PTCF'}`];
     }
     const raw = decodeRawPatch(b);
     if (raw) {
       return [
         ...notes,
-        `Raw patch "${raw.name ?? raw.shortName}" — chunks ${raw.chunks.join(' ')}; tempo ${raw.tempo ?? '?'}, volume ${raw.volume ?? "?"} (volume unverified)`,
+        `Raw patch "${patchName(raw)}" — chunks ${raw.chunks.join(' ')}; tempo ${raw.tempo ?? '?'}, volume ${raw.volume ?? "?"} (volume unverified)`,
         ...raw.effects.map((e) => {
           const fx = effectById(e.id);
           const params = fx ? fx.parameters.map((p, i) => `${p.name}=${displayValue(p, e.params[i])}`).join(', ') : e.params.join(' ');

@@ -25,3 +25,11 @@ describe('every built-in recipe', () => {
     expect(new Set(names).size).toBe(names.length);
   });
 });
+
+describe('recipe tempo', () => {
+  it('clamps a bpm outside the pedal range, with a warning', () => {
+    const out = translate({ song: 't', bpm: 260, delay: { note: '1/4', feedback: 20, mix: 20 } });
+    expect(out.tempo).toBe(250);
+    expect(out.warnings.join(' ')).toMatch(/260 BPM is outside 40-250/);
+  });
+});

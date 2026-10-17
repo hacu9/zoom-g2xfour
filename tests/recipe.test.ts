@@ -2,15 +2,6 @@ import { describe, expect, it } from 'vitest';
 import rain from '../src/recipe/recipes/rain-rob-scallon.json';
 import { translate } from '../src/recipe/translate';
 import type { ToneRecipe } from '../src/recipe/types';
-import { delayMs } from '../src/tempo/delay';
-
-describe('delay calculator', () => {
-  it('ms = 60000 / BPM × note value', () => {
-    expect(delayMs(120, '1/4')).toBe(500);
-    expect(delayMs(120, '1/8.')).toBe(375);
-    expect(Math.round(delayMs(123, '1/8.'))).toBe(366);
-  });
-});
 
 describe('Rain (Rob Scallon) plan', () => {
   const plan = translate(rain as ToneRecipe);

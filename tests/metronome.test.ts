@@ -37,7 +37,7 @@ describe('ClickWalker', () => {
       { bpm: 120, beats: 4 },
     ]);
     w.next();
-    w.skip();
+    w.skipTo(1);
     const rest = take(w, 4);
     expect(rest.map((c) => c!.section)).toEqual([0, 0, 0, 1]); // finishes the bar first
   });

@@ -30,6 +30,11 @@ export interface RawPatch {
   chunks: string[];
 }
 
+/** The name to show: the long name, else the short one, without the pad spaces. Null for no patch. */
+export function patchName(p: RawPatch | null | undefined): string | null {
+  return p ? (p.name ?? p.shortName).trimEnd() : null;
+}
+
 const le32 = (b: number[], o: number) => (b[o] | (b[o + 1] << 8) | (b[o + 2] << 16) | (b[o + 3] << 24)) >>> 0;
 const ascii = (b: number[]) => String.fromCharCode(...b).replace(/\0+$/, '').replace(/\0/g, ' ');
 

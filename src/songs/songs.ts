@@ -1,5 +1,6 @@
 import type { Section } from '../audio/metronome';
 import maps from './tempo-maps.json';
+import { foldText } from '../text';
 
 /**
  * Songs for the metronome. Each one carries its tempo map (sections in the
@@ -86,11 +87,10 @@ export const SONGS: Song[] = [
 
 /** Search by title or artist, any order of words, accents ignored. */
 export function searchSongs(songs: readonly Song[], query: string): Song[] {
-  const fold = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-  const words = fold(query).split(/\s+/).filter(Boolean);
+  const words = foldText(query).split(/\s+/).filter(Boolean);
   if (!words.length) return [...songs];
   return songs.filter((s) => {
-    const hay = fold(`${s.title} ${s.artist}`);
+    const hay = foldText(`${s.title} ${s.artist}`);
     return words.every((w) => hay.includes(w));
   });
 }

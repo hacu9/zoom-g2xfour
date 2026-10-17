@@ -5,19 +5,22 @@ import { translate } from '../recipe/translate';
 import type { ToneRecipe } from '../recipe/types';
 import type { ProbeSession } from '../midi/session';
 import type { WritePolicy } from '../midi/writes';
+import { slotLabel } from '../midi/patchSelect';
 
 interface Props {
   session: ProbeSession | null;
   deviceId: number;
   policy: WritePolicy;
   onSlotWritten(slot: number, name: string): void;
+  /** A write runs (any panel). App-wide: the patch controls stay locked until it ends. */
+  busy: boolean;
+  setBusy(busy: boolean): void;
   log(level: 'info' | 'warn' | 'error', text: string, notes?: string[]): void;
 }
 
-export function RecipePanel({ session, deviceId, policy, onSlotWritten, log }: Props) {
+export function RecipePanel({ session, deviceId, policy, onSlotWritten, log, busy, setBusy }: Props) {
   const [text, setText] = useState(JSON.stringify(BUILT_IN[0].recipe, null, 2));
   const [target, setTarget] = useState('');
-  const [busy, setBusy] = useState(false);
   const scratch = useMemo(() => [...policy.scratchSlots].sort((a, b) => a - b), [policy.scratchSlots]);
   const targetSlot = target === '' ? scratch[0] : Number(target);
 
@@ -86,7 +89,7 @@ export function RecipePanel({ session, deviceId, policy, onSlotWritten, log }: P
           <select value={targetSlot ?? ''} onChange={(e) => setTarget(e.target.value)} disabled={scratch.length === 0}>
             {scratch.map((s) => (
               <option key={s} value={s}>
-                {s} (bank {Math.floor(s / policy.perBank)}, program {s % policy.perBank})
+                {slotLabel(s)} (bank {Math.floor(s / policy.perBank)}, program {s % policy.perBank})
               </option>
             ))}
           </select>

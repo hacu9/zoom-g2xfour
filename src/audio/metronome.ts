@@ -57,7 +57,7 @@ export function beatBpm(s: Section, i: number, total: number): number {
 
 /**
  * Walks a tempo map, one click per beat. `next` returns the next click; call
- * `skip()` to jump to the next section at the next bar line.
+ * `skipTo()` to jump to a section at the next bar line.
  * The walk ends after the last section, unless that section loops.
  */
 export class ClickWalker {
@@ -71,11 +71,6 @@ export class ClickWalker {
 
   constructor(private readonly map: readonly Section[], startSection = 0) {
     this.section = Math.max(0, Math.min(startSection, map.length - 1));
-  }
-
-  /** Move on to the next section when the current bar ends. */
-  skip(): void {
-    this.jumpTo = this.section + 1;
   }
 
   /** Seconds from the start to the next click. */

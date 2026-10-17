@@ -21,6 +21,8 @@ const patchChange = (slot: number) => z(0x64, 0x26, 0, 0, Math.floor(slot / 10),
 function fakePedal(jumpAfterEdits: number | null) {
   const subs = new Set<(d: Uint8Array) => void>();
   const sent: number[][] = [];
+  /** Every edit (64 20) with the write policy it came with. */
+  const edited: { bytes: number[]; write?: WritePolicy }[] = [];
   let edits = 0;
   let bank = 0;
   const emit = (d: Uint8Array) => subs.forEach((s) => s(d));
@@ -37,12 +39,13 @@ function fakePedal(jumpAfterEdits: number | null) {
   };
   const session = {
     subscribe: (cb: (d: Uint8Array) => void) => (subs.add(cb), () => subs.delete(cb)),
-    send: (bytes: number[]) => {
+    send: (bytes: number[], _l?: string, opts: { write?: WritePolicy } = {}) => {
       sent.push(bytes);
+      if (bytes[4] === 0x64 && bytes[5] === 0x20) edited.push({ bytes, write: opts.write });
       const r = reply(bytes);
       if (r) setTimeout(() => emit(r), 0);
     },
-    request: (bytes: number[], _l: string, match: (d: Uint8Array) => boolean, timeoutMs = 50) =>
+    request: (bytes: number[], _l: string, match: (d: Uint8Array) => boolean, timeoutMs = 50, write?: WritePolicy) =>
       new Promise<Uint8Array | null>((resolve) => {
         const off = session.subscribe((d) => {
           if (match(d)) {
@@ -51,10 +54,10 @@ function fakePedal(jumpAfterEdits: number | null) {
           }
         });
         setTimeout(() => (off(), resolve(null)), Math.min(timeoutMs, 30));
-        session.send(bytes);
+        session.send(bytes, '', { write });
       }),
   };
-  return { session: session as unknown as ProbeSession, sent };
+  return { session: session as unknown as ProbeSession, sent, edited };
 }
 
 describe('applyPlan', () => {
@@ -93,5 +96,22 @@ describe('applyPlan', () => {
     await expect(applyPlan(session, 0x6e, plan, 250, 140, policy)).rejects.toThrow(/changed to slot 14/);
     const editsSent = sent.filter((b) => b[4] === 0x64 && b[5] === 0x20).length;
     expect(editsSent).toBeLessThanOrEqual(2);
+  });
+});
+
+describe('applyPlan tempo range', () => {
+  it('refuses a tempo outside 40-250 before the first edit', async () => {
+    const { session, sent } = fakePedal(null);
+    await expect(applyPlan(session, 0x6e, { ...translate(rain as ToneRecipe), tempo: 260 }, 250, 140, policy)).rejects.toThrow(/outside 40-250/);
+    expect(sent).toEqual([]);
+  });
+});
+
+describe('applyPlan passes the write policy', () => {
+  it('every edit goes through the gate for the target slot', async () => {
+    const { session, edited } = fakePedal(null);
+    await applyPlan(session, 0x6e, translate(rain as ToneRecipe), 250, 140, policy).catch(() => null);
+    expect(edited.length).toBeGreaterThan(10);
+    for (const e of edited) expect(e.write?.currentSlot, `edit ${e.bytes.slice(4, 9).join(' ')}`).toBe(250);
   });
 });

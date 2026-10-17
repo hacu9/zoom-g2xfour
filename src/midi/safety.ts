@@ -8,7 +8,7 @@ export type Verdict =
   | 'read'
   /** Not known. Needs explicit confirmation; Zoom SysEx also needs research mode. */
   | 'unknown'
-  /** Never sent in Phase 1. No override. */
+  /** Never sent. No override. */
   | 'blocked';
 
 export interface Classification {
@@ -18,7 +18,7 @@ export interface Classification {
   needsResearchMode: boolean;
 }
 
-function sameBytes(a: number[], b: number[]): boolean {
+export function sameBytes(a: number[], b: number[]): boolean {
   return a.length === b.length && a.every((v, i) => v === b[i]);
 }
 
@@ -39,7 +39,7 @@ export function classify(bytes: number[]): Classification {
   }
 
   if (bytes[1] === 0x7e || bytes[1] === 0x7f) {
-    return { verdict: 'blocked', reason: 'Universal SysEx other than the Identity Request (e.g. sample/file dump) is out of scope for Phase 1.', needsResearchMode: false };
+    return { verdict: 'blocked', reason: 'Universal SysEx other than the Identity Request (e.g. sample/file dump) is not supported.', needsResearchMode: false };
   }
 
   if (!isZoomSysex(bytes)) {

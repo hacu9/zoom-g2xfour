@@ -3,7 +3,7 @@
  * recipe values onto each parameter's real value list. Every compromise
  * becomes a warning. The plan holds raw value indices, ready for 64 20 00.
  */
-import { effectByName, type CatalogEffect, type CatalogParam } from '../catalog/g2four';
+import { catalogText, displayValue, effectByName, type CatalogEffect, type CatalogParam } from '../catalog/g2four';
 import { NOTE_FACTORS } from '../tempo/delay';
 import type { NoteValue, PartOverrides, ToneRecipe } from './types';
 
@@ -43,7 +43,7 @@ const num = (s: string) => (/^-?\d+(\.\d+)?$/.test(s) ? Number(s) : NaN);
 
 /** Value index for a target: exact text, nearest number, or a percentage of the numeric range. */
 export function resolveValue(p: CatalogParam, t: Target): number | null {
-  const vals = p.values.map((v) => v.replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d))));
+  const vals = p.values.map(catalogText);
   if ('note' in t) {
     const first = vals.findIndex((v) => Number.isNaN(num(v)));
     const k = NOTE_ORDER.findIndex((f) => Math.abs(f - NOTE_FACTORS[t.note]) < 1e-9);
@@ -123,7 +123,11 @@ export function translate(r: ToneRecipe): Plan {
     if (d.note) {
       // Sync to the patch tempo, so tap tempo still works live. Without a bpm
       // the patch keeps the pedal's tempo: set it with tap tempo.
-      if (r.bpm) tempo = Math.round(r.bpm);
+      if (r.bpm) {
+        // The pedal's patch tempo is 40-250 (the write gate refuses anything else).
+        tempo = Math.min(250, Math.max(40, Math.round(r.bpm)));
+        if (tempo !== Math.round(r.bpm)) warnings.push(`tempo: ${r.bpm} BPM is outside 40-250 — set to ${tempo}.`);
+      }
       else warnings.push('delay: no bpm — synced to the pedal tempo; use tap tempo.');
       add('delay', model, { Time: { note: d.note }, Mode: { text: 'BPM SYNC' }, Repeat: { pct: d.feedback }, Mix: { pct: d.mix } }, d);
     } else {
@@ -153,7 +157,7 @@ function plan(role: string, fx: CatalogEffect, settings: Record<string, Target |
       warnings.push(`${role}: ${fx.name} ${pname} cannot take ${JSON.stringify(target)}.`);
       continue;
     }
-    const display = fx.parameters[index].values[value].replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)));
+    const display = displayValue(fx.parameters[index], value);
     if ('num' in target && Number(display) !== target.num) warnings.push(`${role}: ${fx.name} ${pname} ${target.num} → nearest ${display}.`);
     out.push({ index, name: fx.parameters[index].name, value, display });
   }

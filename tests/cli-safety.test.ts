@@ -75,3 +75,11 @@ describe('the CLI backup', () => {
     expect(bk.dumps.map((d) => d.patch?.name)).toEqual(['Smorking2021', 'Empty']);
   });
 });
+
+describe('restore needs to know where the pedal is', () => {
+  it('refuses while the current slot is unknown', async () => {
+    pedal = { 259: 'Empty' };
+    await expect(restoreEntry(silent, 0x6e, src, 259, { ...policy, currentSlot: null })).rejects.toThrow(/does not know which slot/);
+    expect(sent).toEqual([]);
+  });
+});

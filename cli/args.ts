@@ -1,5 +1,6 @@
 import { BUILT_IN } from '../src/recipe/builtin';
 import type { ToneRecipe } from '../src/recipe/types';
+import { foldText } from '../src/text';
 
 export interface Args {
   command: string;
@@ -31,7 +32,7 @@ export function parseSlot(text: string | undefined, count = 300): number {
 
 /** A built-in recipe by menu number, patch name or song (case and accents ignored), or null. */
 export function findRecipe(query: string): ToneRecipe | null {
-  const fold = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  const fold = (t: string) => foldText(t).trim();
   const all = BUILT_IN.map((b) => ({ label: b.label, r: b.recipe as ToneRecipe }));
   if (/^\d+$/.test(query)) return all[Number(query)]?.r ?? null;
   const q = fold(query);

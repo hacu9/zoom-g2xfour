@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { slotLabel } from '../midi/patchSelect';
 
 interface Props {
   names: ReadonlyMap<number, string>;
@@ -56,7 +57,7 @@ export function PatchList({ names, count, perBank, current, mine, disabled, onSe
                     aria-current={slot === current}
                     onClick={() => onSelect(slot)}
                   >
-                    <span className="patch-num">{String(slot).padStart(3, '0')}</span>
+                    <span className="patch-num">{slotLabel(slot)}</span>
                     <span className="patch-name">{name}</span>
                   </button>
                 </li>

@@ -22,14 +22,14 @@ export function ConfirmDialog({ bytes, cls, researchMode, onConfirm, onCancel }:
       <h3 id="confirm-title">
         {cls.verdict === 'read' && 'Send a known read-only command?'}
         {cls.verdict === 'unknown' && '⚠ Send an UNVERIFIED message?'}
-        {cls.verdict === 'blocked' && '⛔ Blocked in Phase 1'}
+        {cls.verdict === 'blocked' && '⛔ Blocked'}
       </h3>
       <pre className="confirm-bytes">{toHex(bytes)}</pre>
       <p>{cls.reason}</p>
       {cls.verdict !== 'read' && !refused && (
         <p className="warn-text">
-          Custom hex can change or erase data on the pedal. Nobody has mapped the G2X FOUR protocol. Back up your patches in
-          Handy Guitar Lab before you continue.
+          Custom hex can change or erase data on the pedal. Only the commands in docs/g2x-four-protocol.md are mapped. Save a
+          backup (.syx) before you continue.
         </p>
       )}
       {cls.needsResearchMode && !researchMode && <p className="warn-text">Turn on research mode to send unknown Zoom commands.</p>}

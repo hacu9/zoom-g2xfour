@@ -20,6 +20,7 @@ export interface RestoreResult {
 export async function restoreEntry(session: ProbeSession, deviceId: number, src: SyxEntry, slot: number, policy: WritePolicy, confirmed = false): Promise<RestoreResult> {
   const isScratch = policy.scratchSlots.has(slot);
   if (!isScratch && !confirmed) throw new Error(`Slot ${slot} holds a real patch. Confirm the overwrite first.`);
+  if (policy.currentSlot === null) throw new Error('The app does not know which slot the pedal is on yet. Wait for the screen to show it, then try again.');
   if (slot === policy.currentSlot) throw new Error(`The pedal is on slot ${slot}. Switch to another patch first, or auto-save may undo the restore.`);
   // Read the target again: it must still hold what the backup (or this tab) says.
   // An Empty target needs no typed confirmation; a confirmed one was confirmed for that patch.

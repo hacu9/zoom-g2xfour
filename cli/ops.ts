@@ -1,10 +1,12 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { backupAll, readBankInfo, toSyx, type SlotDump } from '../src/midi/backup';
+import { patchName } from '../src/midi/ptcf';
 import type { ProbeSession } from '../src/midi/session';
 import type { WritePolicy } from '../src/midi/writes';
+import { fileStamp } from '../src/text';
 
-export const nameOf = (d: SlotDump) => d.patch?.name?.trimEnd() ?? d.patch?.shortName ?? '?';
+export const nameOf = (d: SlotDump) => patchName(d.patch) ?? '?';
 
 export interface FullBackup {
   count: number;
@@ -22,7 +24,7 @@ export async function saveFullBackup(session: ProbeSession, deviceId: number, di
   const { count, perBank } = await readBankInfo(session, deviceId);
   const dumps = await backupAll(session, deviceId, { count, perBank, onProgress: (n) => onProgress?.(n, count) });
   mkdirSync(dir, { recursive: true });
-  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const stamp = fileStamp();
   const file = join(dir, `g2xfour-backup-${stamp}.syx`);
   writeFileSync(file, toSyx(dumps));
   writeFileSync(file.replace(/\.syx$/, '.json'), JSON.stringify(dumps.map((d) => ({ slot: d.slot, name: nameOf(d) })), null, 1));

@@ -1,7 +1,7 @@
 /**
- * Zoom SysEx framing. Everything in here is a HYPOTHESIS taken from
- * github.com/mungewell/zoom-zt2 issues #46 and #64 (B1/B2/G1 FOUR, MS+ series).
- * Nothing is verified on a G2X FOUR yet — the probe exists to verify it.
+ * Zoom SysEx framing (F0 52 00 6E …), the 7→8 packing and septet helpers.
+ * First taken from mungewell/zoom-zt2 issues #46 and #64; verified on a
+ * G2X FOUR on 2026-10-15 (docs/g2x-four-protocol.md).
  */
 export const ZOOM_MANUFACTURER = 0x52;
 

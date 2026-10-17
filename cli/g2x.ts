@@ -10,7 +10,7 @@ import { displayValue, effectById } from '../src/catalog/g2four';
 import { autoSelect } from '../src/midi/backend';
 import { readBankInfo, readSlot } from '../src/midi/backup';
 import { IDENTITY_REQUEST, isIdentityReply, parseIdentityReply } from '../src/midi/identity';
-import type { RawPatch } from '../src/midi/ptcf';
+import { patchName, type RawPatch } from '../src/midi/ptcf';
 import { restoreEntry } from '../src/midi/restore';
 import { ProbeSession } from '../src/midi/session';
 import { parseSyx } from '../src/midi/syx';
@@ -66,7 +66,7 @@ async function connect(args: Args): Promise<ProbeSession> {
 
 function describe(p: RawPatch | null | undefined): string[] {
   if (!p) return ['  (could not decode)'];
-  const lines = [`  name   ${p.name?.trimEnd() ?? p.shortName}`, `  tempo  ${p.tempo ?? '?'} BPM`];
+  const lines = [`  name   ${patchName(p)}`, `  tempo  ${p.tempo ?? '?'} BPM`];
   for (const e of p.effects) {
     const fx = effectById(e.id);
     if (!fx) {
@@ -234,7 +234,6 @@ async function run(args: Args): Promise<number> {
       const src = parseSyx(new Uint8Array(readFileSync(a)), bk.perBank).find((e) => e.slot === parseSlot(b, bk.count));
       if (!src) throw new Error(`${a} has no patch for slot ${b}.`);
       const current = await readCurrentSlot(session, DEVICE, bk.perBank);
-      // Unknown means it could be `to`, and auto-save could undo the restore.
       if (current === null) throw new Error('Could not read which slot the pedal is on. Nothing written.');
       const policy = policyFrom(bk, current);
       const confirmed = args.flags.get('--confirm') === String(to);

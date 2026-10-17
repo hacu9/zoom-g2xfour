@@ -14,12 +14,13 @@ interface Props {
   log(level: 'info' | 'warn' | 'error', text: string): void;
   /** The patch in the edit buffer changed (load, pedal push or edit). */
   onPatch?(patch: RawPatch | null): void;
+  /** Another write runs (recipe, restore): knobs stay read-only until it ends. */
+  busy?: boolean;
 }
 
 const EDITABLE_SLOTS = 6;
-const decodeEntities = (s: string) => s.replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)));
 
-export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) {
+export function PatchEditor({ session, deviceId, policy, log, onPatch, busy = false }: Props) {
   const [patch, setPatch] = useState<RawPatch | null>(null);
   const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
   // Debounced slider sends read the policy at send time, not at render time.
@@ -93,7 +94,7 @@ export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) 
     setPatch((p) => p && { ...p, effects: p.effects.map((e, i) => (i === slot ? { ...e, params: e.params.map((v, j) => (j === param - 2 ? value : v)) } : e)) });
   };
 
-  const locked = policy.currentSlot === null || (!policy.scratchSlots.has(policy.currentSlot) && !policy.allowRealPatchEdits) || !policy.backupTaken;
+  const locked = busy || policy.currentSlot === null || (!policy.scratchSlots.has(policy.currentSlot) && !policy.allowRealPatchEdits) || !policy.backupTaken;
   const effects = patch?.effects.slice(0, EDITABLE_SLOTS) ?? [];
 
   return (
@@ -107,7 +108,7 @@ export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) 
       )}
       {locked && patch && (
         <p className="lock-note">
-          🔒 {!policy.backupTaken ? 'Read-only until the backup finishes.' : 'Real patch, read-only. Auto-save is ON: unlock "Edit real patches" to change it.'}
+          🔒 {busy ? 'Read-only while a patch is written.' : !policy.backupTaken ? 'Read-only until the backup finishes.' : 'Real patch, read-only. Auto-save is ON: unlock "Edit real patches" to change it.'}
         </p>
       )}
       {patch && (
@@ -137,10 +138,10 @@ export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) 
                           type="checkbox"
                           disabled={locked}
                           checked={(e.params[i] ?? 0) === 1}
-                          onChange={(ev) => write(slot, i + 2, ev.target.checked ? 1 : 0, `slot ${slot} ${p.name}=${decodeEntities(p.values[ev.target.checked ? 1 : 0])}`)}
+                          onChange={(ev) => write(slot, i + 2, ev.target.checked ? 1 : 0, `slot ${slot} ${p.name}=${displayValue(p, ev.target.checked ? 1 : 0)}`)}
                         />
                         <span className="toggle-track" aria-hidden />
-                        <span className="knob-value">{decodeEntities(displayValue(p, e.params[i] ?? 0))}</span>
+                        <span className="knob-value">{displayValue(p, e.params[i] ?? 0)}</span>
                         <span className="knob-label">{p.name}</span>
                       </label>
                     ) : (
@@ -149,9 +150,9 @@ export function PatchEditor({ session, deviceId, policy, log, onPatch }: Props) 
                         label={p.name}
                         value={e.params[i] ?? 0}
                         count={p.values.length}
-                        display={decodeEntities(displayValue(p, e.params[i] ?? 0))}
+                        display={displayValue(p, e.params[i] ?? 0)}
                         disabled={locked}
-                        onChange={(v) => writeSoon(slot, i + 2, v, `slot ${slot} ${p.name}=${decodeEntities(p.values[v] ?? '')}`)}
+                        onChange={(v) => writeSoon(slot, i + 2, v, `slot ${slot} ${p.name}=${displayValue(p, v)}`)}
                       />
                     ),
                   )}

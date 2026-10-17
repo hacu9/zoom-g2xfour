@@ -8,11 +8,10 @@ import { IDENTITY_REQUEST, isIdentityReply, parseIdentityReply, type IdentityRep
 import { createMockBackend } from './midi/mock';
 import { classify, type Classification } from './midi/safety';
 import { ProbeSession, SafetyError } from './midi/session';
-import { DEFAULT_ZOOM_ID, zoomSysex } from './midi/zoom';
+import { DEFAULT_ZOOM_ID, isZoomSysex, zoomSysex } from './midi/zoom';
 import { downloadBlob, downloadText, exportText } from './log/log';
 import { backupAll, duplicateGroups, readBankInfo, toSyx } from './midi/backup';
 import { effectById } from './catalog/g2four';
-import { isZoomSysex } from './midi/zoom';
 import { useLog } from './log/useLog';
 import { ConfirmDialog } from './probe/ConfirmDialog';
 import { LogView } from './probe/LogView';
@@ -21,13 +20,15 @@ import { RecipePanel } from './editor/RecipePanel';
 import { BUILT_IN } from './recipe/builtin';
 import { RestorePanel } from './editor/RestorePanel';
 import type { SyxEntry } from './midi/syx';
-import type { WritePolicy } from './midi/writes';
-import type { RawPatch } from './midi/ptcf';
+import { writableAfter, type WritePolicy } from './midi/writes';
+import { patchName, type RawPatch } from './midi/ptcf';
 import { patchSelect, stepSlot } from './midi/patchSelect';
 import { PedalHeader } from './ui/PedalHeader';
 import { PatchList } from './ui/PatchList';
 import { Recorder } from './ui/Recorder';
 import { Metronome } from './ui/Metronome';
+import { fileStamp } from './text';
+import pkg from '../package.json';
 
 /** Patch names that the built-in recipes write: marked as yours in the patch list. */
 const RECIPE_NAMES = new Set(BUILT_IN.map((b) => (b.recipe as { patchName?: string }).patchName).filter(Boolean));
@@ -71,21 +72,20 @@ export function App() {
     (level: 'info' | 'warn' | 'error', text: string, notes?: string[]) => logAdd(level, text, undefined, notes),
     [logAdd],
   );
-  // Writable = "Empty" in the backup, or Empty again after a restore, or written by this app.
+  // Writable = "Empty" in the backup, or Empty again after a restore, or holds a recipe this app wrote.
   const ownSlots = useRef(new Set<number>());
+  // A recipe write or a restore runs: nothing in the app may change patch until it ends.
+  const [writing, setWriting] = useState(false);
+  // A restore: the slot now holds a restored patch (real) or Empty, never this app's recipe.
   const onSlotWritten = useCallback((slot: number, name: string) => {
     setName(slot, name);
-    setScratchSlots((cur) => {
-      const next = new Set(cur);
-      if (name === 'Empty' || ownSlots.current.has(slot)) next.add(slot);
-      else next.delete(slot);
-      return next;
-    });
+    ownSlots.current.delete(slot);
+    setScratchSlots((cur) => writableAfter(cur, slot, name, 'restore'));
   }, [setName]);
   const onRecipeWritten = useCallback((slot: number, name: string) => {
     setName(slot, name);
     ownSlots.current.add(slot);
-    setScratchSlots((cur) => new Set(cur).add(slot));
+    setScratchSlots((cur) => writableAfter(cur, slot, name, 'recipe'));
   }, [setName]);
   const policy: WritePolicy = useMemo(
     () => ({ backupTaken: sessionBackup.length > 0, scratchSlots, currentSlot, perBank, patchCount, allowRealPatchEdits, confirmedSlot: null, slotNames: names }),
@@ -94,7 +94,7 @@ export function App() {
 
   const deviceId = /^[0-7][0-9a-f]$/i.test(deviceIdText.trim()) ? parseInt(deviceIdText.trim(), 16) : null;
 
-  // --- 1. connect -------------------------------------------------------------
+  // --- connect -------------------------------------------------------------
   const refreshPorts = useCallback((b: MidiBackend) => {
     const ins = b.inputs();
     const outs = b.outputs();
@@ -156,7 +156,9 @@ export function App() {
 
   useEffect(() => {
     if (!input || !output) {
+      // Unplugged: a running backup belongs to the closed session and returns early.
       setSession(null);
+      setBackupState((s) => (s === 'running' ? 'none' : s));
       return;
     }
     const s = new ProbeSession(input, output, {
@@ -206,7 +208,7 @@ export function App() {
     return off;
   }, [session, deviceId, perBank]);
 
-  // --- 3. identity ------------------------------------------------------------
+  // --- identity ------------------------------------------------------------
   const sendIdentity = async () => {
     if (!session) return;
     setBusy(true);
@@ -232,7 +234,7 @@ export function App() {
     }
   };
 
-  // --- 4. console -------------------------------------------------------------
+  // --- console -------------------------------------------------------------
   const parsed = useMemo(() => parseHex(hexText), [hexText]);
   const preview = parsed.ok ? classify(parsed.bytes) : null;
 
@@ -295,12 +297,12 @@ export function App() {
       if (!ctl.signal.aborted && ok.length === count) {
         setPerBank(perBank);
         setPatchCount(count);
-        setSessionBackup(dumps.filter((d) => d.sysex).map((d) => ({ slot: d.slot, name: d.patch?.name ?? d.patch?.shortName ?? '?', msg: Array.from(d.sysex!) })));
+        setSessionBackup(dumps.filter((d) => d.sysex).map((d) => ({ slot: d.slot, name: patchName(d.patch) ?? '?', msg: Array.from(d.sysex!) })));
         setScratchSlots(new Set(dumps.filter((d) => d.patch?.name?.trimEnd() === 'Empty').map((d) => d.slot)));
-        setNames(new Map(dumps.map((d) => [d.slot, d.patch?.name?.trimEnd() ?? d.patch?.shortName ?? '?'])));
+        setNames(new Map(dumps.map((d) => [d.slot, patchName(d.patch) ?? '?'])));
         setBackupState('done');
       } else setBackupState('failed');
-      const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const stamp = fileStamp();
       const file = { name: `g2xfour-backup-${stamp}.syx`, blob: new Blob([toSyx(dumps)], { type: 'application/octet-stream' }) };
       setBackupFile(file);
       // The automatic backup keeps the file in memory: no download on every page load.
@@ -317,7 +319,7 @@ export function App() {
               slot: d.slot,
               bank: d.bank,
               program: d.program,
-              name: d.patch?.name ?? d.patch?.shortName ?? null,
+              name: patchName(d.patch),
               effects: d.patch?.effects.map((e) => ({ on: e.on, id: e.id.toString(16).padStart(8, '0'), name: effectById(e.id)?.name ?? null, params: e.params })) ?? null,
               tempo: d.patch?.tempo ?? null,
               volume: d.patch?.volume ?? null,
@@ -368,13 +370,13 @@ export function App() {
   };
   const total = patchCount || 300;
 
-  // --- 5. export --------------------------------------------------------------
+  // --- export --------------------------------------------------------------
   const exportLog = () => {
-    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const stamp = fileStamp();
     downloadText(
-      `zoom-probe-${stamp}.txt`,
+      `g2xfour-log-${stamp}.txt`,
       exportText(log.all.current, {
-        tool: 'zoom-g2xfour 0.1.0',
+        tool: `zoom-g2xfour ${pkg.version}`,
         exported: new Date().toISOString(),
         backend: backend?.kind ?? 'none',
         input: inputs.find((p) => p.id === inId)?.name ?? '-',
@@ -386,8 +388,7 @@ export function App() {
     );
   };
 
-  const hexBox = useRef<HTMLTextAreaElement>(null);
-
+  const locked = !!listing || writing;
   const status = backend?.kind === 'mock' ? 'mock' : midiState === 'no-midi' ? 'no-midi' : !backend ? 'need-permission' : session ? 'connected' : 'no-pedal';
   const mine = useMemo(() => new Set([...names].filter(([slot, n]) => RECIPE_NAMES.has(n) || ownSlots.current.has(slot)).map(([slot]) => slot)), [names]);
 
@@ -396,10 +397,10 @@ export function App() {
       <PedalHeader
         status={status}
         slot={currentSlot}
-        name={patch ? (patch.name ?? patch.shortName).trimEnd() : null}
+        name={patchName(patch)}
         tempo={patch?.tempo ?? null}
         backup={{ state: backupState, progress }}
-        canSwitch={!!session && currentSlot !== null && !listing}
+        canSwitch={!!session && currentSlot !== null && !locked}
         editReal={allowRealPatchEdits}
         onConnect={() => connect(false)}
         onStep={(d) => currentSlot !== null && selectPatch(stepSlot(currentSlot, d, total))}
@@ -409,13 +410,13 @@ export function App() {
 
       <section aria-labelledby="s-board" className="board-section">
         <h2 id="s-board">Pedalboard</h2>
-        {deviceId !== null && <PatchEditor session={session} deviceId={deviceId} policy={policy} log={panelLog} onPatch={setPatch} />}
+        {deviceId !== null && <PatchEditor session={session} deviceId={deviceId} policy={policy} log={panelLog} onPatch={setPatch} busy={writing} />}
         {!session && <p className="muted">{status === 'need-permission' ? 'Press Connect and allow "MIDI device control & reprogram".' : 'Waiting for the pedal. Plug it in with a USB data cable and close Handy Guitar Lab.'}</p>}
       </section>
 
       <section aria-labelledby="s-rec" className="rec-section">
         <h2 id="s-rec">Recorder</h2>
-        <Recorder session={session} patchName={patch ? (patch.name ?? patch.shortName).trimEnd() : null} />
+        <Recorder session={session} patchName={patchName(patch)} />
       </section>
 
       <section aria-labelledby="s-met" className="met-section">
@@ -426,7 +427,7 @@ export function App() {
           policy={policy}
           patchTempo={patch?.tempo ?? null}
           names={names}
-          canSelect={!!session && !listing}
+          canSelect={!!session && !locked}
           onSelectPatch={selectPatch}
           log={panelLog}
         />
@@ -438,22 +439,22 @@ export function App() {
           <div className="row">
             {backupFile && <button onClick={() => downloadBlob(backupFile.name, backupFile.blob)}>Save backup (.syx)</button>}
             {summary && <button onClick={() => downloadText(summary.name, summary.text)}>Save summary (.json)</button>}
-            <button disabled={!session || deviceId === null || !!listing} onClick={() => runBackup(false)}>
+            <button disabled={!session || deviceId === null || locked} onClick={() => runBackup(false)}>
               Back up again
             </button>
           </div>
         </div>
-        <PatchList names={names} count={names.size ? total : 0} perBank={perBank} current={currentSlot} mine={mine} disabled={!session || !!listing} onSelect={selectPatch} />
+        <PatchList names={names} count={names.size ? total : 0} perBank={perBank} current={currentSlot} mine={mine} disabled={!session || locked} onSelect={selectPatch} />
       </section>
 
       <details className="panel">
         <summary>Song recipes → new patch</summary>
-        {deviceId !== null && <RecipePanel session={session} deviceId={deviceId} policy={policy} onSlotWritten={onRecipeWritten} log={panelLog} />}
+        {deviceId !== null && <RecipePanel session={session} deviceId={deviceId} policy={policy} onSlotWritten={onRecipeWritten} log={panelLog} busy={writing} setBusy={setWriting} />}
       </details>
 
       <details className="panel">
         <summary>Restore or copy a patch from the backup</summary>
-        {deviceId !== null && <RestorePanel session={session} deviceId={deviceId} policy={policy} sessionBackup={sessionBackup} onSlotWritten={onSlotWritten} log={panelLog} />}
+        {deviceId !== null && <RestorePanel session={session} deviceId={deviceId} policy={policy} sessionBackup={sessionBackup} onSlotWritten={onSlotWritten} log={panelLog} busy={writing} setBusy={setWriting} />}
       </details>
 
       <details className="panel lab">
@@ -536,13 +537,13 @@ export function App() {
             Device ID for prefills{' '}
             <input className="short mono" value={deviceIdText} onChange={(e) => setDeviceIdText(e.target.value)} aria-invalid={deviceId === null} />
           </label>
-          <button onClick={() => setDeviceIdText(byteHex(DEFAULT_ZOOM_ID))}>6E (B2 FOUR default)</button>
+          <button onClick={() => setDeviceIdText(byteHex(DEFAULT_ZOOM_ID))}>6E (Zoom FOUR family)</button>
           <button disabled={identity?.zoomDeviceId == null} onClick={() => identity?.zoomDeviceId != null && setDeviceIdText(byteHex(identity.zoomDeviceId))}>
             Use family code
           </button>
         </div>
         <p className="muted small">
-          zoom-zt2 issue #46 shows the MS-60B+ and MS-70CDR+ also answer to ID 6E, so 6E may be a shared address, not a model ID. If 6E gets no reply, try the family code.
+          6E is the family address of the Zoom FOUR and MS+ pedals (verified on a G2X FOUR). If 6E gets no reply, try the family code.
         </p>
       </section>
 
@@ -556,7 +557,6 @@ export function App() {
           ))}
         </div>
         <textarea
-          ref={hexBox}
           className="mono"
           rows={3}
           placeholder="F0 52 00 6E 60 29 F7"

@@ -4,6 +4,7 @@ import { SONGS, barsBefore, findSongSlot, partsOf, searchSongs, type Part, type 
 import type { ProbeSession } from '../midi/session';
 import { SafetyError } from '../midi/session';
 import { tempoEdit, type WritePolicy } from '../midi/writes';
+import { slotLabel } from '../midi/patchSelect';
 
 interface Props {
   session: ProbeSession | null;
@@ -223,7 +224,7 @@ export function Metronome({ session, deviceId, policy, patchTempo, names, canSel
     }
     if (canSelect) {
       onSelectPatch(found.slot);
-      setNote(`Selected patch ${String(found.slot).padStart(3, '0')} ${found.name}.`);
+      setNote(`Selected patch ${slotLabel(found.slot)} ${found.name}.`);
     }
   };
   const leaveSong = () => {
@@ -290,7 +291,7 @@ export function Metronome({ session, deviceId, policy, patchTempo, names, canSel
             <button onClick={() => nudge(-1)} aria-label="Slower by 1 BPM">
               −
             </button>
-            <input type="number" className="met-input" min={MIN_BPM} max={MAX_BPM} value={bpm} aria-label="Tempo in BPM" onChange={(e) => e.target.value && setBpm(clampBpm(Number(e.target.value)))} />
+            <BpmInput bpm={bpm} onCommit={setBpm} />
             <button onClick={() => nudge(1)} aria-label="Faster by 1 BPM">
               +
             </button>
@@ -418,5 +419,38 @@ export function Metronome({ session, deviceId, policy, patchTempo, names, canSel
         {note && <p className="small">{note}</p>}
       </div>
     </div>
+  );
+}
+
+/**
+ * The BPM box. Typing is free; the value is clamped and used on Enter or when
+ * the box loses focus (clamping each keystroke turned "9" into 30). Esc undoes.
+ */
+function BpmInput({ bpm, onCommit }: { bpm: number; onCommit(bpm: number): void }) {
+  const [text, setText] = useState(String(bpm));
+  useEffect(() => setText(String(bpm)), [bpm]);
+  const commit = () => {
+    const n = Number(text);
+    if (text.trim() === '' || !Number.isFinite(n)) setText(String(bpm));
+    else {
+      onCommit(clampBpm(Math.round(n)));
+      setText(String(clampBpm(Math.round(n))));
+    }
+  };
+  return (
+    <input
+      type="number"
+      className="met-input"
+      min={MIN_BPM}
+      max={MAX_BPM}
+      value={text}
+      aria-label="Tempo in BPM"
+      onChange={(e) => setText(e.target.value)}
+      onBlur={commit}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') commit();
+        if (e.key === 'Escape') setText(String(bpm));
+      }}
+    />
   );
 }

@@ -1,6 +1,7 @@
 import { READ_COMMANDS } from './commands';
 import type { ProbeSession } from './session';
-import { asciiRuns, isZoomSysex, zoomSysex } from './zoom';
+import { decodeFileEntry } from './decode';
+import { isZoomSysex, zoomSysex } from './zoom';
 
 export interface FileListResult {
   entries: { name: string; raw: Uint8Array }[];
@@ -11,8 +12,9 @@ const body = (id: string) => READ_COMMANDS.find((c) => c.id === id)!.body;
 
 /**
  * Walks the pedal's flash listing with 60 25 / 60 26 / 60 27 (read-only per issue #64).
- * The reply format is unknown, so the loop stops on: no file name in the reply,
- * a repeated name, a timeout, the step cap, or an abort.
+ * Each reply is decoded with decodeFileEntry (verified on the full listing). The
+ * loop stops on: a reply that is not a file entry, a repeated name, a timeout,
+ * the step cap, or an abort.
  */
 export async function listFiles(
   session: ProbeSession,
@@ -38,10 +40,9 @@ export async function listFiles(
         stopReason = `No reply within ${timeoutMs} ms`;
         break;
       }
-      // Skip the 5-byte header (F0 52 00 ID 60) so the header bytes never look like a name.
-      const name = asciiRuns(Array.from(reply.slice(5)))[0];
+      const name = decodeFileEntry(reply)?.name;
       if (!name) {
-        stopReason = 'Reply holds no file name (assumed end of list)';
+        stopReason = 'Reply holds no file entry (end of list)';
         break;
       }
       if (seen.has(name)) {

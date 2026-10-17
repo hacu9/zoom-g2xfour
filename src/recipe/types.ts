@@ -1,7 +1,7 @@
 /**
- * PHASE 2 — design only. A "tone recipe" describes a song's chain in
- * device-neutral terms; translate.ts (not built) maps it onto real
- * G2X FOUR effects from the catalog and clamps values to their ranges.
+ * A "tone recipe" describes a song's chain in device-neutral terms;
+ * translate.ts maps it onto real G2X FOUR effects from the catalog and
+ * clamps values to their ranges. See docs/recipes.md.
  */
 export type NoteValue = '1/1' | '1/2' | '1/4' | '1/4.' | '1/4T' | '1/8' | '1/8.' | '1/8T' | '1/16' | '1/16.' | '1/16T';
 
@@ -30,14 +30,12 @@ export interface ToneRecipe {
   /** Extra effects right after the amp, in order (e.g. a graphic EQ in the amp's loop). */
   afterAmp?: (PartOverrides & { model: string })[];
   modulation?: { type: 'chorus' | 'flanger' | 'phaser' | 'tremolo' | 'vibrato'; rate?: number; depth?: number; mix?: number } & PartOverrides;
-  /** Give either timeMs or note (+ bpm); the delay calculator resolves note -> ms. */
-  /** type: digital (clean repeats, default), analog (darker, repeats fade fast), tape. */
+  /**
+   * Give timeMs, or a note: the delay syncs to the patch tempo (bpm, or the
+   * pedal's tempo when bpm is missing). type: digital (clean repeats, default),
+   * analog (darker, repeats fade fast), tape.
+   */
   delay?: { type?: 'digital' | 'analog' | 'tape'; timeMs?: number; note?: NoteValue; feedback: number; mix: number } & PartOverrides;
   reverb?: { type: 'room' | 'hall' | 'plate' | 'spring'; decay?: number; mix: number } & PartOverrides;
 }
 
-/** What the translator returns: the patch plus every compromise it made. */
-export interface TranslationResult<P> {
-  patch: P;
-  warnings: string[];
-}

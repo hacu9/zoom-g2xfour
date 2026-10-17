@@ -1,6 +1,6 @@
 /**
- * The write gate. Phase 1's classify() blocks every write; this module lets
- * exactly three verified write shapes through, under a policy:
+ * The write gate. classify() blocks every write; this module lets exactly four
+ * verified write shapes through, under a policy:
  *   - slot upload   45 00 00 <bank 2> <program 2> <len 2> <PTCF 7-bit> <CRC 5>
  *   - param edit    64 20 00 <slot 0-7> <param> <value 5 septets>
  *   - name edit     64 20 00 5F <index> <ASCII> 00 00 00 00
@@ -31,6 +31,18 @@ export interface WritePolicy {
   slotNames?: ReadonlyMap<number, string>;
 }
 
+/**
+ * The writable ("scratch") slots after a write. A recipe write keeps its slot
+ * writable (you may write it again); a restore keeps it only when it put
+ * "Empty" back, because a restored patch is a real one.
+ */
+export function writableAfter(cur: ReadonlySet<number>, slot: number, name: string, kind: 'recipe' | 'restore'): Set<number> {
+  const next = new Set(cur);
+  if (kind === 'recipe' || name.trimEnd() === 'Empty') next.add(slot);
+  else next.delete(slot);
+  return next;
+}
+
 export type WriteKind = 'slot-upload' | 'param-edit' | 'name-edit' | 'tempo';
 export type WriteCheck = { ok: true; kind: WriteKind; slot: number } | { ok: false; reason: string };
 
@@ -58,7 +70,7 @@ export function shapeOf(bytes: number[]): { kind: WriteKind; body: number[] } | 
 
 export function classifyWrite(bytes: number[], p: WritePolicy): WriteCheck {
   const shape = shapeOf(bytes);
-  if (!shape) return { ok: false, reason: 'Not one of the three verified write shapes.' };
+  if (!shape) return { ok: false, reason: 'Not one of the four verified write shapes.' };
   if (!p.backupTaken) return { ok: false, reason: 'Run "Back up all patches" first. No writes without a backup from this session.' };
 
   if (shape.kind === 'slot-upload') {

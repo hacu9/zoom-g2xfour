@@ -19,8 +19,12 @@ export function effectById(id: number): CatalogEffect | undefined {
   return catalog[id.toString(16).padStart(8, '0')];
 }
 
+/** The catalog writes symbols as HTML entities ("&#119135;" = a quarter note). */
+export const catalogText = (s: string) => s.replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)));
+
 export function displayValue(param: CatalogParam | undefined, value: number): string {
-  return param?.values?.[value] ?? String(value);
+  const v = param?.values?.[value];
+  return v === undefined ? String(value) : catalogText(v);
 }
 
 export const catalogSize = Object.keys(catalog).length;

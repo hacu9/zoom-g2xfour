@@ -20,3 +20,6 @@ export function patchSelect(slot: number, perBank: number): number[][] {
 export function stepSlot(slot: number, delta: number, count: number): number {
   return (((slot + delta) % count) + count) % count;
 }
+
+/** Slot numbers as the pedal screen shows them: three digits. */
+export const slotLabel = (slot: number) => String(slot).padStart(3, '0');

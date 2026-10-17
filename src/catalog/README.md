@@ -7,6 +7,3 @@ type the catalog in from Zoom's Effects List PDF.
 
 Checked against the real pedal on 2026-10-15: raw patch values mapped through
 the catalog equal the text on the pedal screen (`tests/ptcf.test.ts`).
-
-`types.ts` and `g2x-four.catalog.json` are the earlier hand-fill design. They
-stay as the format for effects the vendored catalog lacks.

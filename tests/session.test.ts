@@ -50,7 +50,7 @@ describe('ProbeSession against the mock pedal', () => {
     const { session, sent } = setup();
     const r = await listFiles(session, 0x6e, { timeoutMs: 200 });
     expect(r.entries.map((e) => e.name)).toEqual(['AMP_ZCLN.ZDL', 'COMP.ZDL', 'TUBESCRM.ZDL', 'ANLGDLY.ZDL', 'HALL.ZDL']);
-    expect(r.stopReason).toMatch(/no file name/);
+    expect(r.stopReason).toMatch(/no file entry/);
     expect(sent.at(-1)).toEqual(zoomSysex(0x6e, [0x60, 0x27]));
   });
 

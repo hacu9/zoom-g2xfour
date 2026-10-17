@@ -22,8 +22,6 @@ export interface PedalReading {
   value: number;
 }
 
-const hex = (b: number) => b.toString(16).padStart(2, '0').toUpperCase();
-
 /** Reads a pedal-like control from one MIDI message, or null. */
 export function readControl(d: Uint8Array): PedalReading | null {
   if (d.length === 3 && (d[0] & 0xf0) === 0xb0) {
@@ -81,4 +79,3 @@ export class PedalTracker {
   }
 }
 
-export const describeBytes = (d: Uint8Array) => Array.from(d, hex).join(' ');

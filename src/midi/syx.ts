@@ -1,5 +1,5 @@
 import { patchBytesFromSlotDump } from './backup';
-import { parsePTCF } from './ptcf';
+import { parsePTCF, patchName } from './ptcf';
 import { isZoomSysex } from './zoom';
 
 export interface SyxEntry {
@@ -20,7 +20,7 @@ export function parseSyx(bytes: Uint8Array, perBank: number): SyxEntry[] {
       if (!isZoomSysex(msg) || msg[4] !== 0x45) continue;
       const slot = (msg[7] | (msg[8] << 7)) * perBank + (msg[9] | (msg[10] << 7));
       const p = parsePTCF(patchBytesFromSlotDump(msg) ?? []);
-      out.push({ slot, name: p?.name ?? p?.shortName ?? '?', msg });
+      out.push({ slot, name: patchName(p) ?? '?', msg });
     }
   }
   return out;

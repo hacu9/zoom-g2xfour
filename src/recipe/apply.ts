@@ -4,6 +4,7 @@
  * with a 46 read. Edit → ack shapes verified on a G2X FOUR on 2026-10-15.
  */
 import { readSlot } from '../midi/backup';
+import { patchSelect } from '../midi/patchSelect';
 import { decodeRawPatch, type RawPatch } from '../midi/ptcf';
 import type { ProbeSession } from '../midi/session';
 import { nameEdit, paramEdit, tempoEdit, type WritePolicy } from '../midi/writes';
@@ -21,13 +22,14 @@ const is = (d: Uint8Array, ...b: number[]) => isZoomSysex(d) && b.every((x, i) =
 export async function selectSlot(session: ProbeSession, deviceId: number, slot: number, perBank: number): Promise<boolean> {
   const bank = Math.floor(slot / perBank);
   const prog = slot % perBank;
+  const [msb, lsb, pc] = patchSelect(slot, perBank);
   await session.request(zoomSysex(deviceId, [0x50]), 'edit reports on', (d) => is(d, 0x00, 0x00), 1000);
-  session.send([0xb0, 0x00, 0x00], `select slot ${slot}: bank MSB`);
-  session.send([0xb0, 0x20, bank], `select slot ${slot}: bank LSB`);
-  if (await session.request([0xc0, prog], `select slot ${slot}: program`, (d) => is(d, 0x64, 0x26) && d[8] === bank && d[10] === prog, 1500)) return true;
+  session.send(msb, `select slot ${slot}: bank MSB`);
+  session.send(lsb, `select slot ${slot}: bank LSB`);
+  if (await session.request(pc, `select slot ${slot}: program`, (d) => is(d, 0x64, 0x26) && d[8] === bank && d[10] === prog, 1500)) return true;
   let seenBank = -1;
   const off = session.subscribe((d) => {
-    if (d[0] === 0xb0 && d[1] === 0x20) seenBank = d[2];
+    if ((d[0] & 0xf0) === 0xb0 && d[1] === 0x20) seenBank = d[2];
   });
   try {
     const pc = await session.request(zoomSysex(deviceId, [0x33]), `confirm slot ${slot}`, (d) => d[0] === 0xc0, 1500);
@@ -84,6 +86,8 @@ export async function applyPlan(
   const steps: string[] = [];
   const mismatches: string[] = [];
   if (!policy.scratchSlots.has(target)) throw new Error(`Slot ${target} is not a scratch ("Empty") slot.`);
+  // Fail before the first edit, not halfway: the gate refuses a tempo outside 40-250.
+  if (plan.tempo !== undefined && (plan.tempo < 40 || plan.tempo > 250)) throw new Error(`Tempo ${plan.tempo} is outside 40-250. Nothing written.`);
   await assertStillEmpty(session, deviceId, target, policy);
 
   if (!(await selectSlot(session, deviceId, target, policy.perBank))) throw new Error(`Pedal did not confirm the change to slot ${target}.`);

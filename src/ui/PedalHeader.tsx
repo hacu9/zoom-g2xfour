@@ -1,3 +1,5 @@
+import { slotLabel } from '../midi/patchSelect';
+
 interface Props {
   status: 'no-midi' | 'need-permission' | 'no-pedal' | 'connected' | 'mock';
   slot: number | null;
@@ -33,7 +35,7 @@ export function PedalHeader({ status, slot, name, tempo, backup, canSwitch, edit
         ◀
       </button>
       <div className="lcd">
-        <div className="lcd-slot">{live && slot !== null ? String(slot).padStart(3, '0') : '---'}</div>
+        <div className="lcd-slot">{live && slot !== null ? slotLabel(slot) : '---'}</div>
         <div className="lcd-main">
           <div className="lcd-name" aria-live="polite">{live ? (name ?? '…') : STATUS_TEXT[status]}</div>
           <div className="lcd-sub">

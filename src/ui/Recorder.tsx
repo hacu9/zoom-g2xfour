@@ -34,7 +34,7 @@ export function Recorder({ session, patchName }: Props) {
   const [takes, setTakes] = useState<Take[]>([]);
   const [loop, setLoop] = useState(true);
   const [countIn, setCountIn] = useState<number>(() => readCountIn());
-  /** Seconds left before the take starts, or null when no count-in runs. */
+  /** Seconds left before the take starts, or null when no countdown runs. */
   const [countdown, setCountdown] = useState<number | null>(null);
   const [pedal, setPedal] = useState<PedalState>({ mode: 'off' });
   const [pedalPos, setPedalPos] = useState<number | null>(null);
@@ -230,7 +230,7 @@ export function Recorder({ session, patchName }: Props) {
     setRecording(false);
   }, []);
 
-  // Record: stop a take, cancel a count-in, start a count-in, or start at once.
+  // Record: stop a take, cancel a countdown, start a countdown, or start at once.
   const toggle = useCallback(() => {
     if (recorder.current) stop();
     else if (countdown !== null) setCountdown(null);
@@ -238,7 +238,7 @@ export function Recorder({ session, patchName }: Props) {
     else start();
   }, [start, stop, countdown, countIn, stream]);
 
-  // Count-in: one tick per second, then the take starts. No input, no count-in.
+  // Countdown: one tick per second, then the take starts. No input, no countdown.
   useEffect(() => {
     if (countdown === null) return;
     if (!stream) return setCountdown(null);
@@ -290,7 +290,7 @@ export function Recorder({ session, patchName }: Props) {
           disabled={!stream}
           onClick={toggle}
           aria-pressed={recording}
-          aria-label={recording ? 'Stop recording' : countdown !== null ? 'Cancel the count-in' : 'Record'}
+          aria-label={recording ? 'Stop recording' : countdown !== null ? 'Cancel the countdown' : 'Record'}
           title={recording ? 'Stop' : countdown !== null ? 'Cancel' : countIn ? `Record after ${countIn} s` : 'Record'}
         >
           <span className="rec-dot" />
@@ -305,7 +305,7 @@ export function Recorder({ session, patchName }: Props) {
               <div className="rec-time">{recording ? formatDuration(elapsed) : '0:00'}</div>
             )}
             <label className="small count-in">
-              Count-in{' '}
+              Countdown{' '}
               <select value={countIn} onChange={(e) => saveCountIn(setCountIn, Number(e.target.value))} disabled={countdown !== null}>
                 <option value={0}>Off</option>
                 <option value={3}>3 s</option>
@@ -480,7 +480,7 @@ function ListenControls({ listen, onListen, volume, onVolume, outputs, sinkId, o
 
 const COUNT_IN_KEY = 'zoom-g2xfour.countIn';
 
-/** The count-in choice is a per-viewer convenience: storage may be missing or blocked. */
+/** The countdown choice is a per-viewer convenience: storage may be missing or blocked. */
 function readCountIn(): number {
   try {
     const v = Number(localStorage.getItem(COUNT_IN_KEY));

@@ -113,3 +113,14 @@ describe('research mode cannot carry a write', () => {
     expect(sent).toHaveLength(0);
   });
 });
+
+describe('writableAfter', () => {
+  it('keeps a recipe slot writable, but a restored real patch is not', async () => {
+    const { writableAfter } = await import('../src/midi/writes');
+    const afterRecipe = writableAfter(new Set([263]), 263, 'Coraline Dst', 'recipe');
+    expect(afterRecipe.has(263)).toBe(true);
+    // Restoring "My Lead" over the recipe slot: no longer free to overwrite.
+    expect(writableAfter(afterRecipe, 263, 'My Lead', 'restore').has(263)).toBe(false);
+    expect(writableAfter(new Set(), 262, 'Empty     ', 'restore').has(262)).toBe(true);
+  });
+});

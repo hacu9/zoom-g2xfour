@@ -5,6 +5,7 @@ import { IDENTITY_REQUEST } from './identity';
 import { isZoomSysex, zoomBody } from './zoom';
 // A REAL slot dump (Rain v1, slot 250, 2026-10-15), replayed as the edit buffer.
 import rainHex from '../../tests/fixtures/g2xfour-rain-slot250.hex?raw';
+import { sameBytes } from './safety';
 
 const RAIN_DUMP = rainHex.trim().split(/\s+/).map((h) => parseInt(h, 16));
 
@@ -18,7 +19,7 @@ const MOCK_FILES = ['AMP_ZCLN.ZDL', 'COMP.ZDL', 'TUBESCRM.ZDL', 'ANLGDLY.ZDL', '
 const ascii = (s: string) => Array.from(s, (c) => c.charCodeAt(0));
 
 export function mockReply(bytes: number[], state: { fileIndex: number }): number[] | null {
-  if (bytes.length === IDENTITY_REQUEST.length && bytes.every((b, i) => b === IDENTITY_REQUEST[i])) {
+  if (sameBytes(bytes, IDENTITY_REQUEST)) {
     return [0xf0, 0x7e, 0x00, 0x06, 0x02, 0x52, 0x6e, 0x00, 0x00, 0x00, ...ascii('1.00'), 0xf7];
   }
   if (!isZoomSysex(bytes) || bytes[3] !== 0x6e) return null;
@@ -30,7 +31,10 @@ export function mockReply(bytes: number[], state: { fileIndex: number }): number
   if (c0 === 0x60 && (c1 === 0x25 || c1 === 0x26)) {
     if (c1 === 0x25) state.fileIndex = 0;
     const name = MOCK_FILES[state.fileIndex++];
-    return name ? z(0x60, 0x04, 0x00, 0x00, ...ascii(name), 0x00) : z(0x60, 0x04, 0x01, 0x00);
+    // The real entry layout (decodeFileEntry): name at body byte 11, size (4 septets) at 26.
+    if (!name) return z(0x60, 0x04, 0x01, 0x00);
+    const field = [...ascii(name), ...Array(13).fill(0)].slice(0, 13);
+    return z(0x60, 0x04, 0x25, ...Array(8).fill(0), ...field, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00);
   }
   if (c0 === 0x60 && c1 === 0x27) return z(0x60, 0x04, 0x00, 0x00);
   if (c0 === 0x64 && c1 === 0x02) return z(0x64, 0x01, 0x00, 0x07, 0x00, ...ascii('MOCK PATCH'), 0x00, 0x00);
