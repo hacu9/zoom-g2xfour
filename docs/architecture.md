@@ -28,7 +28,8 @@ src/
   songs/           songs.ts: the song list (tempo map + patch names + source)
   recipe/          ToneRecipe types, translate.ts (recipe → plan), apply.ts (plan → pedal),
                    builtin.ts (the shipped list), recipes/*.json
-  tempo/delay.ts   ms = 60000 / BPM × note value
+  tempo/delay.ts   NOTE_FACTORS: note value → quarter notes (delay sync)
+  text.ts          foldText (search without accents), fileStamp (file-name timestamps)
   log/ probe/      Log, export, console UI
   styles.css       Look: a dark pedal build sheet (graph paper, copper traces and labels,
                    a circuit-board screen, enclosures in their category colour)
@@ -91,6 +92,17 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
   research mode, and the write gate never sees it. It can still make
   auto-save keep edits on the patch you leave — the same as a footswitch.
 
+## Write state in the app
+
+- `scratchSlots` holds the slots the app may write: Empty in the backup, or a
+  slot it wrote a recipe into (`writableAfter(…, 'recipe')`). A restore keeps a
+  slot writable only when it put "Empty" back: a restored patch is real.
+- `slotNames` (the backup plus the app's own writes) goes into the write
+  policy. `assertStillEmpty` compares a fresh read of the target against it
+  right before a recipe write or a restore.
+- One `writing` flag covers both panels. While it is set, the patch buttons,
+  the patch list, the song picker, the knobs and "Back up again" are locked.
+
 ## Recorder
 
 - The G2X FOUR is a USB audio interface. `getUserMedia` opens it with echo
@@ -98,8 +110,12 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
 - Device labels appear only after permission. So the first open uses the
   default input, then switches once to the input whose name matches Zoom/G2.
   The switch happens one time at most: an unstable device id must not loop.
-- `MediaRecorder` writes webm/Opus. The input never goes to the speakers:
-  the pedal's headphone output is the monitor, with no added latency.
+- `MediaRecorder` writes webm/Opus. The input goes to an output only when the
+  user turns on **Listen**: its own `AudioContext` (latencyHint `interactive`,
+  `setSinkId` for the chosen output) and a gain node. The input asks for
+  `latency: 0`. The readout adds the input, base and output latency that Chrome
+  reports; a wireless link adds delay that Chrome does not see. The pedal's
+  PHONES jack stays the zero-delay monitor.
 - `devicechange` refreshes the input list. The track's `ended` event (unplug)
   drops the stream and ends a running take; `onstop` still keeps the take.
 - Takes are blob URLs in memory. Unmount stops a running take and revokes them. Nothing is stored, nothing is sent.
@@ -115,7 +131,7 @@ backup (46 reads) ─► .syx ─► editor/RestorePanel ─► 45 upload ─►
 
 - `ClickWalker` walks a tempo map: sections of `bpm`, `beats`, optional `bars`
   and optional `toBpm` (a linear ramp, one tempo step per beat). A section with
-  no `bars` loops until `skip()`, which moves on at the next bar line.
+  no `bars` loops until `skipTo()` moves on at the next bar line.
 - `Metronome.tsx` schedules on the audio clock with a lookahead (a 25 ms timer
   schedules every click due in the next 120 ms), the "two clocks" pattern. The
   beat lights read `AudioContext.currentTime`, not the timer.

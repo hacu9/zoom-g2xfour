@@ -47,10 +47,16 @@ With `bpm` and a `note`, the delay syncs to the patch tempo: Mode = BPM SYNC,
 Time = the note, patch tempo = `bpm`. Tap tempo then still works live. Notes:
 `1/1 1/2 1/4 1/4. 1/4T 1/8 1/8. 1/8T 1/16 1/16.` (`1/16T` is not on the pedal).
 
-Without `bpm`, or with `timeMs`, Time is set in milliseconds:
-`ms = 60000 / BPM × note value` (`src/tempo/delay.ts`). Example: 123 BPM,
-dotted eighth (0.75) → 366 ms. The delay Mode is then left as the pedal sets
-it, because the meaning of SHORT and LONG is not verified.
+A `note` without `bpm` also syncs, to the tempo the pedal already has: set it
+with tap tempo. The translator warns about it.
+
+With `timeMs`, Time is set in milliseconds. To get it from a tempo:
+`ms = 60000 / BPM × note value` (123 BPM, dotted eighth = 0.75 → 366 ms). The
+delay Mode is then left as the pedal sets it, because the meaning of SHORT and
+LONG is not verified.
+
+`bpm` must be 40–250 (the pedal's patch tempo). The translator clamps anything
+else and warns.
 
 ## Not supported yet
 

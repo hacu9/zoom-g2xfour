@@ -9,7 +9,7 @@ import { foldText } from '../text';
  *
  * tempo-maps.json comes from Songsterr's per-bar data (tempo events, meters,
  * section markers), one song per entry with its Songsterr id and revision.
- * Each map's length is within 4 % of the recording. See docs/songs.md.
+ * Most maps were checked against the recording length; docs/songs.md has the details.
  */
 export interface Song {
   id: string;

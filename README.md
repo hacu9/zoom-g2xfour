@@ -8,14 +8,17 @@ An unofficial browser editor for the Zoom G2X FOUR guitar pedal, over USB
 - Read the pedal: identity, every patch (raw), screen text, flash files.
 - Back up all 300 patches to `.syx`, and restore any of them, verified.
 - Edit the current patch live, with a searchable effect list.
-- Turn a song's "tone recipe" (JSON) into a patch. Examples: Rain (Rob Scallon),
-  four Metallica songs.
+- Turn a song's "tone recipe" (JSON) into a patch. 23 built-in recipes for 17
+  songs: Metallica, The Strokes, Hombres G, Asian Kung-Fu Generation, Måneskin
+  and more, each with its sources.
 - Record what you play through the pedal's USB audio, loop it, save it.
+  **Listen** sends the pedal's sound to a headset you pick.
 - Metronome with 41 song tempo maps (tempo and meter changes, part by part).
 - Two safety gates: known dangerous commands are blocked; writes need a backup
   and an Empty slot.
-- `g2x`, a command-line tool with the same code and rules: backup, read, write
-  a recipe, restore. No browser needed.
+- `g2x`, a command-line tool with the same code and rules: info, read, select,
+  backup, list, write a recipe, write all missing recipes, restore. No browser
+  needed.
 
 ```bash
 npm install

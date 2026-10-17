@@ -170,7 +170,7 @@ Effect file names do not map 1:1 to effect names (`AIR5G.ZD2` = AirReverb).
 | A program change to the slot the pedal is already on does not reload the edit buffer and does not save reliably. Hop to another slot and back. | Verified |
 | Banks of 10: slot = bank × 10 + program. Bank select = `B0 00 00`, `B0 20 <bank>`, then `C0 <program>`. | Verified |
 
-## 9. State of this pedal (2026-10-15)
+## 9. State of this pedal (2026-10-15, a snapshot)
 
 | Slots | Content |
 |---|---|
@@ -178,7 +178,7 @@ Effect file names do not map 1:1 to effect names (`AIR5G.ZD2` = AirReverb).
 | 140 | "Evil Eye 1984" (the patch at the start) |
 | **250** | **"Rain Scallon"** — written by this project. Delay v5 (digital Delay, Repeat 72, Mix 90), stored and verified; auto-save stores it at the next patch change. |
 | 251–258 | Metallica, clean + distorted pairs: Fade to Black, One, Master of Puppets, The Day That Never Comes — written by this project |
-| 259–296, 298, 299 | "Empty" |
+| 259–296, 298, 299 | "Empty" on 2026-10-15. Later recipe writes filled 260–273; run `scripts/g2x list` for today's state. |
 | 297 | "USER-001" — made on the pedal before this project, not touched |
 
 Backups: `backups/*.syx` (gitignored).

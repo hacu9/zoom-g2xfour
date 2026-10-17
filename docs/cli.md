@@ -39,11 +39,20 @@ scripts/g2x recipes                  # built-in recipes with their numbers
 scripts/g2x write 19 264             # recipe 19 into Empty slot 264
 scripts/g2x write "wind" 265         # by patch name or song
 scripts/g2x write my-tone.json 266   # your own recipe file
+scripts/g2x write-all --from 264     # every built-in recipe not on the pedal yet
 scripts/g2x restore backups/g2xfour-backup-….syx 140 259
 scripts/g2x restore backups/g2xfour-backup-….syx 140 140 --confirm 140
 ```
 
-Add `--verbose` to print every message sent.
+Options:
+
+- `--verbose` prints every message sent.
+- `--out <folder>` puts backups somewhere else (default: the repo's `backups/`).
+- `--from <slot>` (`write-all`) uses Empty slots from that slot up.
+- `--confirm <slot>` (`restore`) allows a restore over a real patch.
+
+`write-all` takes one backup, then writes each missing recipe in turn. It stops
+at the first error and says which slot it was writing.
 
 ## Safety rules
 

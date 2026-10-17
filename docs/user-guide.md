@@ -17,7 +17,8 @@ How to run the app and use each panel. For the protocol itself, see
    The first time, click **Connect** and allow "MIDI device control &
    reprogram". That permission is the SysEx permission.
 
-Other commands: `npm test` (unit tests), `npm run build` (type check + bundle).
+Other commands: `npm test` (unit tests), `npm run build` (type check + bundle),
+`scripts/g2x` (the same pedal code from the command line, see [cli.md](cli.md)).
 **Use mock pedal** (in the Lab) runs the UI against an invented pedal. It
 replays one real patch dump (Rain v1) so the pedalboard has data. It proves
 that the UI works. It proves nothing about the protocol.
@@ -78,22 +79,38 @@ Records what you play through the pedal, then plays it back.
 3. Click the red button to start. Click it again to stop. The take appears
    in the list with the patch name and the time.
 
-- **Count-in** (Off, 3 s or 5 s) waits before the take starts, so you can get
+- **Countdown** (Off, 3 s or 5 s) waits before the take starts, so you can get
   your hands on the guitar. The screen counts down in big amber digits, and the
   record button blinks amber. Click the button again to cancel. The pedal toe
-  switch also starts the count-in. The app keeps your choice in this browser.
+  switch also starts the countdown. The app keeps your choice in this browser.
 - **Loop playback** repeats the take, so you can play along over it.
-- **Save** downloads the take (`.webm`, Opus, 256 kbit/s).
+- **Save** downloads the take (`.webm`, Opus, 256 kbit/s). **Delete** removes it.
 - The takes stay in memory only. A reload deletes the takes that you did not save.
 - If you unplug the pedal during a take, the take stops and stays in the list.
-- The page does not play your input live. You hear yourself through the
-  pedal's headphone output, with no delay and no feedback loop.
+
+**Listen** plays the pedal's sound through the computer, to the output you
+pick. It is off each time the page loads.
+
+1. Click **Use pedal audio**, then **Listen**.
+2. Pick your headset in **Output**. Only that output plays it.
+3. Set **Volume**. The box next to it shows the delay that Chrome reports:
+   green up to 15 ms, amber up to 30 ms, red above.
+
+Every path through the computer adds delay: USB, Windows, Chrome, and the
+headset's own link. **For no delay, plug wired headphones into the pedal's
+PHONES jack** (left side). The app warns you when:
+
+- the output is a wireless headset (Bluetooth or a 2.4 GHz dongle). Its own
+  delay is not in the number, and it is often the biggest part.
+- the output is the pedal itself. You would hear the sound twice.
 
 **Expression pedal.** Click **Learn pedal**, then move the pedal. The app
 keeps the first control message that arrives: a Control Change, or the edit
 report of the knob that the pedal drives in this patch. Rock the pedal from
 heel to toe once so the app learns the range. This first sweep does not
-start anything. Then each push to the toe end starts or stops the recording. The bar shows the pedal position.
+start anything. Then each push to the toe end starts or stops the recording; untick **Toe down
+starts and stops the recording** to only watch the bar. The bar shows the pedal
+position. **Forget** clears what the app learned.
 
 Warning: we did not verify on hardware what the G2X FOUR sends over USB
 when the expression pedal moves. If "Move the pedal now…" stays, the pedal
@@ -107,14 +124,16 @@ pedal's headphones, set the G2X FOUR as the Windows sound output.
 
 - **▶ / ■** (or the space bar) starts and stops the click. Beat 1 has a higher
   tone, and the first beat of a new section an even higher one.
-- **− / + / Tap / Beats / Volume** set the click. A change applies from the next beat.
+- **− / + / Tap / Meter / Volume** set the click. Type a tempo in the box and
+  press Enter (Esc undoes). **Meter** is beats per bar and the beat unit (4 or 8).
+  A change applies from the next beat.
 - **Follow the patch tempo:** each patch change on the pedal sets the click to
   that patch's tempo. Use one patch per song part, and the click follows your
   footswitch.
 - **Set patch tempo to N** writes the tempo into the current patch, so a synced
   delay matches the click. Warning: auto-save keeps it. The write gate applies:
   the backup must be done, and a real patch needs EDIT REAL PATCHES.
-- **Find a song** searches 37 songs by title or artist (accents ignored).
+- **Find a song** searches 41 songs by title or artist (accents ignored).
   Picking a song loads its tempo map and selects its patch, if a recipe wrote
   one and it is on the pedal. See [songs.md](songs.md) for where the maps come
   from.
@@ -133,16 +152,21 @@ pedal's headphones, set the G2X FOUR as the Windows sound output.
 ### Patches
 
 Every patch from the backup, in banks of 10 like the pedal. Click one to
-load it on the pedal. Search by
-name or number. Empty slots are hidden unless you tick **Show Empty slots**.
-A ★ marks the patches that the built-in song recipes write.
+load it on the pedal. Search by name or number. Empty slots are hidden unless
+you tick **Show Empty slots**. A ★ marks the patches that the built-in song
+recipes write. **Back up again** reads all 300 patches again, for example after
+you edit patches on the pedal itself.
 
 ### Song recipes → new patch
 
 Pick or paste a recipe (JSON). The preview shows the effects, knob values
 and every compromise. **Write patch** puts it into the Empty slot you
-choose and verifies it. If the pedal changes patch during the write, the
-write stops and names the slot to check. See [recipes.md](recipes.md).
+choose and verifies it. Right before the write, the app reads the slot again:
+if it is not Empty any more (another tab, an edit on the pedal), nothing is
+written. While a patch is written, the patch buttons, the patch list, the song
+picker and the knobs are locked. If the pedal changes patch during the write
+(a footswitch), the write stops and names the slot to check. See
+[recipes.md](recipes.md).
 
 ### Restore or copy a patch from the backup
 
@@ -152,8 +176,11 @@ target slot makes a copy. The app sends the pedal's own dump and reads the
 slot again to verify it.
 
 - A slot with a real patch needs you to type its number first.
+- Right before the write, the app reads the slot again. If it no longer holds
+  the patch the list shows, nothing is written.
 - The app refuses to write the slot the pedal is on, because auto-save could
-  undo it. Switch to another patch first.
+  undo it. Switch to another patch first. It also waits until it knows which
+  slot the pedal is on.
 
 ### Lab
 
@@ -165,11 +192,13 @@ file list and the message log with export. The rules of the console are in
 ## Safety rules
 
 1. No write without a full backup in the same session.
-2. Writes go only to Empty slots, or to slots this app wrote in this session.
-   Real patches need an explicit tick (edits) or the typed slot number
-   (restore).
-3. A new connection clears the backup and the list of writable slots.
-4. Known dangerous commands are blocked with no override. The list is in
+2. Writes go only to Empty slots, or to slots this app wrote a recipe into in
+   this session. Real patches need an explicit tick (edits) or the typed slot
+   number (restore). A restored patch counts as real.
+3. Right before a recipe write or a restore, the app reads the target slot
+   again and stops if it changed.
+4. A new connection clears the backup and the list of writable slots.
+5. Known dangerous commands are blocked with no override. The list is in
    [g2x-four-protocol.md §3.3](g2x-four-protocol.md#33-dangerous-commands-always-blocked).
 
 ## When something goes wrong

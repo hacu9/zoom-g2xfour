@@ -24,10 +24,14 @@ notes or tabs.
 
 ## How the maps were checked
 
-- **Length:** for 29 songs, the map's total length (bars × meter ÷ tempo) is
-  within 4 % of the recording length. The recording lengths came from memory, not
-  from a lookup, so this is a sanity check only. It shows that the bar order
-  follows the recording.
+- **Length:** for 29 of the first 36 songs, the map's total length (bars ×
+  meter ÷ tempo) is within 4 % of the recording length. Those recording lengths
+  came from memory, not from a lookup, so this is a sanity check only. It shows
+  that the bar order follows the recording.
+- **Later songs:** Haruka Kanata (4:03 against 4:02), Rewrite (3:44 against
+  3:47) and Coraline (5:02 against 5:00) match their recordings, with lengths
+  from Wikipedia. Wind is 5 % short (3:31 against 3:41, Discogs); the song says
+  so in its notes.
 - **Fade to Black:** a second fetch read the tempo events directly. They are
   113, then 119 at bar 57, 113 at bar 73, 119 at bar 97 and 142 at bar 112. A
   test pins these values. Hooktheory agrees on 113 (verse) and 142 (outro).
@@ -53,6 +57,11 @@ notes or tabs.
 
 ## Add a song
 
-Add an entry to `SONGS` in `songs.ts` with `sections` (bpm, beats, unit, bars,
-name), a `source`, and, if a recipe writes a patch for it, `patches`. Every
-tempo needs a source. If you do not know the tempo, leave the song out.
+- **From Songsterr:** add an entry to `tempo-maps.json` (`id`, `title`,
+  `artist`, `songsterrId`, `revision`, `sections`, `notes`). Put its patch names
+  in `PATCHES` and any extra notes in `NOTES` in `songs.ts`, both keyed by `id`.
+- **From another source:** add an entry to `SONGS` in `songs.ts` with
+  `sections` (bpm, beats, unit, bars, name), a `source`, `patches` and `notes`,
+  like Rain.
+
+Every tempo needs a source. If you do not know the tempo, leave the song out.
