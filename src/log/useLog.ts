@@ -21,7 +21,7 @@ export function useLog() {
       bytes: bytes ? Array.from(bytes) : undefined,
       notes,
     };
-    // The export keeps every entry; the screen keeps the last UI_LIMIT.
+    // The export keeps the last EXPORT_LIMIT entries; the screen keeps the last UI_LIMIT.
     all.current.push(entry);
     if (all.current.length > EXPORT_LIMIT) all.current.splice(0, all.current.length - EXPORT_LIMIT);
     setEntries((prev) => (prev.length >= UI_LIMIT ? [...prev.slice(-UI_LIMIT + 1), entry] : [...prev, entry]));

@@ -505,7 +505,7 @@ export function App() {
       <section aria-labelledby="s-id">
         <h2 id="s-id">Identify</h2>
         <div className="row">
-          <button className="primary" disabled={!session || busy || !!listing} onClick={sendIdentity}>
+          <button className="primary" disabled={!session || busy || locked} onClick={sendIdentity}>
             Send Identity Request
           </button>
           <code className="muted">{toHex(IDENTITY_REQUEST)}</code>
@@ -571,10 +571,10 @@ export function App() {
           {!hexText.trim() ? 'Type hex bytes or click a prefill.' : parsed.ok ? `${preview!.verdict.toUpperCase()}: ${preview!.reason}` : parsed.error}
         </div>
         <div className="row">
-          <button className="primary" disabled={!session || !parsed.ok || !!listing} onClick={askSend}>
+          <button className="primary" disabled={!session || !parsed.ok || locked} onClick={askSend}>
             Send… <span className="muted small">(Ctrl+Enter)</span>
           </button>
-          <button disabled={!session || deviceId === null || !!listing} onClick={runListing}>
+          <button disabled={!session || deviceId === null || locked} onClick={runListing}>
             List flash files
           </button>
           {listing && <button onClick={() => listing.abort()}>Stop</button>}

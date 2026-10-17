@@ -236,7 +236,8 @@ export function Metronome({ session, deviceId, policy, patchTempo, names, canSel
 
   const shownSection = song ? song.sections[Math.max(0, songSection >= 0 ? songSection : (parts[startPart]?.from ?? 0))] : null;
   const target = Math.round(song ? ((shownSection?.bpm ?? 120) * pct) / 100 : bpm);
-  const canWrite = !!session && deviceId !== null && target >= PEDAL_MIN && target <= PEDAL_MAX;
+  // canSelect is false while the app writes a patch: the tempo would land in that patch.
+  const canWrite = canSelect && deviceId !== null && target >= PEDAL_MIN && target <= PEDAL_MAX;
   const sendTempo = () => {
     if (!session || deviceId === null) return;
     try {

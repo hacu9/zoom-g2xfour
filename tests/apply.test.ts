@@ -115,3 +115,13 @@ describe('applyPlan passes the write policy', () => {
     for (const e of edited) expect(e.write?.currentSlot, `edit ${e.bytes.slice(4, 9).join(' ')}`).toBe(250);
   });
 });
+
+describe('selectSlot', () => {
+  it('sends Bank Select MSB 0, LSB = bank, then the program', async () => {
+    const { selectSlot } = await import('../src/recipe/apply');
+    const { session, sent } = fakePedal(null);
+    expect(await selectSlot(session, 0x6e, 253, 10)).toBe(true);
+    const midi = sent.filter((b) => b[0] !== 0xf0);
+    expect(midi).toEqual([[0xb0, 0x00, 0x00], [0xb0, 0x20, 25], [0xc0, 3]]);
+  });
+});
