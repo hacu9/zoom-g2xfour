@@ -12,7 +12,13 @@ describe('every built-in recipe', () => {
     expect(out.effects.length).toBeLessThanOrEqual(6);
     expect(r.source, 'every recipe names its source').toBeTruthy();
     // a model the catalog does not have comes back as a warning
-    expect(out.warnings.filter((w) => /not in the catalog|has no knob|cannot take|dropped/i.test(w))).toEqual([]);
+    expect(out.warnings.filter((w) => /not in the catalog|has no knob|no gain knob|cannot take|dropped/i.test(w))).toEqual([]);
+  });
+  it('sets the gain of a Plexi-style amp through Input1', () => {
+    const out = translate({ song: 't', amp: { type: 'british', gain: 60 } });
+    expect(out.effects[0].name).toBe('MS 1959');
+    expect(out.effects[0].params.find((p) => p.name === 'Input1')?.display).toBe('60');
+    expect(out.warnings).toEqual([]);
   });
   it('has unique patch names', () => {
     const names = BUILT_IN.map((b) => translate(b.recipe as ToneRecipe).name);

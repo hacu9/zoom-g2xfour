@@ -2,9 +2,8 @@
   "song": "Coraline (clean)",
   "artist": "Måneskin",
   "patchName": "Coraline Cln",
-  "source": "Starting point, not official. For the finger-picked intro, verse 2 and the outro (Strat neck pickup per the Ultimate Guitar tab). Raggi: his 'clean' is a light crunch from an OCD into a Marshall Plexi (Guitar World, Jan 2026); that is his live rig, no source names the gear on Coraline. MS 1959 stands in for the Plexi, TS Drive for the OCD. Values are estimates.",
-  "drive": { "type": "overdrive", "gain": 15, "tone": 55 },
-  "amp": { "type": "british", "model": "MS 1959", "gain": 25 },
-  "eq": { "low": 50, "mid": 55, "high": 60 },
-  "reverb": { "type": "room", "decay": 30, "mix": 12 }
+  "source": "Starting point, not official. For the finger-picked intro, verse 2 and the outro: the record is clean here (Strat neck pickup per the Ultimate Guitar tab). Raggi plays a light OCD crunch as his live 'clean' (Guitar World, Jan 2026); this patch follows the record instead. FD TWIN-R gives a clean Fender sound. Values are estimates.",
+  "amp": { "type": "clean", "gain": 20, "knobs": { "BRGHT": "OFF" } },
+  "eq": { "low": 50, "mid": 50, "high": 60 },
+  "reverb": { "type": "room", "decay": 30, "mix": 15 }
 }

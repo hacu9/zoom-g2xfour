@@ -95,12 +95,17 @@ export function translate(r: ToneRecipe): Plan {
   if (r.compressor) add('compressor', ROLE_EFFECT.compressor, { Sense: { pct: r.compressor.amount } }, r.compressor);
   if (r.drive) add('drive', ROLE_EFFECT.drive[r.drive.type], { Gain: { pct: r.drive.gain }, Drive: { pct: r.drive.gain }, Tone: r.drive.tone === undefined ? undefined : { pct: r.drive.tone } }, r.drive);
   if (r.amp) {
+    const gain = r.amp.gain === undefined ? undefined : { pct: r.amp.gain };
     add('amp', ROLE_EFFECT.amp[r.amp.type], {
-      Gain: r.amp.gain === undefined ? undefined : { pct: r.amp.gain },
+      Gain: gain,
+      // Plexi-style models (MS 1959) have two inputs and no Gain knob.
+      Input1: gain,
       Bass: r.eq?.low === undefined ? undefined : { pct: r.eq.low },
       MID: r.eq?.mid === undefined ? undefined : { pct: r.eq.mid },
       Treble: r.eq?.high === undefined ? undefined : { pct: r.eq.high },
     }, r.amp);
+    const amp = effects[effects.length - 1];
+    if (gain && amp?.role === 'amp' && !amp.params.some((p) => /^(gain|input1)$/i.test(p.name))) warnings.push(`amp: ${amp.name} has no gain knob — gain not set.`);
   }
   for (const extra of r.afterAmp ?? []) add('after amp', extra.model, {}, extra);
   if (!r.amp && r.eq) warnings.push('eq: no amp in the recipe, and the output EQ has no verified write command — skipped.');
