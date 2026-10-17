@@ -59,6 +59,9 @@ def quantize(events: list[Event], beats: list[float], downbeats: list[float]) ->
         g = min((j for j in (i - 1, i) if 0 <= j < len(grid)), key=lambda j: abs(grid[j] - ev.onset))
         bar = max(0, bisect.bisect_right(bar_start_steps, g) - 1)
         step = g - bar_start_steps[bar]
+        # The last grid point only closes the last bar: a note there (or later) is past the end.
+        if step >= bars[bar][1] * SUB:
+            continue
         slot = slots.setdefault((bar, step), Slot(bar, step, []))
         used = {s for s, _ in slot.shape}
         slot.shape += [(n.string, n.fret) for n in ev.notes if n.string not in used]

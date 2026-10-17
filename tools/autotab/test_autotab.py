@@ -60,3 +60,12 @@ def test_overtones_go_real_octaves_stay():
     assert drop_overtones([root, octave, quiet_twelfth]) == [root]
     loud_octave = Note(0.0, 1, 57, 0.9)  # a played octave: as loud as the root
     assert drop_overtones([root, loud_octave]) == [root, loud_octave]
+
+
+def test_a_note_after_the_last_beat_is_left_out():
+    beats = [0.5 * i for i in range(9)]  # the grid ends at 4.0 s
+    events = assign([Note(1.0, 1.2, 45), Note(4.0, 4.3, 50), Note(5.5, 5.8, 52)])
+    bars, slots = quantize(events, beats, [0.0, 2.0])
+    assert all(s.step < n * 4 for s in slots for b, (_, n) in enumerate(bars) if b == s.bar)
+    tex = alphatex(bars, [("Guitar", slots)], title="t", tempo=120, tuning_names=["E4", "B3", "G3", "D3", "A2", "E2"])
+    assert tex.count("|") == 1  # two bars, nothing past the end
