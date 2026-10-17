@@ -93,6 +93,7 @@ describe('recorder helpers', () => {
     expect(isPedalDevice('Headphones (Logitech G233)')).toBe(false);
     expect(isWireless('Headphones (WH-1000XM4 Hands-Free AG Audio)')).toBe(true);
     expect(isWireless('Headset (Galaxy Buds2 Pro)')).toBe(true);
+    expect(isWireless('Headset Earphone (CORSAIR VOID ELITE Wireless Gaming Dongle)')).toBe(true);
     expect(isWireless('Speakers (Realtek(R) Audio)')).toBe(false);
   });
   it('rates the listen delay', () => {

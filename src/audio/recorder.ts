@@ -12,9 +12,9 @@ export function isPedalDevice(label: string): boolean {
   return PEDAL_LABEL.test(label);
 }
 
-/** Bluetooth adds 100–300 ms, and Chrome often reports less than that. */
+/** Wireless headsets add a delay of their own (Bluetooth: 100–300 ms) that Chrome often does not report. */
 export function isWireless(label: string): boolean {
-  return /bluetooth|hands-?free|airpods|buds|\bbt\b/i.test(label);
+  return /wireless|dongle|bluetooth|hands-?free|airpods|buds|\bbt\b/i.test(label);
 }
 
 /** What the listen delay means for playing along. */

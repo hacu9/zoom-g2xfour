@@ -67,10 +67,10 @@ export function Recorder({ session, patchName }: Props) {
     async (id?: string, switched = false): Promise<void> => {
       setError(null);
       try {
-        const s = await navigator.mediaDevices.getUserMedia({
-          // A guitar is not a voice: no echo cancel, no noise gate, no auto gain.
-          audio: { deviceId: id ? { exact: id } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false },
-        });
+        // A guitar is not a voice: no echo cancel, no noise gate, no auto gain.
+        // latency 0 asks Chrome for its smallest input buffer (Listen); the DOM types lack the field.
+        const audio: MediaTrackConstraints & { latency?: number } = { deviceId: id ? { exact: id } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false, latency: 0 };
+        const s = await navigator.mediaDevices.getUserMedia({ audio });
         const all = await listInputs();
         // Device names appear only after permission: switch to the pedal if the first pick was the default mic.
         const zoom = pickPedalInput(all);
@@ -471,7 +471,7 @@ function ListenControls({ listen, onListen, volume, onVolume, outputs, sinkId, o
       </div>
       <p className="small muted">
         {listen && note ? `${note.text} ` : 'Hear the pedal through the computer, in the output you pick. '}
-        {listen && label && isWireless(label) && <span className="warn-text">Bluetooth adds 100–300 ms that Chrome does not always report. Use a wired headset. </span>}
+        {listen && label && isWireless(label) && <span className="warn-text">A wireless headset adds a delay of its own that Chrome does not see (Bluetooth: 100–300 ms). For no delay, plug wired headphones into the pedal's PHONES jack. </span>}
         {listen && label && isPedalDevice(label) && <span className="warn-text">This output is the pedal itself: you hear the sound twice. Pick your headset. </span>}
       </p>
     </div>
