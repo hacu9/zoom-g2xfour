@@ -1,4 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// The slot as the pedal reports it right before the write (null = no reply).
+let slotName: string | null = 'Empty';
+vi.mock('../src/midi/backup', async (orig) => ({
+  ...(await orig<typeof import('../src/midi/backup')>()),
+  readSlot: async (_s: unknown, _d: number, slot: number) => ({ slot, patch: slotName === null ? null : { name: slotName } }),
+}));
 import rain from '../src/recipe/recipes/rain-rob-scallon.json';
 import { applyPlan } from '../src/recipe/apply';
 import { translate } from '../src/recipe/translate';
@@ -52,6 +59,23 @@ function fakePedal(jumpAfterEdits: number | null) {
 
 describe('applyPlan', () => {
   const plan = translate(rain as ToneRecipe);
+  beforeEach(() => {
+    slotName = 'Empty';
+  });
+
+  it('refuses a slot that a stale backup lists as Empty but now holds a patch', async () => {
+    slotName = 'AKFG Crunch   ';
+    const { session, sent } = fakePedal(null);
+    await expect(applyPlan(session, 0x6e, plan, 250, 140, policy)).rejects.toThrow(/now holds "AKFG Crunch", not Empty/);
+    expect(sent.filter((b) => b[4] === 0x64)).toEqual([]);
+  });
+
+  it('refuses when the slot cannot be read', async () => {
+    slotName = null;
+    const { session, sent } = fakePedal(null);
+    await expect(applyPlan(session, 0x6e, plan, 250, 140, policy)).rejects.toThrow(/Could not read slot 250/);
+    expect(sent.filter((b) => b[4] === 0x64)).toEqual([]);
+  });
 
   it('refuses a target that is not a scratch slot', async () => {
     await expect(applyPlan(fakePedal(null).session, 0x6e, plan, 140, 140, policy)).rejects.toThrow(/not a scratch/);

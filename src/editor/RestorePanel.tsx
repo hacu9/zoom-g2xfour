@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { patchBytesFromSlotDump, patchFingerprint, readSlot } from '../midi/backup';
+import { assertStillEmpty } from '../recipe/apply';
 import { parsePTCF } from '../midi/ptcf';
 import type { ProbeSession } from '../midi/session';
 import { retargetSlotDump, type WritePolicy } from '../midi/writes';
@@ -70,6 +71,8 @@ export function RestorePanel({ session, deviceId, policy, sessionBackup, onSlotW
     if (!session || !src || targetSlot === undefined) return;
     setBusy(true);
     try {
+      // An "Empty" target needs no typed confirmation, so check that it still is.
+      if (isScratch) await assertStillEmpty(session, deviceId, targetSlot, policy.perBank);
       const msg = retargetSlotDump(src.msg, targetSlot, policy.perBank);
       const w: WritePolicy = { ...policy, confirmedSlot: isScratch ? null : targetSlot };
       await session.request(msg, `restore "${src.name}" → slot ${targetSlot}`, (d) => isZoomSysex(d) && d[4] === 0x00, 3000, w);

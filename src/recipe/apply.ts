@@ -43,6 +43,21 @@ export interface ApplyResult {
   mismatches: string[];
 }
 
+/**
+ * Reads the slot again right before a write. The Empty list comes from this
+ * tab's backup, which can be out of date: another tab or a pedal edit may have
+ * filled the slot since.
+ */
+export async function assertStillEmpty(session: ProbeSession, deviceId: number, slot: number, perBank: number): Promise<void> {
+  const name = (await readSlot(session, deviceId, slot, perBank)).patch?.name?.trimEnd();
+  if (name === 'Empty') return;
+  throw new Error(
+    name === undefined
+      ? `Could not read slot ${slot} to check that it is still Empty. Nothing written.`
+      : `Slot ${slot} now holds "${name}", not Empty. Nothing written. Click "Back up again" to refresh the list.`,
+  );
+}
+
 export async function applyPlan(
   session: ProbeSession,
   deviceId: number,
@@ -54,6 +69,7 @@ export async function applyPlan(
   const steps: string[] = [];
   const mismatches: string[] = [];
   if (!policy.scratchSlots.has(target)) throw new Error(`Slot ${target} is not a scratch ("Empty") slot.`);
+  await assertStillEmpty(session, deviceId, target, policy.perBank);
 
   if (!(await selectSlot(session, deviceId, target, policy.perBank))) throw new Error(`Pedal did not confirm the change to slot ${target}.`);
   const w: WritePolicy = { ...policy, currentSlot: target };
