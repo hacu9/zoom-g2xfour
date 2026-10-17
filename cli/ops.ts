@@ -43,3 +43,15 @@ export function policyFrom(b: { count: number; perBank: number; dumps: SlotDump[
     slotNames: new Map(b.dumps.map((d) => [d.slot, nameOf(d)])),
   };
 }
+
+/**
+ * Which recipes `write-all` writes, and where: every recipe whose patch name is
+ * not on the pedal yet, into the Empty slots from `from` up, in recipe order.
+ */
+export function planWriteAll(patchNames: string[], slotNames: ReadonlyMap<number, string>, from: number): { name: string; slot: number }[] {
+  const onPedal = new Set([...slotNames.values()].map((n) => n.trimEnd()));
+  const free = [...slotNames].filter(([slot, n]) => slot >= from && n === 'Empty').map(([slot]) => slot).sort((a, b) => a - b);
+  const todo = patchNames.filter((n, i) => !onPedal.has(n) && patchNames.indexOf(n) === i);
+  if (todo.length > free.length) throw new Error(`${todo.length} patches to write, but only ${free.length} Empty slots from ${from}.`);
+  return todo.map((name, i) => ({ name, slot: free[i] }));
+}

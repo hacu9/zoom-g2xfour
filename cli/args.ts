@@ -21,7 +21,7 @@ export function parseArgs(argv: string[]): Args {
   return { command, positional, flags };
 }
 
-const VALUE_FLAGS = new Set(['--confirm', '--out']);
+const VALUE_FLAGS = new Set(['--confirm', '--out', '--from']);
 
 export function parseSlot(text: string | undefined, count = 300): number {
   const n = Number(text);

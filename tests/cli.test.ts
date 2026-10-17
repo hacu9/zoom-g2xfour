@@ -44,3 +44,26 @@ describe('restoreEntry refuses before it sends anything', () => {
     await expect(restoreEntry(silent, 0x6e, src, 140, policy, true)).rejects.toThrow(/pedal is on slot 140/);
   });
 });
+
+describe('write-all plan', () => {
+  const names = new Map<number, string>([
+    [250, 'Rain Scallon'],
+    [259, 'Empty'],
+    [260, 'AKFG Crunch   '],
+    [264, 'Empty'],
+    [265, 'Reptilia'],
+    [266, 'Empty'],
+  ]);
+  it('writes only what is missing, into Empty slots from --from up', async () => {
+    const { planWriteAll } = await import('../cli/ops');
+    expect(planWriteAll(['Rain Scallon', 'AKFG Crunch', 'Reptilia', 'Brightside', 'Dancefloor'], names, 264)).toEqual([
+      { name: 'Brightside', slot: 264 },
+      { name: 'Dancefloor', slot: 266 },
+    ]);
+    expect(planWriteAll(['Brightside'], names, 0)).toEqual([{ name: 'Brightside', slot: 259 }]);
+  });
+  it('refuses when the Empty slots run out', async () => {
+    const { planWriteAll } = await import('../cli/ops');
+    expect(() => planWriteAll(['A', 'B', 'C'], names, 264)).toThrow(/only 2 Empty slots/);
+  });
+});

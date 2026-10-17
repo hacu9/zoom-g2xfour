@@ -21,7 +21,7 @@ import { translate } from '../src/recipe/translate';
 import type { ToneRecipe } from '../src/recipe/types';
 import { findRecipe, parseArgs, parseSlot, ranges, type Args } from './args';
 import { requestJzzMidi } from './jzz-backend';
-import { nameOf, policyFrom, saveFullBackup } from './ops';
+import { nameOf, planWriteAll, policyFrom, saveFullBackup } from './ops';
 
 const HELP = `g2x — Zoom G2X FOUR from the command line (unofficial)
 
@@ -33,6 +33,7 @@ const HELP = `g2x — Zoom G2X FOUR from the command line (unofficial)
   g2x list [file.syx]           patch names from the newest backup (offline)
   g2x recipes                   the built-in recipes
   g2x write <recipe> <slot>     recipe = number, patch name, song, or a .json file
+  g2x write-all [--from <slot>] every built-in recipe not on the pedal yet, into Empty slots
   g2x restore <file.syx> <from> <to> [--confirm <to>]
 
   --out <dir>    where backups go (default: ./backups)
@@ -190,6 +191,40 @@ async function run(args: Args): Promise<number> {
       r.mismatches.forEach((m) => say(`  MISMATCH ${m}`));
       say(r.ok ? `"${plan.name}" → slot ${slot}: written and verified.` : `"${plan.name}" → slot ${slot}: written with mismatches.`);
       return r.ok ? 0 : 2;
+    }
+
+    case 'write-all': {
+      const plans = BUILT_IN.map((x) => translate(x.recipe as ToneRecipe));
+      for (const p of plans) if (p.warnings.some((w) => BAD_WARNING.test(w))) throw new Error(`"${p.name}" does not translate cleanly. Nothing written.`);
+      const bk = await fullBackup(session, args);
+      const from = args.flags.has('--from') ? parseSlot(String(args.flags.get('--from')), bk.count) : 0;
+      const current = await readCurrentSlot(session, DEVICE, bk.perBank);
+      const policy = policyFrom(bk, current);
+      const todo = planWriteAll(plans.map((p) => p.name), policy.slotNames!, from);
+      if (!todo.length) {
+        say('Every built-in recipe is on the pedal already.');
+        return 0;
+      }
+      todo.forEach((t) => say(`  ${t.slot}  ${t.name}`));
+      let failed = 0;
+      for (const t of todo) {
+        const plan = plans.find((p) => p.name === t.name)!;
+        try {
+          const r = await applyPlan(session, DEVICE, plan, t.slot, current ?? t.slot, policy);
+          r.mismatches.forEach((m) => say(`  MISMATCH ${m}`));
+          say(`"${plan.name}" → slot ${t.slot}: ${r.ok ? 'written and verified' : 'written with mismatches'}.`);
+          if (!r.ok) failed++;
+        } catch (e) {
+          // Stop at the first error: the pedal state is unclear.
+          say(`"${plan.name}" → slot ${t.slot}: FAILED: ${e instanceof Error ? e.message : String(e)}`);
+          return 2;
+        }
+        // This run wrote the slot: the next fresh check expects this name there.
+        (policy.slotNames as Map<number, string>).set(t.slot, plan.name);
+        (policy.scratchSlots as Set<number>).delete(t.slot);
+      }
+      say(failed ? `${failed} written with mismatches.` : `All ${todo.length} written and verified.`);
+      return failed ? 2 : 0;
     }
 
     case 'restore': {
