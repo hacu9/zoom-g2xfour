@@ -105,6 +105,28 @@ song that has a Songsterr tab, for example Los Mesoneros' "Indeleble"
   the score. Nothing of it is printed or saved in the repo.
 - Songsterr tabs are fan transcriptions: the score means "agrees with that tab".
 
+**Result on Indeleble (2026-10-17, current defaults):**
+
+| Draft track | vs | Rhythm F1 | Note F1 | Tab F1 |
+|---|---|---|---|---|
+| Guitar R | Luis (rhythm) | 0.58 | 0.18 | 0.09 |
+| Guitar L | Luis (rhythm) | 0.53 | 0.12 | 0.04 |
+| either | Juan (lead) | ≤ 0.34 | ≤ 0.09 | ≤ 0.02 |
+
+- About half the strums and picks fall where the tab has them. Fewer than 1 in
+  5 pitches agree, and about 1 in 10 strings. Even when each 8-bar section of
+  the tab may align on its own (a generous upper bound), note F1 stays at
+  0.20–0.26.
+- The tempo and the tuning agree with the tab (72–74 BPM, standard), and a
+  transposition of ±1 or ±2 semitones scores lower, so the low score is the
+  notes themselves: distorted chords give basic-pitch many false pitches.
+- Both draft tracks match the rhythm guitar, not the lead: in this mix the
+  rhythm part sits on both sides, so the left/right split does not separate
+  rhythm from lead.
+
+On a distorted band mix, read the draft as rhythm and rough positions, not as
+notes.
+
 ## Tests
 
 ```bash

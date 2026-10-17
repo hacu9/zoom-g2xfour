@@ -78,7 +78,9 @@ def test_compare_finds_a_known_offset():
     beats = [0.5 * i for i in range(80)]
     onsets = [(q + 6) * 0.5 for q, *_ in ref]
     pred = [(q, p, s, f) for q, (_, p, s, f) in zip(to_quarters(onsets, beats, 1.0), ref)]
-    off, note_f1, tab_f1 = score(pred, ref)
-    assert off == -6.0 and note_f1 == 1.0 and tab_f1 == 1.0
+    off, rhythm_f1, note_f1, tab_f1 = score(pred, ref)
+    assert off == -6.0 and rhythm_f1 == note_f1 == tab_f1 == 1.0
     wrong_strings = [(q, p, 5, f) for q, p, _, f in pred]
-    assert score(wrong_strings, ref)[1:] == (1.0, 0.0)
+    assert score(wrong_strings, ref)[1:] == (1.0, 1.0, 0.0)
+    wrong_pitches = [(q, p + 3, s, f) for q, p, s, f in pred]
+    assert score(wrong_pitches, ref)[1] == 1.0 and score(wrong_pitches, ref)[2] < 0.5  # rhythm right, notes wrong

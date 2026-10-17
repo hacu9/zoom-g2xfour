@@ -109,13 +109,29 @@ def best_offset(pred, ref, lo: float = -16.0, hi: float = 64.0) -> tuple[float, 
     return k / 4, votes[k]
 
 
-def score(pred, ref) -> tuple[float, float, float]:
-    """(offset, note F1, tab F1) at the best offset (checked one step either side)."""
-    off, _ = best_offset(pred, ref)
-    off = max((off - 0.25, off, off + 0.25), key=lambda o: matches(pred, ref, o, lambda n: n[1]))
-    h = matches(pred, ref, off, lambda n: n[1])
+def rhythm_offset(pred, ref, lo: float = -16.0, hi: float = 64.0) -> float:
+    """The shift where the most onsets coincide, whatever their pitch. More robust
+    than pitch votes when the pitches are mostly wrong (a distorted mix)."""
+    grid = {round(r[0] * 4) for r in ref}
+    pos = [round(p[0] * 4) for p in pred]
+    best = max(range(int(lo * 4), int(hi * 4) + 1), key=lambda k: sum((x + k) in grid for x in pos))
+    return best / 4
+
+
+def score(pred, ref) -> tuple[float, float, float, float]:
+    """(offset, rhythm F1, note F1, tab F1). Rhythm is scored where the onsets line
+    up best; notes and strings where the pitches line up best (the benefit of the
+    doubt), from the pitch vote or the rhythm alignment, one step either side."""
+    pitch = lambda n: n[1]
+    any_note = lambda n: 0
+    r_off = rhythm_offset(pred, ref)
+    r_off = max((r_off + d for d in (-0.25, 0.0, 0.25)), key=lambda o: matches(pred, ref, o, any_note))
+    cands = [best_offset(pred, ref)[0], r_off]
+    off = max((c + d for c in cands for d in (-0.25, 0.0, 0.25)), key=lambda o: matches(pred, ref, o, pitch))
+    r = matches(pred, ref, r_off, any_note)
+    h = matches(pred, ref, off, pitch)
     t = matches(pred, ref, off, lambda n: (n[1], n[2]))
-    return off, f1(h, len(pred), len(ref)), f1(t, len(pred), len(ref))
+    return off, f1(r, len(pred), len(ref)), f1(h, len(pred), len(ref)), f1(t, len(pred), len(ref))
 
 
 def f1(h: int, n_pred: int, n_ref: int) -> float:
@@ -130,7 +146,7 @@ def main() -> None:
     draft = json.loads(args.notes.read_text())
     beats = draft["beats"]
     refs = reference(args.song)
-    print(f"{'draft track':<10} {'Songsterr track':<22} {'scale':>5} {'offset':>7}  note F1  tab F1  (draft notes / tab notes)")
+    print(f"{'draft track':<10} {'Songsterr track':<22} {'scale':>5} {'offset':>7}  rhythm  note F1  tab F1  (draft notes / tab notes)")
     for label, notes in draft["tracks"].items():
         for name, ref in refs:
             if not ref:
@@ -140,8 +156,8 @@ def main() -> None:
                 q = to_quarters([n["onset"] for n in notes], beats, scale)
                 pred = [(qq, n["pitch"], n["string"], n["fret"]) for qq, n in zip(q, notes)]
                 results.append((score(pred, ref), scale, len(pred)))
-            (off, nf, tf), scale, n_pred = max(results, key=lambda r: r[0][1])
-            print(f"{label:<10} {name[:22]:<22} {scale:>5} {off:>7.2f}  {nf:.3f}    {tf:.3f}   ({n_pred} / {len(ref)})")
+            (off, rf, nf, tf), scale, n_pred = max(results, key=lambda r: r[0][2])
+            print(f"{label:<10} {name[:22]:<22} {scale:>5} {off:>7.2f}  {rf:.3f}   {nf:.3f}    {tf:.3f}   ({n_pred} / {len(ref)})")
 
 
 if __name__ == "__main__":
