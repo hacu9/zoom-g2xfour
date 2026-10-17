@@ -76,12 +76,20 @@ def positions(pitch: int, tuning: tuple[int, ...]) -> list[tuple[int, int]]:
     return [(s + 1, pitch - o) for s, o in enumerate(tuning) if 0 <= pitch - o <= MAX_FRET]
 
 
-def shape_cost(shape: tuple[tuple[int, int], ...]) -> float:
+@dataclass(frozen=True)
+class Weights:
+    """Costs of the fret choice. Tuned on GuitarSet (see docs/autotab.md)."""
+    span: float = 1.0  # per fret between the lowest and highest fretted note of a shape
+    position: float = 0.15  # per fret of the hand position: prefers the low frets
+    move: float = 0.35  # per fret the hand moves between events
+
+
+def shape_cost(shape: tuple[tuple[int, int], ...], w: Weights = Weights()) -> float:
     fretted = [f for _, f in shape if f > 0]
     if not fretted:
         return 0.0
     span = max(fretted) - min(fretted)
-    return span * 1.0 + min(fretted) * 0.15
+    return span * w.span + min(fretted) * w.position
 
 
 def hand(shape: tuple[tuple[int, int], ...], previous: float) -> float:
@@ -89,7 +97,7 @@ def hand(shape: tuple[tuple[int, int], ...], previous: float) -> float:
     return min(fretted) if fretted else previous
 
 
-def candidates(event: Event, tuning: tuple[int, ...]) -> list[tuple[tuple[int, int], ...]]:
+def candidates(event: Event, tuning: tuple[int, ...], w: Weights = Weights()) -> list[tuple[tuple[int, int], ...]]:
     """Every shape that puts each note on its own string, cheapest first. Notes
     that fit nowhere (out of range, or no free string) are dropped, quietest first."""
     notes = sorted(event.notes, key=lambda n: -n.velocity)
@@ -106,7 +114,7 @@ def candidates(event: Event, tuning: tuple[int, ...]) -> list[tuple[tuple[int, i
                     continue
                 shapes.append(combo)
             if shapes:
-                shapes.sort(key=shape_cost)
+                shapes.sort(key=lambda s: shape_cost(s, w))
                 event.notes = notes
                 return shapes[:MAX_CANDIDATES]
         notes = notes[:-1]
@@ -114,20 +122,20 @@ def candidates(event: Event, tuning: tuple[int, ...]) -> list[tuple[tuple[int, i
     return []
 
 
-def assign(notes: list[Note], tuning: tuple[int, ...] = STANDARD, move_weight: float = 0.35) -> list[Event]:
+def assign(notes: list[Note], tuning: tuple[int, ...] = STANDARD, w: Weights = Weights()) -> list[Event]:
     """Picks a string and fret for every note (Viterbi over events). Notes that
     cannot be played in this tuning are left out of the result."""
     events = group_events(notes)
     layers = []
     for ev in events:
-        shapes = candidates(ev, tuning)
+        shapes = candidates(ev, tuning, w)
         if shapes:
             layers.append((ev, shapes))
     if not layers:
         return []
     # cost[i][k]: best total cost ending in shape k of layer i; back[i][k]: its predecessor.
     first_ev, first = layers[0]
-    cost = [[shape_cost(s) for s in first]]
+    cost = [[shape_cost(s, w) for s in first]]
     back: list[list[int]] = [[-1] * len(first)]
     hands = [[hand(s, 0.0) for s in first]]
     for i in range(1, len(layers)):
@@ -138,7 +146,7 @@ def assign(notes: list[Note], tuning: tuple[int, ...] = STANDARD, move_weight: f
             best, best_k, best_h = float("inf"), 0, 0.0
             for k, pc in enumerate(prev_cost):
                 h = hand(s, prev_hand[k])
-                c = pc + shape_cost(s) + move_weight * abs(h - prev_hand[k])
+                c = pc + shape_cost(s, w) + w.move * abs(h - prev_hand[k])
                 if c < best:
                     best, best_k, best_h = c, k, h
             row.append(best)

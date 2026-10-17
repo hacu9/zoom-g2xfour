@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 from fretting import TUNINGS, Note, assign, drop_overtones
-from tabwriter import alphatex, ascii_tab, quantize
+from tabwriter import PROGRAMS, alphatex, ascii_tab, quantize
 
 NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 # basic-pitch settings for guitar: E2 (82 Hz, low E) .. about fret 20 on high e.
@@ -124,6 +124,7 @@ def main() -> None:
     ap.add_argument("--end", type=float, default=None, help="tab up to this second")
     ap.add_argument("--no-separate", action="store_true", help="the file is already a guitar-only recording")
     ap.add_argument("--mono", action="store_true", help="one track, even when left and right differ")
+    ap.add_argument("--sound", choices=sorted(PROGRAMS), default="clean", help="playback sound in the tab viewer (clean makes wrong notes easy to hear)")
     ap.add_argument("--onset", type=float, default=0.5, help="basic-pitch onset threshold (higher = fewer notes)")
     ap.add_argument("--frame", type=float, default=0.3, help="basic-pitch frame threshold")
     ap.add_argument("--min-ms", type=float, default=80.0, help="shortest note kept, in ms")
@@ -160,7 +161,7 @@ def main() -> None:
     tempo = 60 / statistics.median(gaps) if gaps else 120
     names = [note_name(p) for p in tuning]
     title = args.title or name
-    (args.out / f"{name}.tex").write_text(alphatex(bars, tracks, title=f"{title} (autotab draft)", tempo=tempo, tuning_names=names))
+    (args.out / f"{name}.tex").write_text(alphatex(bars, tracks, title=f"{title} (autotab draft)", tempo=tempo, tuning_names=names, sound=args.sound))
     (args.out / f"{name}.txt").write_text("\n".join(f"== {label} ==\n\n" + ascii_tab(bars, slots, tuning_names=names) for label, slots in tracks))
     total = sum(s["notes"] for s in stats.values())
     low = sum(s["below_low_string"] for s in stats.values())

@@ -43,7 +43,7 @@ def test_quantize_and_write():
     assert bars == [(0, 4), (4, 4)]
     assert [(s.bar, s.step) for s in slots] == [(0, 0), (0, 4), (1, 2)]
     tex = alphatex(bars, [("Guitar", slots), ("Guitar R", slots)], title="t", tempo=120, tuning_names=["E4", "B3", "G3", "D3", "A2", "E2"])
-    assert tex.count("\\track ") == 2
+    assert tex.count("\\track ") == 2 and tex.count("\\instrument 27") == 2
     # A note lasts until the next one starts (or the bar ends): the A fills the bar.
     assert "0.6.4 0.5.2{d} |" in tex and "\\ts 4 4" in tex and "\\ts 5" not in tex
     txt = ascii_tab(bars, slots, tuning_names=["E4", "B3", "G3", "D3", "A2", "E2"])

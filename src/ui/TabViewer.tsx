@@ -26,6 +26,10 @@ export function TabViewer() {
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [click, setClick] = useState(false);
+  /** Off: only the shown track sounds. Two draft guitars at once are hard to follow. */
+  const [playAll, setPlayAll] = useState(false);
+  const playAllRef = useRef(playAll);
+  playAllRef.current = playAll;
 
   useEffect(() => {
     let disposed = false;
@@ -54,6 +58,7 @@ export function TabViewer() {
         setTracks(score.tracks.map((t) => ({ index: t.index, name: t.name || `Track ${t.index + 1}` })));
         setTrack(0);
         setError(null);
+        soloTrack(a, 0, playAllRef.current);
       });
       a.playerReady.on(() => setReady(true));
       a.playerStateChanged.on((e) => setPlaying(e.state === alphaTab.synth.PlayerState.Playing));
@@ -86,6 +91,7 @@ export function TabViewer() {
     if (!a || !t) return;
     setTrack(index);
     a.renderTracks([t]);
+    soloTrack(a, index, playAll);
   };
 
   return (
@@ -132,6 +138,19 @@ export function TabViewer() {
               ))}
             </select>
           </label>
+          {tracks.length > 1 && (
+            <label className="small">
+              <input
+                type="checkbox"
+                checked={playAll}
+                onChange={(e) => {
+                  setPlayAll(e.target.checked);
+                  if (api.current) soloTrack(api.current, track, e.target.checked);
+                }}
+              />{' '}
+              Play all tracks
+            </label>
+          )}
           <label className="small">
             <input
               type="checkbox"
@@ -156,4 +175,11 @@ export function TabViewer() {
       <div className="tab-view" ref={host} />
     </div>
   );
+}
+
+/** Mutes every track except `index`, or unmutes all of them. */
+function soloTrack(a: AlphaTabApi, index: number, all: boolean) {
+  const tracks = a.score?.tracks ?? [];
+  a.changeTrackMute(tracks, false);
+  if (!all) a.changeTrackMute(tracks.filter((t) => t.index !== index), true);
 }

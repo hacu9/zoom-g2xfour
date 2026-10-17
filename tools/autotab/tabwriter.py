@@ -83,11 +83,15 @@ def dur(steps: int) -> str:
     return f"{d}{'{d}' if dotted else ''}"
 
 
-def alphatex(bars, tracks: list[tuple[str, list[Slot]]], *, title: str, tempo: float, tuning_names: list[str]) -> str:
+# General MIDI programs for playback: 27 clean electric, 29 overdriven, 30 distortion.
+PROGRAMS = {"clean": 27, "overdrive": 29, "distortion": 30, "acoustic": 25}
+
+
+def alphatex(bars, tracks: list[tuple[str, list[Slot]]], *, title: str, tempo: float, tuning_names: list[str], sound: str = "clean") -> str:
     """alphaTex for alphaTab, one track per (name, slots). Notes are fret.string (string 1 = high e)."""
     out = [f'\\title "{title}"', f"\\tempo {round(tempo)}", "."]
     for name, slots in tracks:
-        out += [f'\\track "{name}"', "\\staff {tabs}", f"\\tuning {' '.join(tuning_names)}", track_bars(bars, slots)]
+        out += [f'\\track "{name}"', "\\staff {tabs}", f"\\instrument {PROGRAMS[sound]}", f"\\tuning {' '.join(tuning_names)}", track_bars(bars, slots)]
     return "\n".join(out) + "\n"
 
 
