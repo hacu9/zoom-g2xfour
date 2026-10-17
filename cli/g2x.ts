@@ -17,7 +17,7 @@ import { parseSyx } from '../src/midi/syx';
 import { DEFAULT_ZOOM_ID } from '../src/midi/zoom';
 import { applyPlan, readCurrentSlot, selectSlot } from '../src/recipe/apply';
 import { BUILT_IN } from '../src/recipe/builtin';
-import { translate } from '../src/recipe/translate';
+import { MAX_SLOTS, translate } from '../src/recipe/translate';
 import type { ToneRecipe } from '../src/recipe/types';
 import { findRecipe, parseArgs, parseSlot, ranges, type Args } from './args';
 import { requestJzzMidi } from './jzz-backend';
@@ -67,7 +67,8 @@ async function connect(args: Args): Promise<ProbeSession> {
 function describe(p: RawPatch | null | undefined): string[] {
   if (!p) return ['  (could not decode)'];
   const lines = [`  name   ${patchName(p)}`, `  tempo  ${p.tempo ?? '?'} BPM`];
-  for (const e of p.effects) {
+  // Blocks 7 and 8 are the pedal's fixed output blocks, not effects you place.
+  for (const e of p.effects.slice(0, MAX_SLOTS)) {
     const fx = effectById(e.id);
     if (!fx) {
       if (e.id !== 0) lines.push(`  ${e.slot + 1}. effect ${e.id.toString(16)} (not in the catalog)`);
@@ -83,8 +84,10 @@ function describe(p: RawPatch | null | undefined): string[] {
 }
 
 async function fullBackup(session: ProbeSession, args: Args) {
-  const bk = await saveFullBackup(session, DEVICE, backupDir(args), (n, count) => process.stderr.write(`\rbackup ${n}/${count}`));
-  process.stderr.write('\n');
+  // A live counter only in a terminal: in a pipe or a log, \r turns into 300 lines.
+  const tty = process.stderr.isTTY;
+  const bk = await saveFullBackup(session, DEVICE, backupDir(args), (n, count) => tty && process.stderr.write(`\rbackup ${n}/${count}`));
+  if (tty) process.stderr.write('\n');
   say(`Saved ${bk.file}.`);
   return bk;
 }
