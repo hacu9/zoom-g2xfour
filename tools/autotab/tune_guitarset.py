@@ -57,7 +57,7 @@ def main() -> None:
     ref = lambda ws: [truth(args.data / "annotation" / w.name.replace("_mic.wav", ".jams")) for w in ws]
     train_out, train_ref = model_outputs(train), ref(train)
 
-    base = (0.5, 0.3, 80.0, 0.7, Weights())
+    base = (0.6, 0.3, 80.0, 0.7, Weights())
     print("current  note %.3f  tab %.3f  notes/true %.2f" % score(train_out, train_ref, *base))
 
     # Step 1: note settings, with the current fret weights.

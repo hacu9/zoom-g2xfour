@@ -64,7 +64,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, required=True)
     ap.add_argument("--files", type=int, default=24)
-    ap.add_argument("--onset", type=float, default=0.5)
+    ap.add_argument("--onset", type=float, default=0.6)
     ap.add_argument("--frame", type=float, default=0.3)
     ap.add_argument("--min-ms", type=float, default=80.0)
     ap.add_argument("--seed", type=int, default=7)

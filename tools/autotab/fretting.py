@@ -78,9 +78,9 @@ def positions(pitch: int, tuning: tuple[int, ...]) -> list[tuple[int, int]]:
 
 @dataclass(frozen=True)
 class Weights:
-    """Costs of the fret choice. Tuned on GuitarSet (see docs/autotab.md)."""
-    span: float = 1.0  # per fret between the lowest and highest fretted note of a shape
-    position: float = 0.15  # per fret of the hand position: prefers the low frets
+    """Costs of the fret choice. Tuned on GuitarSet with tune_guitarset.py (docs/autotab.md)."""
+    span: float = 0.5  # per fret between the lowest and highest fretted note of a shape
+    position: float = 0.05  # per fret of the hand position: a slight pull to the low frets
     move: float = 0.35  # per fret the hand moves between events
 
 

@@ -66,6 +66,20 @@ recordings with the true string and fret of every note.
 - **Note F1:** right pitch, onset within 50 ms.
 - **Tab F1:** also on the right string.
 
+Measured on 24 recordings that the tuning never saw (2026-10-17):
+
+| Setting | Note F1 | Tab F1 | Notes written per true note |
+|---|---|---|---|
+| First version | 0.782 | 0.362 | 0.97 |
+| Tuned (current defaults) | 0.781 | **0.396** | 0.90 |
+
+`tune_guitarset.py` tunes on 24 recordings and checks on 24 others. It chose
+onset 0.6 (fewer ghost notes) and fret weights span 0.5, position 0.05, move
+0.35 (higher positions and wider shapes than before). About 4 in 5 notes come
+out right; only about 2 in 5 land on the right string. The same pitch exists on
+several strings, and the audio alone rarely tells which one was played: check
+the positions by ear and by hand.
+
 GuitarSet is clean, solo acoustic guitar. This is the best case. A band mix
 with distorted guitars scores lower, and two guitars in the same channel merge
 into one track. Judge the tool on the song itself.

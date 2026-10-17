@@ -125,7 +125,7 @@ def main() -> None:
     ap.add_argument("--no-separate", action="store_true", help="the file is already a guitar-only recording")
     ap.add_argument("--mono", action="store_true", help="one track, even when left and right differ")
     ap.add_argument("--sound", choices=sorted(PROGRAMS), default="clean", help="playback sound in the tab viewer (clean makes wrong notes easy to hear)")
-    ap.add_argument("--onset", type=float, default=0.5, help="basic-pitch onset threshold (higher = fewer notes)")
+    ap.add_argument("--onset", type=float, default=0.6, help="basic-pitch onset threshold (higher = fewer notes; 0.6 tuned on GuitarSet)")
     ap.add_argument("--frame", type=float, default=0.3, help="basic-pitch frame threshold")
     ap.add_argument("--min-ms", type=float, default=80.0, help="shortest note kept, in ms")
     ap.add_argument("--keep-overtones", action="store_true", help="keep notes that look like overtones of a louder note")
